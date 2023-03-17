@@ -1,0 +1,174 @@
+<div class="prose content">
+<div class=" p-6 bg-base-100 shadow-xl mt-2 lg:prose-l">
+    <h1 id="heading-1">Profiel</h1>
+    <div class="divider"></div>
+    <form [formGroup]="organizationForm" (ngSubmit)="submitOrganizationData()">
+    <h2 class="mt-10">Bedrijfsinfo</h2>
+    <div class="flex flex-row ">
+        <div class="basis-1/2">
+                <label class="label">
+                    <span class="label-text">Bedrijfsnaam</span>
+                </label>
+                    <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+        </div>
+        <div class="basis-1/2">
+                <label class="label">
+                    <span class="label-text">Btw nummer</span>
+                </label>
+                <label class="input-group">
+                    <span>BE</span>
+                    <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                </label>
+        </div>
+    </div>
+    <div class="flex flex-row ">
+        <div class="basis-1/2">
+            <div>
+                <label class="label">
+                    <span class="label-text">Your Email</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+    <h2 class="mt-20">Adres</h2>
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Straatnaam</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">nummer</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <label class="label">
+                <span class="label-text">Bus</span>
+            </label>
+            <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+        </div>
+    </div>
+
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Postcode</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Stad</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+    <h2 class="mt-20">Verantwoordelijke</h2>
+
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Voornaam</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Achternaam</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-20">Bankrekening</h2>
+
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+                <label class="label">
+                    <span class="label-text">Rekeningnummer</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">BICC</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Naam rekening</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-20">Factuur</h2>
+
+    <div class="flex flex-row">
+        <div class="basis-1/2">
+            <div>
+                <label class="label">
+                    <span class="label-text">Standaard voettekst</span>
+                </label>
+                <textarea class="textarea" placeholder="voettekst"></textarea>
+            </div>
+        </div>
+        <div class="basis-1/2">
+            <div>
+                <label class="label">
+                    <span class="label-text">Ondertitel</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Factuurnummer start</span>
+                </label>
+                <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+            </div>
+        </div>
+        <div class="basis-1/4">
+            <div>
+                <label class="label">
+                    <span class="label-text">Logo</span>
+                </label>
+                <input type="file" class="file-input w-full max-w-xs" />
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</div>

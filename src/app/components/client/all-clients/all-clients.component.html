@@ -1,0 +1,90 @@
+<div>
+    <h2> all clients</h2>
+      <div>
+        <div class="flex flex-col">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-12">
+            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-12">
+              <div class="overflow-hidden">
+                <table class="min-w-full">
+                  <thead class="bg-white border-b">
+                    <tr>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        #
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        id
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        email
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        VAT number
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        name
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        responsible
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        Actions
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        All info
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                    <tr class="bg-gray-100 border-b" *ngFor="let client of clients">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{client._id}} 
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{client.email}}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{client.vat}}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{client.responsible}}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{client.name}}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <button class="bg-red hover:bg-green text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+                          <i class="bx bx-edit"></i>
+                           <span>Edit</span>
+                        </button>
+                        <button class="bg-grey hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+                          <i class="bx bx-x-circle"></i>
+                           <span>Delete</span>
+                        </button>
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <button class="bg-grey hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+                          <a href="/clients/123">
+                            <i class="bx bx-info-circle"></i>  
+                          </a>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-center">
+      <button class="bg-white hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex">
+        <a href="/clients/create">
+          <i class="bx bx-plus"></i>  
+          <h2 class="h2">Add new client</h2>
+
+        </a>
+      </button>
+    </div>
+    </div>
