@@ -31,6 +31,9 @@ import { WelcomeMessageComponent } from './components/shared/welcome-message/wel
 import { MY_DATE_FORMATS } from './shared/dateadapter';
 import { TableComponent } from './components/shared/table/table.component';
 import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,9 @@ import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoi
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
