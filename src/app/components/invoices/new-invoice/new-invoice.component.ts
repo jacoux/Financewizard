@@ -21,6 +21,7 @@ export class NewInvoiceComponent implements OnInit {
   products!: any;
   clients!: any;
   selectedClient!: Client;
+  selectedProd!: Product;
   payWithin = 0;
 
   invoiceFrom = new FormGroup({
@@ -53,6 +54,24 @@ export class NewInvoiceComponent implements OnInit {
     this.selectedClient = test[0] 
   }
 
+  selectProd(i:any, id: any) {
+    const test = this.products.filter((product: Product) => product._id === id);
+    this.selectedProd = test[0] 
+    const currentRow = this.getRow().at(i);
+    currentRow.get('price')?.setValue(this.selectedProd.price)
+
+  }
+
+  calculateTotal(i: any, aantal:any) {
+    debugger;
+    if (this.addForm) {
+      const currentRow = this.getRow().at(i);
+      const newV = this.selectedProd.price * aantal;
+      currentRow.get('total')?.setValue(newV)
+    }
+
+  }
+
 
   payWithinChange() {
     const invoiceDate = this.invoiceFrom.controls['invoiceDate'].value
@@ -60,8 +79,16 @@ export class NewInvoiceComponent implements OnInit {
     payDate.setDate(invoiceDate.getDate() +  this.payWithin);
     this.invoiceFrom.controls['paymentDate'].setValue(payDate);
   }
+
   getProducts() {
-    this.crudApi.GetObjectsList('products').subscribe((data) => this.products = data );
+    this.crudApi.GetObjectsList('products').subscribe((data) => {
+      this.products = data
+      if (!this.selectedProd && this.products) {
+    console.log(this.products[0])
+      this.selectedProd = this.products[0]
+    }
+    });
+
   }
 
   submit() {
@@ -76,6 +103,10 @@ export class NewInvoiceComponent implements OnInit {
   getControls() {
     return (this.addForm.get('rows') as FormArray).controls;
   }
+  
+  getRow() {
+        return this.addForm.get('rows') as FormArray;
+  }
 
   onRemoveRow(rowIndex:number){
     this.rows.removeAt(rowIndex);
@@ -89,7 +120,9 @@ export class NewInvoiceComponent implements OnInit {
     return this.fb.group({
       name: null,
       description: null,
-      qty: null
+      price: null,
+      qty: null,
+      total: null
     });
   }
 }

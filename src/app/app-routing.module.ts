@@ -15,6 +15,7 @@ import { EditClientComponent } from './components/client/edit-client/edit-client
 import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
 import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
 import { OrganizationComponent } from './components/organization/organization.component';
+import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
@@ -25,11 +26,15 @@ const routes: Routes = [
     children: [
       {
         path: 'overview',
-        component: AllInvoicesComponent
+        component: NewInvoiceComponent
       },
       {
         path: 'create',
         component: NewInvoiceComponent
+      },
+      {
+        path: 'check',
+        component: InvoiceCheckComponent
       },
 
     ]

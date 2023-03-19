@@ -21,7 +21,8 @@ export interface Invoice {
     updatedAt?: Date
  }
 
- export interface Product {
+export interface Product {
+    _id: string
     name: string
     organizationId: number
     vatPercentage: string

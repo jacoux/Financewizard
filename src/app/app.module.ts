@@ -30,9 +30,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { WelcomeMessageComponent } from './components/shared/welcome-message/welcome-message.component';
 import { MY_DATE_FORMATS } from './shared/dateadapter';
 import { TableComponent } from './components/shared/table/table.component';
-
-
-
+import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +51,8 @@ import { TableComponent } from './components/shared/table/table.component';
     OrganizationComponent,
     SidebarComponent,
     WelcomeMessageComponent,
-    TableComponent
+    TableComponent,
+    InvoiceCheckComponent,
   ],
   imports: [
     MatDatepickerModule,
