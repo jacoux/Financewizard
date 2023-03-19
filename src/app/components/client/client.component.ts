@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
 import { Client } from 'src/app/shared/types/invoice';
@@ -13,7 +13,7 @@ import { Client } from 'src/app/shared/types/invoice';
 })
 export class ClientComponent implements OnInit {
 
-  public clientForm!: FormGroup;
+  public clientForm!: UntypedFormGroup;
   p: number = 1;
   clients: any;
   hideWhenNoClient: boolean = false;
@@ -21,7 +21,7 @@ export class ClientComponent implements OnInit {
   preLoader: boolean = true;
   constructor(
     public crudApi: CrudClientService,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private database: AngularFireDatabase
   ) {
   }

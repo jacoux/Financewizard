@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Organization } from 'src/app/shared/types/invoice';
 
 @Component({
@@ -7,7 +7,7 @@ import { Organization } from 'src/app/shared/types/invoice';
   styleUrls: ['./organization.component.sass']
 })
 export class OrganizationComponent implements OnInit {
-  public organizationForm!: FormGroup;
+  public organizationForm!: UntypedFormGroup;
   organization: any;
 
   constructor() { }

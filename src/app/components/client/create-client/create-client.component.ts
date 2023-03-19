@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class CreateClientComponent implements OnInit {
 
 
 
-  public clientForm!: FormGroup;
+  public clientForm!: UntypedFormGroup;
   p: number = 1;
   clients: any;
   hideWhenNoClient: boolean = false;
@@ -19,7 +19,7 @@ export class CreateClientComponent implements OnInit {
   preLoader: boolean = true;
   constructor(
     public crudApi: CrudClientService,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private database: AngularFireDatabase
   ) {
   }

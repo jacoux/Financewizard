@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { MY_DATE_FORMATS } from 'src/app/shared/dateadapter';
@@ -15,24 +15,24 @@ import { Client, Product } from 'src/app/shared/types/invoice';
 ]
 })
 export class NewInvoiceComponent implements OnInit {
-  addForm: FormGroup;
-  rows: FormArray;
-  itemForm!: FormGroup;
+  addForm: UntypedFormGroup;
+  rows: UntypedFormArray;
+  itemForm!: UntypedFormGroup;
   products!: any;
   clients!: any;
   selectedClient!: Client;
   selectedProd!: Product;
   payWithin = 0;
 
-  invoiceFrom = new FormGroup({
-    client: new FormControl(null, [Validators.required]),
-    invoiceDate: new FormControl(new Date(), [Validators.required]),
-    paymentDate: new FormControl(new Date(), [Validators.required]),
-    payWithin: new FormControl(30, [Validators.required]),
+  invoiceFrom = new UntypedFormGroup({
+    client: new UntypedFormControl(null, [Validators.required]),
+    invoiceDate: new UntypedFormControl(new Date(), [Validators.required]),
+    paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
+    payWithin: new UntypedFormControl(30, [Validators.required]),
 
   })
 
-  constructor(private fb: FormBuilder, private crudApi: GeneralCrudService) {
+  constructor(private fb: UntypedFormBuilder, private crudApi: GeneralCrudService) {
     this.addForm = this.fb.group({
       items: [null, Validators.required],
       items_value: ['no', Validators.required]
@@ -101,11 +101,11 @@ export class NewInvoiceComponent implements OnInit {
   
 
   getControls() {
-    return (this.addForm.get('rows') as FormArray).controls;
+    return (this.addForm.get('rows') as UntypedFormArray).controls;
   }
   
   getRow() {
-        return this.addForm.get('rows') as FormArray;
+        return this.addForm.get('rows') as UntypedFormArray;
   }
 
   onRemoveRow(rowIndex:number){
@@ -116,7 +116,7 @@ export class NewInvoiceComponent implements OnInit {
     this.rows.push(this.createItemFormGroup());
   }
 
-  createItemFormGroup(): FormGroup {
+  createItemFormGroup(): UntypedFormGroup {
     return this.fb.group({
       name: null,
       description: null,
