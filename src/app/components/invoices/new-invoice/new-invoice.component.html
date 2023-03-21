@@ -75,7 +75,8 @@
       <div class="relative max-w-sm">
         <h2> betalen binnen {{payWithin}} dagen</h2>
         <div>
-          <input type="range" [(ngModel)]="payWithin" (change)="payWithinChange()" min=0 max=100 value=30  formControlName="payWithin" class="range range-secondary" />
+          <input type="range" [(ngModel)]="payWithin" (change)="payWithinChange()" min=0 max=100 value=30
+            formControlName="payWithin" class="range range-secondary" />
         </div>
       </div>
     </div>
@@ -136,7 +137,8 @@
           <label class="label">
             <span class="label-text">Aantal</span>
           </label>
-          <input (change)="calculateTotal(index, $event.target.value)" type="number" formControlName="aantal" placeholder="Aantal" class="input input-bordered input-primary w-full max-w-xs" />
+          <input (change)="calculateTotalWithoutVat(index, $event.target.value)" type="number" formControlName="aantal"
+            placeholder="Aantal" class="input input-bordered input-primary w-full max-w-xs" />
         </div>
       </div>
       <!-- prijs -->
@@ -145,7 +147,8 @@
           <label class="label">
             <span class="label-text">Prijs</span>
           </label>
-          <input type="number" *ngIf="selectedProd" [value]="row.get('price')?.value" placeholder="Prijs" class="input input-bordered input-primary w-full max-w-xs" />
+          <input disabled type="number" *ngIf="selectedProd" [value]="row.get('price')?.value" placeholder="Prijs"
+            class="input input-bordered input-primary w-full max-w-xs" />
         </div>
       </div>
 
@@ -155,10 +158,11 @@
           <label class="label">
             <span class="label-text">BTW</span>
           </label>
-          <select class="select select-primary w-full max-w-xs">
+          <select class="select select-primary w-full max-w-xs"
+            (change)="calculateTotalWithVat(index, $event.target.value)">
             <option disabled selected>BTW</option>
-            <option>21%</option>
-            <option>6%</option>
+            <option value="21">21%</option>
+            <option value="6">6%</option>
           </select>
         </div>
       </div>
@@ -169,7 +173,8 @@
           <label class="label">
             <span class="label-text">Totaal</span>
           </label>
-          <input type="number" [value]="row.get('total')?.value" placeholder="Totaal"  class="input input-bordered input-primary w-full max-w-xs" />
+          <input disabled type="number" [value]="row.get('total')?.value" placeholder="Totaal"
+            class="input input-bordered input-primary w-full max-w-xs" />
         </div>
       </div>
       <div class="basis-1/6">
@@ -182,6 +187,7 @@
 
 
     </div>
+    totaal: {{total}}
   </section>
 
   <div class="divider"></div>

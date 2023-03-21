@@ -34,6 +34,9 @@ import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoi
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from './store/users/users.effects';
+import { InvoiceDraftEffects } from './store/invoiceDraft/invoiceDraft.effects';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatDatepickerModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([UsersEffects, InvoiceDraftEffects]),
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

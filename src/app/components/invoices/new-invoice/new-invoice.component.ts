@@ -23,12 +23,14 @@ export class NewInvoiceComponent implements OnInit {
   selectedClient!: Client;
   selectedProd!: Product;
   payWithin = 0;
+  total = 0;
 
   invoiceFrom = new UntypedFormGroup({
     client: new UntypedFormControl(null, [Validators.required]),
     invoiceDate: new UntypedFormControl(new Date(), [Validators.required]),
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
     payWithin: new UntypedFormControl(30, [Validators.required]),
+    total: new UntypedFormControl(null, [Validators.required]),
 
   })
 
@@ -62,16 +64,43 @@ export class NewInvoiceComponent implements OnInit {
 
   }
 
-  calculateTotal(i: any, aantal:any) {
+  calculateTotalWithoutVat(i: any, aantal:any) {
     debugger;
     if (this.addForm) {
       const currentRow = this.getRow().at(i);
       const newV = this.selectedProd.price * aantal;
-      currentRow.get('total')?.setValue(newV)
+      currentRow.get('qty')?.setValue(aantal)
+      let vat = currentRow.get('vat')?.value ?? null
+      this.calculateTotalWithVat(i, vat);
     }
-
   }
 
+    calculateTotalWithVat(i: any, btw: any) {
+    debugger;
+    if (this.addForm) {
+      const currentRow = this.getRow().at(i);
+
+      let price
+      price = currentRow.get('qty')?.value ? this.selectedProd.price * currentRow.get('qty')?.value : this.selectedProd.price;
+
+      let btwValue;
+      if (btw) {
+        btwValue = btw
+      } else {
+        btwValue = 0
+      }
+      const newV = ((price * btw) / 100) + price
+      currentRow.get('total')?.setValue(newV)
+      currentRow.get('vat')?.setValue(btw)
+    }
+      this.calculateTotal()
+    }
+  
+  calculateTotal() {
+    debugger;
+    let totalFromRow = this.getRow().getRawValue();
+     this.total = totalFromRow.map(item => item.total).reduce((prev, next) => prev + next);
+  }
 
   payWithinChange() {
     const invoiceDate = this.invoiceFrom.controls['invoiceDate'].value
@@ -84,7 +113,7 @@ export class NewInvoiceComponent implements OnInit {
     this.crudApi.GetObjectsList('products').subscribe((data) => {
       this.products = data
       if (!this.selectedProd && this.products) {
-    console.log(this.products[0])
+        console.log(this.products[0])
       this.selectedProd = this.products[0]
     }
     });
@@ -105,11 +134,12 @@ export class NewInvoiceComponent implements OnInit {
   }
   
   getRow() {
-        return this.addForm.get('rows') as UntypedFormArray;
+    return this.addForm.get('rows') as UntypedFormArray;
   }
 
   onRemoveRow(rowIndex:number){
     this.rows.removeAt(rowIndex);
+    this.calculateTotal();
   }
 
   onAddRow() {
@@ -122,6 +152,7 @@ export class NewInvoiceComponent implements OnInit {
       description: null,
       price: null,
       qty: null,
+      vat: null,
       total: null
     });
   }

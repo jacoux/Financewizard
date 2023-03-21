@@ -4,7 +4,7 @@ import { Actions, createEffect } from '@ngrx/effects';
 
 
 @Injectable()
-export class UsersEffects {
+export class InvoiceDraftEffects {
 
 
   constructor(private actions$: Actions) {}
