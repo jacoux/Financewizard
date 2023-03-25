@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { Organization } from 'src/app/shared/types/invoice';
 
 @Component({
@@ -7,12 +8,35 @@ import { Organization } from 'src/app/shared/types/invoice';
   styleUrls: ['./organization.component.sass']
 })
 export class OrganizationComponent implements OnInit {
-  public organizationForm!: UntypedFormGroup;
-  organization: any;
+  organization!: Organization;
+  organizationForm = new UntypedFormGroup({
+    companyName: new UntypedFormControl(null, [Validators.required]),
+    companyEmail: new UntypedFormControl(null, [Validators.required]),
+    companyVat: new UntypedFormControl(null, [Validators.required]),
+  })
 
-  constructor() { }
+
+  constructor(
+    private crudApi: GeneralCrudService
+  ) { 
+
+  }
 
   ngOnInit(): void {
+    debugger
+    this.crudApi.GetObjectsList('organizations').subscribe((data: any) => {
+      this.organization = data[0]
+      this.initForm()
+    });
+  }
+
+  initForm() {
+    this.organizationForm.patchValue({
+        companyName: this.organization.name,
+        companyEmail: this.organization.companyEmail,
+        companyVat: this.organization.companyVat,
+    });
+  
   }
 
   submitOrganizationData(){    

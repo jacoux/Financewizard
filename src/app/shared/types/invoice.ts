@@ -1,3 +1,5 @@
+import { User } from "./user"
+
 export interface Invoice {
     client: Client,
     organization: Organization,
@@ -46,13 +48,14 @@ export enum Currency {
 
  export interface Organization {
    $key: string;
-   companyName: string;
+   name: string;
    companyVat: string;
    companyEmail: string;
    address: Address;
    responsible: Responsible[];
    bank: Bank[];
    defaultInvoiceDetails: DefaultInvoiceDetails
+   users: User
  }
 
  export interface Address {

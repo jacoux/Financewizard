@@ -6,7 +6,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { CommonModule } from '@angular/common';
-import { CreateInvoiceComponent } from './components/invoices/create-invoice-pdf/create-invoice.component';
 import { ClientComponent } from './components/client/client.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CreateClientComponent } from './components/client/create-client/create-client.component';
@@ -16,6 +15,8 @@ import { AllInvoicesComponent } from './components/invoices/all-invoices/all-inv
 import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
+import { ReadyComponent } from './components/invoices/ready/ready.component';
+import { OnboardingComponent } from './components/organization/onboarding/onboarding.component';
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'check',
         component: InvoiceCheckComponent
+      },
+     {
+        path: 'ready',
+        component: ReadyComponent
       },
 
     ]
@@ -56,7 +61,12 @@ const routes: Routes = [
       },
 ] },
   { path: 'products', component: ProductsComponent },
-  { path: 'account', component: OrganizationComponent },
+  {
+    path: 'account', component: OrganizationComponent
+  },
+  {
+    path: 'onboarding',component: OnboardingComponent
+  },
 ];
 @NgModule({
   declarations: [],

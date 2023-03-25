@@ -1,11 +1,74 @@
-<ul class="steps">
-    <li class="step">Gegevens</li>
-    <li class="step step-primary">Laatste check & Genereer Factuur</li>
-    <li class="step">Klaar</li>
-</ul>
-<div class="divider"></div>
-<div>
-<button class="btn btn-wide btn-primary" routerLink="/invoices/create"> vorige stap</button>
-<app-create-invoice></app-create-invoice>
+<div class="page wrapper container ">
+    <div class="flex flex-row">
+        <div class="basis-1/4">
+            <button class="btn btn-wide btn-primary" routerLink="/invoices/create"> vorige</button>
+        </div>
+        <div class="basis-1/2">
+            <ul class="steps center">
+                <li class="step">Gegevens</li>
+                <li class="step step-primary">Laatste check & Genereer Factuur</li>
+                <li class="step">Klaar</li>
+            </ul>
+        </div>
+        <div class="basis-1/4">
+            <button class="btn btn-wide btn-primary" (click)="emitEventToTemplate()"> Maak Factuur</button>
+        </div>
+    </div>
 
+    <div class="divider"></div>
+    <div>
+        <div class="flex-row flex mt-6">
+            <div class="grid grid-flow-col gap-4">
+                <div class="card w-30 bg-base-100 shadow-xl">
+                    <figure><img src="https://unblast.com/wp-content/uploads/2020/05/Minimal-Invoice-Template.jpg"
+                            alt="Shoes" /></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Template 1</h2>
+                        <div *ngIf="template === 1" class="badge badge-secondary">Gekozen!</div>
+                        <p>Clean en duidelijk, ideaal voor een professionele uitsraling</p>
+                        <div class="card-actions justify-end">
+                            <button (click)="chooseTemplate(1)" class="btn btn-primary">Kies</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-30 bg-base-100 shadow-xl">
+                    <figure><img src="https://unblast.com/wp-content/uploads/2020/05/Minimal-Invoice-Template.jpg"
+                            alt="Shoes" /></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Template 2</h2>
+                        <div *ngIf="template === 2" class="badge badge-secondary">Gekozen!</div>
+
+                        <p>Speels, Geschikt voor creatieve bedrijven</p>
+                        <div class="card-actions justify-end">
+                            <button (click)="chooseTemplate(2)" class="btn btn-primary">Kies</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-30 bg-base-100 shadow-xl">
+                    <figure><img src="https://unblast.com/wp-content/uploads/2020/05/Minimal-Invoice-Template.jpg"
+                            alt="template3" /></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Template 3</h2>
+                        <div *ngIf="template === 3" class="badge badge-secondary">Gekozen!</div>
+
+                        <p>kleurrijk, Mooi vormgegeven met veel plaats voor tekst</p>
+                        <div class="card-actions justify-end">
+                            <button (click)="chooseTemplate(3)" class="btn btn-primary">Kies</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <h2 class="mt-10 center"> Voorbeeld</h2>
+
+        <div class="mockup-window border bg-base-100 mx-5 mt-10">
+            <app-template1 [events]="eventsSubject.asObservable()" *ngIf="template === 1"></app-template1>
+            <app-template2 [events]="eventsSubject.asObservable()" *ngIf="template === 2"></app-template2>
+            <app-template3 [events]="eventsSubject.asObservable()" *ngIf="template === 3"></app-template3>
+        </div>
+
+
+
+    </div>
 </div>

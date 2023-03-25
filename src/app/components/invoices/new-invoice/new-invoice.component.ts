@@ -24,6 +24,7 @@ export class NewInvoiceComponent implements OnInit {
   selectedProd!: Product;
   payWithin = 0;
   total = 0;
+  totalVatAmount = 0;
 
   invoiceFrom = new UntypedFormGroup({
     client: new UntypedFormControl(null, [Validators.required]),
@@ -49,6 +50,7 @@ export class NewInvoiceComponent implements OnInit {
     this.addForm.addControl('rows', this.rows);
     this.getProducts();
     this.getClients();
+    this.rows?.length === 0 ? this.onAddRow() : '';
   }
 
   onClientChange(id: any) {
@@ -65,7 +67,6 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   calculateTotalWithoutVat(i: any, aantal:any) {
-    debugger;
     if (this.addForm) {
       const currentRow = this.getRow().at(i);
       const newV = this.selectedProd.price * aantal;
@@ -76,7 +77,6 @@ export class NewInvoiceComponent implements OnInit {
   }
 
     calculateTotalWithVat(i: any, btw: any) {
-    debugger;
     if (this.addForm) {
       const currentRow = this.getRow().at(i);
 
@@ -89,7 +89,9 @@ export class NewInvoiceComponent implements OnInit {
       } else {
         btwValue = 0
       }
-      const newV = ((price * btw) / 100) + price
+      const vatAmount = ((price * btw) / 100)
+      const newV = vatAmount + price
+      currentRow.get('vatAmount')?.setValue(vatAmount)
       currentRow.get('total')?.setValue(newV)
       currentRow.get('vat')?.setValue(btw)
     }
@@ -99,7 +101,8 @@ export class NewInvoiceComponent implements OnInit {
   calculateTotal() {
     debugger;
     let totalFromRow = this.getRow().getRawValue();
-     this.total = totalFromRow.map(item => item.total).reduce((prev, next) => prev + next);
+    this.total = totalFromRow.map(item => item.total).reduce((prev, next) => prev + next);
+    this.totalVatAmount = totalFromRow.map(item => item.vatAmount).reduce((prev, next) => prev + next);
   }
 
   payWithinChange() {
@@ -153,6 +156,7 @@ export class NewInvoiceComponent implements OnInit {
       price: null,
       qty: null,
       vat: null,
+      vatAmount: null,
       total: null
     });
   }

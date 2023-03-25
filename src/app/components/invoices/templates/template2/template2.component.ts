@@ -1,15 +1,22 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Observable } from 'rxjs';
+
 @Component({
-  selector: 'app-create-invoice',
-  templateUrl: './../templates/template1/template3.html',
-  styleUrls: ['./create-invoice.component.sass']
+  selector: 'app-template2',
+  templateUrl: './template2.component.html',
 })
-export class CreateInvoiceComponent{
+export class Template2Component implements OnInit {
+  @Input()events!: Observable<void>;
   @ViewChild('htmlData') htmlData!: ElementRef;
-  constructor() {}
-  public openPDF(): void {
+  eventsSubscription: any;
+
+ ngOnInit(): void {
+  this.eventsSubscription = this.events.subscribe(() => this.openPDF());
+ }
+  
+    public openPDF(): void {
     let DATA: any = document.getElementById('htmlData');
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;

@@ -1,14 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './invoice-check.component.html',
-  styleUrls: ['./invoice-check.component.sass']
+  styleUrls: ['./invoice-check.component.css']
 })
 export class InvoiceCheckComponent implements OnInit {
+  template: number = 1;
+    public clicked = false;
+  eventsSubject: Subject<void> = new Subject<void>();
+  constructor(
+    private router: Router
 
-  constructor() { }
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  emitEventToTemplate() {
+    this.eventsSubject.next();
+    this.router.navigateByUrl('/invoices/ready');
+}
+  chooseTemplate(templateNumber:number) {
+    this.template = templateNumber;
   }
 
 }

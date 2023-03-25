@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { CreateInvoiceComponent } from './components/invoices/create-invoice-pdf/create-invoice.component';
 import { ClientComponent } from './components/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsComponent } from './components/products/products.component';
@@ -37,6 +36,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/users/users.effects';
 import { InvoiceDraftEffects } from './store/invoiceDraft/invoiceDraft.effects';
+import { Template1Component } from './components/invoices/templates/template1/template1.component';
+import { Template2Component } from './components/invoices/templates/template2/template2.component';
+import { Template3Component } from './components/invoices/templates/template3/template3.component';
+import { ReadyComponent } from './components/invoices/ready/ready.component';
+import { OnboardingComponent } from './components/organization/onboarding/onboarding.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,6 @@ import { InvoiceDraftEffects } from './store/invoiceDraft/invoiceDraft.effects';
     SidebarComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    CreateInvoiceComponent,
     ClientComponent,
     ProductsComponent,
     CreateClientComponent,
@@ -59,6 +62,11 @@ import { InvoiceDraftEffects } from './store/invoiceDraft/invoiceDraft.effects';
     WelcomeMessageComponent,
     TableComponent,
     InvoiceCheckComponent,
+    Template1Component,
+    Template2Component,
+    Template3Component,
+    ReadyComponent,
+    OnboardingComponent,
   ],
   imports: [
     MatDatepickerModule,
