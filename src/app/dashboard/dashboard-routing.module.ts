@@ -14,15 +14,10 @@ import { ReadyComponent } from './components/invoices/ready/ready.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 const dashboardRoutes: Routes = [
     {
-    path: 'dashboard', component: MainDashboardComponent,
+    path: '', component: MainDashboardComponent,
     children: [
-          
-  { path: 'invoices', component: AllInvoicesComponent,
+  { path: 'invoices',
     children: [
-      {
-        path: 'overview',
-        component: NewInvoiceComponent
-      },
       {
         path: 'create',
         component: NewInvoiceComponent

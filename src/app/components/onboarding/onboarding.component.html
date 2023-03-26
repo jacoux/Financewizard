@@ -1,4 +1,4 @@
-<div class="relative flex step-1">
+<div class="relative flex step-1" *ngIf="step === 1">
 
     <!-- Content -->
     <div class="w-full md:w-1/2">
@@ -72,12 +72,12 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Tell us what’s your situation ✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Vertel eens wat meer over jezelf ✨</h1>
                     <!-- Form -->
                     <form>
                         <div class="space-y-3 mb-8">
                             <label class="relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" checked />
+                                <input type="radio" name="radio-buttons" class="peer sr-only" />
                                 <div
                                     class="flex items-center bg-white text-sm font-medium text-gray-800 p-4 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@
                                         <path class="text-indigo-200"
                                             d="M13 12.588v11l8.486-4.714A1 1 0 0 0 22 18V7.589l-9 4.999Z" />
                                     </svg>
-                                    <span>I have a company</span>
+                                    <span>Ik heb een bedrijf met één of meerdere werknemers</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -103,7 +103,7 @@
                                         <path class="text-indigo-300"
                                             d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
                                     </svg>
-                                    <span>I’m a freelance / contractor</span>
+                                    <span>Ik ben freelancer/ik heb een éénmanszaak</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -116,15 +116,15 @@
                                         <path class="text-indigo-500"
                                             d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
                                     </svg>
-                                    <span>I’m just getting started</span>
+                                    <span>Ik kom maar eens een kijkje nemen uit nieuwsgierigheid</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
                             </label>
                         </div>
                         <div class="flex items-center justify-between">
-                            <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                href="onboarding-02.html">Next Step -&gt;</a>
+                            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
+                                (click)="step = 2">Volgende -&gt;</button>
                         </div>
                     </form>
 
@@ -137,15 +137,15 @@
 
     <!-- Image -->
     <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img class="object-cover object-center w-full h-full" src="images/onboarding-image.jpg" width="760"
+        <img class="object-cover object-center w-full h-full" src="/assets/images/onboarding-image.jpg" width="760"
             height="1024" alt="Onboarding" />
         <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"
-            src="images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+            src="/assets/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
     </div>
 
 </div>
 
-<div class="relative flex step-2">
+<div class="relative flex step-2" *ngIf="step === 2">
 
     <!-- Content -->
     <div class="w-full md:w-1/2">
@@ -219,12 +219,13 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Tell us about your company ✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Welk account wil je opzetten?✨</h1>
                     <!-- Form -->
                     <form>
                         <div class="sm:flex space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
                             <label class="flex-1 relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" checked />
+                                <input type="radio" name="radio-buttons" class="peer sr-only"
+                                    (click)="setType('individual')" />
                                 <div
                                     class="h-full text-center bg-white px-4 py-6 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
@@ -232,14 +233,16 @@
                                         <path class="text-indigo-500"
                                             d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                     </svg>
-                                    <div class="font-medium text-gray-800 mb-1">Individual</div>
-                                    <div class="text-sm">Lorem ipsum is place text commonly used.</div>
+                                    <div class="font-medium text-gray-800 mb-1">Individueel</div>
+                                    <div class="text-sm">Ideaal als je facturen wilt maken/versturen en maar 1 login
+                                        nodig hebt </div>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
                             </label>
                             <label class="flex-1 relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" />
+                                <input type="radio" name="radio-buttons" class="peer sr-only"
+                                    (click)="setType('company')" />
                                 <div
                                     class="h-full text-center bg-white px-4 py-6 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
@@ -252,8 +255,10 @@
                                         <path class="text-indigo-500"
                                             d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                     </svg>
-                                    <div class="font-medium text-gray-800 mb-1">Organization</div>
-                                    <div class="text-sm">Lorem ipsum is place text commonly used.</div>
+                                    <div class="font-medium text-gray-800 mb-1">Organisatie</div>
+                                    <div class="text-sm">Je maakt een account aan voor je organisatie en kan meerdere
+                                        mensen toevoegen die kunnen inloggen om facturen in naam van je organisatie aan
+                                        te maken en te bekijken</div>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -261,10 +266,17 @@
                         </div>
                         <div class="flex items-center justify-between space-x-6 mb-8">
                             <div>
-                                <div class="font-medium text-gray-800 text-sm mb-1">💸 Lorem ipsum is place text
-                                    commonly?</div>
-                                <div class="text-xs">Lorem ipsum is placeholder text commonly used in the graphic,
-                                    print, and publishing industries for previewing layouts.</div>
+                                <div class="font-medium text-gray-800 text-sm mb-1">💸 Welk account moet ik kiezen?
+                                </div>
+                                <div class="text-xs">Bij beide opties zijn de basis functionaliteiten volledig
+                                    <b>gratis!
+                                    </b> Bij het organisatieaccount kan je echter extra,
+                                    betalende features toevoegen (enkel indien gewenst). Zo kan je bij een
+                                    organisatieaccount bijvoorbeeld meerdere
+                                    gebruikers toevoegen, en onze
+                                    HR-tool ook gebruiken. Bij een individueel account kan je enkel facturen en
+                                    offertes maken.
+                                </div>
                             </div>
                             <div class="flex items-center">
                                 <div class="form-switch">
@@ -277,9 +289,9 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <a class="text-sm underline hover:no-underline" href="onboarding-01.html">&lt;- Back</a>
-                            <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                href="onboarding-03.html">Next Step -&gt;</a>
+                            <button (click)="step = 1" class="text-sm underline hover:no-underline">&lt;- Terug</button>
+                            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
+                                (click)="step = 3">Volgende -&gt;</button>
                         </div>
                     </form>
 
@@ -292,15 +304,15 @@
 
     <!-- Image -->
     <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img class="object-cover object-center w-full h-full" src="images/onboarding-image.jpg" width="760"
+        <img class="object-cover object-center w-full h-full" src="/assets/images/onboarding-image.jpg" width="760"
             height="1024" alt="Onboarding" />
         <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"
-            src="images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+            src="/assets/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
     </div>
 
 </div>
 
-<div class="relative flex step-3">
+<div class="relative flex step-3" *ngIf="step === 3">
 
     <!-- Content -->
     <div class="w-full md:w-1/2">
@@ -374,50 +386,80 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Company information ✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Bedrijfsinfo ✨</h1>
                     <!-- Form -->
-                    <form>
+                    <form [formGroup]="companyForm">
                         <div class="space-y-4 mb-8">
                             <!-- Company Name -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="company-name">Company Name <span
+                                <label class="block text-sm font-medium mb-1" for="company-name">Bedrijfsnaam <span
                                         class="text-red-500">*</span></label>
-                                <input id="company-name" class="form-input w-full" type="text" />
+                                <input type="text" placeholder="Acme.bvba"
+                                    class="input w-full max-w-xs border-b-indigo-500" />
+
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" placeholder="BE1234567"
+                                    class="input w-full max-w-xs border-b-indigo-500" />
+
+                            </div>
+
                             <!-- City and Postal Code -->
                             <div class="flex space-x-4">
                                 <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="city">City <span
+                                    <label class="block text-sm font-medium mb-1" for="city">Stad <span
                                             class="text-red-500">*</span></label>
-                                    <input id="city" class="form-input w-full" type="text" />
+                                    <input type="text" placeholder="Antwerpen"
+                                        class="input w-full max-w-xs border-b-indigo-500" />
                                 </div>
                                 <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="postal-code">Postal Code <span
+                                    <label class="block text-sm font-medium mb-1" for="postal-code">Postcode <span
                                             class="text-red-500">*</span></label>
-                                    <input id="postal-code" class="form-input w-full" type="text" />
+                                    <input type="text" placeholder="3490"
+                                        class="input w-full max-w-xs border-b-indigo-500" />
+
                                 </div>
                             </div>
                             <!-- Street Address -->
-                            <div>
-                                <label class="block text-sm font-medium mb-1" for="street">Street Address <span
-                                        class="text-red-500">*</span></label>
-                                <input id="street" class="form-input w-full" type="text" />
+                            <div class="flex space-x-4">
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text" placeholder="Dorspstraat"
+                                        class="input w-full max-w-xs border-b-indigo-500" />
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text" placeholder="2"
+                                        class="input w-full max-w-xs border-b-indigo-500" />
+
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
+                                    <input type="text" placeholder="2"
+                                        class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
+
+                                </div>
                             </div>
                             <!-- Country -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="country">Country <span
+                                <label class="block text-sm font-medium mb-1" for="country">Land <span
                                         class="text-red-500">*</span></label>
                                 <select id="country" class="form-select w-full">
-                                    <option>USA</option>
-                                    <option>Italy</option>
+                                    <option>België</option>
+                                    <option>Nederland</option>
                                     <option>United Kingdom</option>
                                 </select>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <a class="text-sm underline hover:no-underline" href="onboarding-02.html">&lt;- Back</a>
-                            <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                href="onboarding-04.html">Next Step -&gt;</a>
+                            <button (click)="step = 2" class="text-sm underline hover:no-underline">&lt;- Terug</button>
+                            <button (click)="step = 4"
+                                class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">Volgende
+                                -&gt;</button>
                         </div>
                     </form>
 
@@ -430,15 +472,15 @@
 
     <!-- Image -->
     <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img class="object-cover object-center w-full h-full" src="images/onboarding-image.jpg" width="760"
+        <img class="object-cover object-center w-full h-full" src="/assets/images/onboarding-image.jpg" width="760"
             height="1024" alt="Onboarding" />
         <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"
-            src="images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+            src="/assets/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
     </div>
 
 </div>
 
-<div class="relative flex step-4">
+<div class="relative flex step-4" *ngIf="step === 4">
 
     <!-- Content -->
     <div class="w-full md:w-1/2">
@@ -517,8 +559,77 @@
                             <circle class="text-green-100" cx="32" cy="32" r="32" />
                             <path class="text-green-500" d="m28.5 41-8-8 3-3 5 5 12-12 3 3z" />
                         </svg>
-                        <h1 class="text-3xl text-gray-800 font-bold mb-8">Nice to have you, Acme Inc. 🙌</h1>
-                        <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" href="index.html">Go To Dashboard
+                        <h1 class="text-3xl text-gray-800 font-bold mb-8">Whoohoo! Welkom aan boord, jacoux. 🙌</h1>
+                        <h2 class="text-1xl text-gray-500 font-bold mb-8">Laat nog even weten in welke sector je werkt
+                            (voor de btw percentages)
+                        </h2>
+
+                        <div class="mb-8">
+                            <label class="block text-sm font-medium mb-1" for="country">Sector <span
+                                    class="text-red-500">*</span></label>
+                            <select id="country" class="form-select w-full">
+                                <option>Bank, verzekeringen, telecom</option>
+                                <optgroup label="Dienstverlening & consultancy">
+                                    <option>Consultancy dienstverlening aan bedrijven</option>
+                                    <option>Handel,verhuur</option>
+                                    <option>HR & uitzendbureau's</option>
+                                    <option>IT consultancy</option>
+                                </optgroup>
+                                <option>Grafische, papier en kartonindustrie</option>
+                                <optgroup label="Industrie & bouw">
+                                    <option>Bouw/option>
+                                    <option>Chemie, metaal</option>
+                                    <option>Farmaindustrie</option>
+                                    <option>Hout- & meubelindustrie<< /option>
+                                    <option>Industrie (algemeen) </option>
+                                    <option>Techniek & productie</option>
+                                    <option>Voedingsindustrie</option>
+                                </optgroup>
+                                <option>IT</option>
+                                <optgroup label="Land- en tuinbouw">
+                                    <option>Milieu en agrarische sector</option>
+                                    <option>Land-, tuin-, bosbouw, visserij </option>
+                                </optgroup>
+                                <optgroup label="Media, communicatie & events">
+                                    <option>Evenementenbureau's, audiovisuele - en filmsector</option>
+                                    <option>Marketingbureau</option>
+                                    <option>Media & communicatie</option>
+                                </optgroup>
+                                <optgroup label="Openbare dienstverlening">
+                                    <option>Energie, water</option>
+                                    <option>Gezondheidszorg & welzijn</option>
+                                    <option>Justitie, veiligheid en openbaar bestuur</option>
+                                    <option>Onderwijs, cultuur & wetenschap</option>
+                                </optgroup>
+                                <optgroup label="Retail">
+                                    <option>Textiel & kleding</option>
+                                </optgroup>
+                                <optgroup label="Socioculturele sector, cultuur, sport, jeugdwerk">
+                                    <option>Beroepsopleidingen</option>
+                                    <option>Jeugdwerk</option>
+                                    <option>Milieu</option>
+                                    <option>Musea en erfgoed</option>
+                                    <option>Sociaal-cultuur werk</option>
+                                    <option>Sport en cultuur</option>
+                                </optgroup>
+                                <option>Tabak</option>
+                                <option>Toerisme, recreatie & horeca</option>
+                                <option>Transport & Logistiek</option>
+                                <option>Vastgoed & facility diensten</option>
+                                <optgroup label="Vrije beroepen">
+                                    <option>Advocaten, notarissen</option>
+                                    <option>Apothekers, farmacie</option>
+                                    <option>Architecten</option>
+                                    <option>Dokters</option>
+                                    <option>Andere vrije beroepen</option>
+                                </optgroup>
+                                <option>Andere, niet in de lijst vermeldde beroepen</option>
+                            </select>
+                        </div>
+
+
+                        <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" href="/dashboard">Ga naar je
+                            dashboard
                             -&gt;</a>
                     </div>
 
@@ -531,10 +642,10 @@
 
     <!-- Image -->
     <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img class="object-cover object-center w-full h-full" src="images/onboarding-image.jpg" width="760"
+        <img class="object-cover object-center w-full h-full" src="/assets/images/onboarding-image.jpg" width="760"
             height="1024" alt="Onboarding" />
         <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"
-            src="images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+            src="/assets/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
     </div>
 
 </div>

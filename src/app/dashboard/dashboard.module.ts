@@ -20,9 +20,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { SidebarComponent } from '../components/shared/sidebar/sidebar.component';
 import { HeaderComponent } from '../components/shared/header/header.component';
+import { WelcomeMessageComponent } from '../components/shared/welcome-message/welcome-message.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [
+    WelcomeMessageComponent,
     SidebarComponent,
     HeaderComponent,
     ClientComponent,
@@ -43,6 +46,7 @@ import { HeaderComponent } from '../components/shared/header/header.component';
   ],
   imports: [
     CommonModule,
+        DashboardRoutingModule,
      FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,

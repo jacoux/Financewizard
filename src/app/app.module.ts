@@ -17,8 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
-import { WelcomeMessageComponent } from './components/shared/welcome-message/welcome-message.component';
 import { MY_DATE_FORMATS } from './shared/dateadapter';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
@@ -35,11 +33,8 @@ import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
   declarations: [
     AppComponent,
     SignInComponent,
-    SidebarComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    SidebarComponent,
-    WelcomeMessageComponent,
     OnboardingComponent,
   ],
   imports: [

@@ -1,107 +1,101 @@
-<!-- <div class="page">
-    <div class="container">
-      <div class="left">
-        <div class="login">Login</div>
-        <div class="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read</div>
-        <div class="forgotPassword">
-            <span routerLink="/forgot-password">Forgot Password?</span>
-          </div>
-          <div class="redirectToLogin">
-            <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
-          </div>
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Google
-          </button>
-      </div>
-      <div class="right">
-        <svg viewBox="0 0 320 300">
-          <defs>
-            <linearGradient
-                            inkscape:collect="always"
-                            id="linearGradient"
-                            x1="13"
-                            y1="193.49992"
-                            x2="307"
-                            y2="193.49992"
-                            gradientUnits="userSpaceOnUse">
-              <stop
-                    style="stop-color:#ff00ff;"
-                    offset="0"
-                    id="stop876" />
-              <stop
-                    style="stop-color:#ff0000;"
-                    offset="1"
-                    id="stop878" />
-            </linearGradient>
-          </defs>
-          <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
-        </svg>
-        <div class="form">
-          <label for="user">Username</label>
-          <input type="user"  #userName id="userName" required>
-          <label for="password" >Password</label>
-          <input type="password" #userPassword id="password" required>
-          <input type="submit" id="submit" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-        </div>
-        
-      </div>
-    </div>
-  </div>
-   -->
+<div class="relative flex">
 
-    <section class="absolute w-full h-full">
-      <div class="absolute top-0 w-full h-full bg-slate-800"
-        style="background-image: url(&quot;https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/register_bg_2.png&quot;); background-size: 100%; background-repeat: no-repeat;">
-      </div>
-      <div class="container mt-5 px-4 h-full">
-        <div class=" h-full">
-          <div class="w-full px-4">
-            <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-0">
-              <div class="rounded-t mb-0 px-6 py-6">
-                <div class="text-center mb-3">
-                  <h6 class="text-slate-500 text-sm font-bold">Sign in with</h6>
-                </div>
-                <div class="btn-wrapper text-center">
-                      <button
-                      (click)="authService.GoogleAuth()"
-                    class="bg-white active:bg-slate-50 text-slate-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"><img alt="..." class="w-5 mr-1"
-                    (click)="authService.GoogleAuth()"
-                    src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/google.svg">Google</button>
-                </div>
-                <hr class="mt-6 border-b-1 border-slate-300">
-              </div>
-              <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div class="text-slate-400 text-center mb-3 font-bold"><small>Or sign in with credentials</small></div>
-                <form>
-                  <div class="relative w-full mb-3"><label class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                      for="grid-password">Email</label>
-                      <input type="email"
-                      #userName
-                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"></div>
-                  <div class="relative w-full mb-3"><label class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                      for="grid-password">Password</label>
-                      <input type="password"
-                      #userPassword
-                      class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"></div>
-                  <div><label class="inline-flex items-center cursor-pointer"><input id="customCheckLogin" type="checkbox"
-                        class="form-checkbox border-0 rounded text-slate-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"><span
-                        class="ml-2 text-sm font-semibold text-slate-600">Remember me</span></label></div>
-                  <div class="text-center mt-6"><button (click)="authService.SignIn(userName.value, userPassword.value)"
-                      class="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button" >Sign In</button></div>
-                </form>
-              </div>
-            </div>
-            <div class=" flex-wrap mt-1">
-              <div class="w-1/2"><a href="#pablo" class="text-slate-200"><small>Forgot password?</small></a></div>
-              <div class="w-1/2 text-right" routerLink="/register-user" ><small>Create new account</small>
-              </div>
-            </div>
-          </div>
+  <!-- Content -->
+  <div class="w-full md:w-1/2">
+
+    <div class="min-h-screen h-full flex flex-col after:flex-1">
+
+      <!-- Header -->
+      <div class="flex-1">
+        <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+          <!-- Logo -->
+          <a class="block" href="index.html">
+            <svg width="32" height="32" viewBox="0 0 32 32">
+              <defs>
+                <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
+                  <stop stop-color="#A5B4FC" stop-opacity="0" offset="0%" />
+                  <stop stop-color="#A5B4FC" offset="100%" />
+                </linearGradient>
+                <linearGradient x1="88.638%" y1="29.267%" x2="22.42%" y2="100%" id="logo-b">
+                  <stop stop-color="#38BDF8" stop-opacity="0" offset="0%" />
+                  <stop stop-color="#38BDF8" offset="100%" />
+                </linearGradient>
+              </defs>
+              <rect fill="#6366F1" width="32" height="32" rx="16" />
+              <path
+                d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z"
+                fill="#4F46E5" />
+              <path
+                d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z"
+                fill="url(#logo-a)" />
+              <path
+                d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
+                fill="url(#logo-b)" />
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
+
+      <div class="max-w-sm mx-auto px-4 py-8">
+
+        <h1 class="text-3xl text-gray-800 font-bold mb-6">Welkom terug! ✨</h1>
+        <!-- Form -->
+        <div class="flex items-center justify-between mt-6">
+          <div class="w-10" (click)="authService.GoogleAuth()">
+            <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" />
+          </div>
+        </div>
+        <form>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1" for="email">Email</label>
+              <input id="email" #userName class="form-input w-full" type="email" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1" for="password">Wachtwoord</label>
+              <input id="password" #userPassword class="form-input w-full" type="password" autocomplete="on" />
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-6">
+            <div class="mr-1">
+              <a class="text-sm underline hover:no-underline" href="/forget-password">Wachtwoord vergeten?</a>
+            </div>
+            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3"
+              (click)="authService.SignIn(userName.value, userPassword.value)">Inloggen</button>
+          </div>
+        </form>
+        <!-- Footer -->
+        <div class="pt-5 mt-6 border-t border-gray-200">
+          <div class="text-sm">
+            Nog geen account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="/sign-up">Registreer
+              gratis</a>
+          </div>
+          <!-- Warning -->
+          <!-- <div class="mt-5">
+            <div class="bg-yellow-100 text-yellow-600 px-3 py-2 rounded">
+              <svg class="inline w-3 h-3 shrink-0 fill-current" viewBox="0 0 12 12">
+                <path
+                  d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
+              </svg>
+              <span class="text-sm">
+                To support you during the pandemic super pro features are free until March 31st.
+              </span>
+            </div>
+          </div> -->
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Image -->
+  <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
+    <img class="object-cover object-center w-full h-full" src="/assets/images/auth-image.jpg" width="760" height="1024"
+      alt="Authentication image" />
+    <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"
+      src="/assets/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+  </div>
+
+</div>

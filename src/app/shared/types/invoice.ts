@@ -49,6 +49,8 @@ export enum Currency {
  export interface Organization {
    $key: string;
    name: string;
+   type: string;
+   employee: Employee[];
    companyVat: string;
    companyEmail: string;
    address: Address;
@@ -64,6 +66,7 @@ export enum Currency {
    busNumber?: string;
    postalCode: number;
    city: number;
+   country: string;
  }
 
  export interface Responsible {
@@ -71,6 +74,11 @@ export enum Currency {
    lastName: string;
    email: string;
    phoneNumber?: number;
+ }
+
+ export interface Employee {
+   email: string;
+   role: string;
  }
 
  export interface Bank {
