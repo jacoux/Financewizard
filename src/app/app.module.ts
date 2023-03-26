@@ -12,60 +12,34 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ClientComponent } from './components/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductsComponent } from './components/products/products.component';
-import { CreateClientComponent } from './components/client/create-client/create-client.component';
-import { AllClientsComponent } from './components/client/all-clients/all-clients.component';
-import { EditClientComponent } from './components/client/edit-client/edit-client.component';
-import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
-import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OrganizationComponent } from './components/organization/organization.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
-import { HeaderComponent } from './components/shared/header/header.component';
 import { WelcomeMessageComponent } from './components/shared/welcome-message/welcome-message.component';
 import { MY_DATE_FORMATS } from './shared/dateadapter';
-import { TableComponent } from './components/shared/table/table.component';
-import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/users/users.effects';
 import { InvoiceDraftEffects } from './store/invoiceDraft/invoiceDraft.effects';
-import { Template1Component } from './components/invoices/templates/template1/template1.component';
-import { Template2Component } from './components/invoices/templates/template2/template2.component';
-import { Template3Component } from './components/invoices/templates/template3/template3.component';
-import { ReadyComponent } from './components/invoices/ready/ready.component';
-import { OnboardingComponent } from './components/organization/onboarding/onboarding.component';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { CommonModule } from '@angular/common';
+import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    HeaderComponent,
     SidebarComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    ClientComponent,
-    ProductsComponent,
-    CreateClientComponent,
-    AllClientsComponent,
-    EditClientComponent,
-    NewInvoiceComponent,
-    AllInvoicesComponent,
-    OrganizationComponent,
     SidebarComponent,
     WelcomeMessageComponent,
-    TableComponent,
-    InvoiceCheckComponent,
-    Template1Component,
-    Template2Component,
-    Template3Component,
-    ReadyComponent,
     OnboardingComponent,
   ],
   imports: [
@@ -74,6 +48,7 @@ import { OnboardingComponent } from './components/organization/onboarding/onboar
     MatNativeDateModule,
     BrowserModule,
     AppRoutingModule,
+    DashboardRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -83,9 +58,15 @@ import { OnboardingComponent } from './components/organization/onboarding/onboar
     ReactiveFormsModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
+    DashboardRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([UsersEffects, InvoiceDraftEffects]),
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
