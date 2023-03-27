@@ -398,69 +398,72 @@
                                     class="input w-full max-w-xs border-b-indigo-500" />
 
                             </div>
+
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
-                                        class="text-red-500">*</span></label>
-                                <input type="text" placeholder="BE1234567"
-                                    class="input w-full max-w-xs border-b-indigo-500" />
-
-                            </div>
-
-                            <!-- City and Postal Code -->
-                            <div class="flex space-x-4">
-                                <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="city">Stad <span
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
                                             class="text-red-500">*</span></label>
-                                    <input type="text" placeholder="Antwerpen"
-                                        class="input w-full max-w-xs border-b-indigo-500" />
-                                </div>
-                                <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="postal-code">Postcode <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="text" placeholder="3490"
+                                    <input type="text" placeholder="BE1234567"
                                         class="input w-full max-w-xs border-b-indigo-500" />
 
                                 </div>
-                            </div>
-                            <!-- Street Address -->
-                            <div class="flex space-x-4">
-                                <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="text" placeholder="Dorspstraat"
-                                        class="input w-full max-w-xs border-b-indigo-500" />
-                                </div>
-                                <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="text" placeholder="2"
-                                        class="input w-full max-w-xs border-b-indigo-500" />
 
-                                </div>
-                                <div class="flex-1">
-                                    <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
-                                    <input type="text" placeholder="2"
-                                        class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
+                                <!-- City and Postal Code -->
+                                <div class="flex space-x-4">
+                                    <div class="flex-1">
+                                        <label class="block text-sm font-medium mb-1" for="city">Stad <span
+                                                class="text-red-500">*</span></label>
+                                        <input type="text" placeholder="Antwerpen"
+                                            class="input w-full max-w-xs border-b-indigo-500" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="block text-sm font-medium mb-1" for="postal-code">Postcode <span
+                                                class="text-red-500">*</span></label>
+                                        <input type="text" placeholder="3490"
+                                            class="input w-full max-w-xs border-b-indigo-500" />
 
+                                    </div>
+                                </div>
+                                <!-- Street Address -->
+                                <div class="flex space-x-4">
+                                    <div class="flex-1">
+                                        <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
+                                                class="text-red-500">*</span></label>
+                                        <input type="text" placeholder="Dorspstraat"
+                                            class="input w-full max-w-xs border-b-indigo-500" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
+                                                class="text-red-500">*</span></label>
+                                        <input type="text" placeholder="2"
+                                            class="input w-full max-w-xs border-b-indigo-500" />
+
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
+                                        <input type="text" placeholder="2"
+                                            class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
+
+                                    </div>
+                                </div>
+                                <!-- Country -->
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="country">Land <span
+                                            class="text-red-500">*</span></label>
+                                    <select id="country" class="form-select w-full">
+                                        <option>België</option>
+                                        <option>Nederland</option>
+                                        <option>United Kingdom</option>
+                                    </select>
                                 </div>
                             </div>
-                            <!-- Country -->
-                            <div>
-                                <label class="block text-sm font-medium mb-1" for="country">Land <span
-                                        class="text-red-500">*</span></label>
-                                <select id="country" class="form-select w-full">
-                                    <option>België</option>
-                                    <option>Nederland</option>
-                                    <option>United Kingdom</option>
-                                </select>
+                            <div class="flex items-center justify-between">
+                                <button (click)="step = 2" class="text-sm underline hover:no-underline">&lt;-
+                                    Terug</button>
+                                <button (click)="step = 4"
+                                    class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">Volgende
+                                    -&gt;</button>
                             </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <button (click)="step = 2" class="text-sm underline hover:no-underline">&lt;- Terug</button>
-                            <button (click)="step = 4"
-                                class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">Volgende
-                                -&gt;</button>
-                        </div>
                     </form>
 
                 </div>
