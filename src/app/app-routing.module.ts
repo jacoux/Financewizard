@@ -8,16 +8,17 @@ import { CommonModule } from '@angular/common';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthGuard } from './shared/guard/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'register-user', component: SignUpComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
   {
     path: 'onboarding', component: OnboardingComponent,
   },
-  { path: 'dashboard', loadChildren : () => DashboardModule }
+  { path: 'dashboard', loadChildren : () => DashboardModule}
 ];
 @NgModule({
   declarations: [],

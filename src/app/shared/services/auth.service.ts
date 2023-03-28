@@ -44,17 +44,34 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        switch (error.code) {
+          case "auth/user-not-found": {
+            window.alert("Deze Gebruiker bestaat niet");
+            break; 
+        }  case "auth/wrong-password": {
+            window.alert("Het wachtwoord klopt niet");
+            break;
+          }
+        default: { 
+              window.alert(error.message);
+           break; 
+   } 
+      }
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.SendVerificationMail();
+
+        if (laterFillInCompanyDetails) {
+          this.SendVerificationMail();
+        } else {
+          this.router.navigate(['onboarding']);
+        }
         this.SetUserData(result.user);
       })
       .catch((error) => {

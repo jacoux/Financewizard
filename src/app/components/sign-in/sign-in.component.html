@@ -40,11 +40,6 @@
 
         <h1 class="text-3xl text-gray-800 font-bold mb-6">Welkom terug! ✨</h1>
         <!-- Form -->
-        <div class="flex items-center justify-between mt-6">
-          <div class="w-10" (click)="authService.GoogleAuth()">
-            <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" />
-          </div>
-        </div>
         <form>
           <div class="space-y-4">
             <div>
@@ -58,12 +53,21 @@
           </div>
           <div class="flex items-center justify-between mt-6">
             <div class="mr-1">
-              <a class="text-sm underline hover:no-underline" href="/forget-password">Wachtwoord vergeten?</a>
+              <button class="text-sm underline hover:no-underline"
+                (click)="authService.ForgotPassword(userName.value)">Wachtwoord vergeten?</button>
             </div>
             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3"
               (click)="authService.SignIn(userName.value, userPassword.value)">Inloggen</button>
           </div>
         </form>
+        <p class="text-1xl text-gray-800 font-bold mb-6">
+          Log in via socials
+        </p>
+        <div class="flex items-center justify-between mt-6">
+          <div class="w-10" (click)="authService.GoogleAuth()">
+            <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" />
+          </div>
+        </div>
         <!-- Footer -->
         <div class="pt-5 mt-6 border-t border-gray-200">
           <div class="text-sm">

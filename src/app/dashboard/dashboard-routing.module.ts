@@ -12,9 +12,10 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoice-check.component';
 import { ReadyComponent } from './components/invoices/ready/ready.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
 const dashboardRoutes: Routes = [
     {
-    path: '', component: MainDashboardComponent,
+    path: 'dashboard', component: MainDashboardComponent, canActivate:[AuthGuard],
     children: [
   { path: 'invoices',
     children: [
