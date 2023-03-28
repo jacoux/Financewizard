@@ -3,21 +3,9 @@
     <div class="drawer-content flex-col items-center justify-center">
         <app-header></app-header>
         <app-welcome-message></app-welcome-message>
-        <div class="formGroup" *ngIf="authService.userData as user">
-            <div *ngIf="!user.emailVerified">
-                <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
-                <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
-            </div>
-            <div *ngIf="user.emailVerified">
-                <p class="text-center">Je email <strong>{{user.email}}</strong> is al geverifieerd ✅</p>
-            </div>
-            <div *ngIf="!user.companyId">
-                <p class="text-center">Gelieve <a href="/dashboard/account" class="underline">hier</a> je bedrijf op te
-                    zetten ✎</p>
-                <router-outlet></router-outlet>
-            </div>
 
-        </div>
+        <router-outlet></router-outlet>
+
     </div>
     <app-sidebar></app-sidebar>
 </div>
