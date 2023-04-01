@@ -1,4 +1,4 @@
-<div class="relative flex step-1" *ngIf="step === 1">
+<div class="relative flex step-1" *ngIf="step === 1 || step === 100">
 
     <!-- Content -->
     <div class="w-full md:w-1/2">
@@ -77,7 +77,8 @@
                     <form>
                         <div class="space-y-3 mb-8">
                             <label class="relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" />
+                                <input type="radio" (click)="setDescription(1)" name="radio-buttons"
+                                    [checked]="description === 1" class="peer sr-only" />
                                 <div
                                     class="flex items-center bg-white text-sm font-medium text-gray-800 p-4 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
@@ -94,7 +95,8 @@
                                     aria-hidden="true"></div>
                             </label>
                             <label class="relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" />
+                                <input type="radio" name="radio-buttons" (click)="setDescription(2)"
+                                    class="peer sr-only" [checked]="description === 2" />
                                 <div
                                     class="flex items-center bg-white text-sm font-medium text-gray-800 p-4 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
@@ -109,7 +111,8 @@
                                     aria-hidden="true"></div>
                             </label>
                             <label class="relative block cursor-pointer">
-                                <input type="radio" name="radio-buttons" class="peer sr-only" />
+                                <input type="radio" name="radio-buttons" (click)="setDescription(3)"
+                                    class="peer sr-only" [checked]="description === 3" />
                                 <div
                                     class="flex items-center bg-white text-sm font-medium text-gray-800 p-4 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
@@ -122,9 +125,10 @@
                                     aria-hidden="true"></div>
                             </label>
                         </div>
+
                         <div class="flex items-center justify-between">
                             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                (click)="step = 2">Volgende -&gt;</button>
+                                (click)="setStep(2)">Volgende -&gt;</button>
                         </div>
                     </form>
 
@@ -225,7 +229,8 @@
                         <div class="sm:flex space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
                             <label class="flex-1 relative block cursor-pointer">
                                 <input type="radio" name="radio-buttons" class="peer sr-only"
-                                    (click)="setType('individual')" />
+                                    [checked]="companyType === AccountType.PERSONAL"
+                                    (click)="setType(AccountType.PERSONAL)" />
                                 <div
                                     class="h-full text-center bg-white px-4 py-6 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
@@ -242,7 +247,8 @@
                             </label>
                             <label class="flex-1 relative block cursor-pointer">
                                 <input type="radio" name="radio-buttons" class="peer sr-only"
-                                    (click)="setType('company')" />
+                                    [checked]="companyType === AccountType.ORGANIZATION"
+                                    (click)="setType(AccountType.ORGANIZATION)" />
                                 <div
                                     class="h-full text-center bg-white px-4 py-6 rounded border border-gray-200 hover:border-gray-300 shadow-sm duration-150 ease-in-out">
                                     <svg class="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
@@ -289,9 +295,10 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <button (click)="step = 1" class="text-sm underline hover:no-underline">&lt;- Terug</button>
+                            <button (click)="setStep(1)" class="text-sm underline hover:no-underline">&lt;-
+                                Terug</button>
                             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                (click)="step = 3">Volgende -&gt;</button>
+                                (click)="setStep(3)">Volgende -&gt;</button>
                         </div>
                     </form>
 
@@ -390,77 +397,88 @@
                     <!-- Form -->
                     <form [formGroup]="companyForm">
                         <div class="space-y-4 mb-8">
+                            <!-- vat -->
+                            <div>
+                                <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" formControlName="companyVat" placeholder="BE1234567"
+                                    class="input w-full max-w-xs border-b-indigo-500 mb-1" />
+
+                                <p *ngIf="validVat"> BTW is geldig</p>
+                                <p class="error" *ngIf="!validVat"> BTW is ongeldig</p>
+
+                            </div>
                             <!-- Company Name -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="company-name">Bedrijfsnaam <span
+                                <label class="block text-sm font-medium mb-1" for="name">Bedrijfsnaam <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" placeholder="Acme.bvba"
-                                    class="input w-full max-w-xs border-b-indigo-500" />
+                                <input type="text" formControlName="name" placeholder="Acme.bvba"
+                                    class="input w-full max-w-xs border-b-indigo-500 mb-1" />
+                                <span class="valid" *ngIf="companyForm.get('name')?.valid">✅</span>
 
                             </div>
+                            <span class="error" *ngIf="!companyForm.get('name')?.valid">Geef je bedrijfsnaam in</span>
 
                             <div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
-                                            class="text-red-500">*</span></label>
-                                    <input type="text" placeholder="BE1234567"
-                                        class="input w-full max-w-xs border-b-indigo-500" />
 
-                                </div>
+                                <ng-container formGroupName="address">
+                                    <!-- City and Postal Code -->
+                                    <div class="flex space-x-4">
+                                        <div class="flex-1 mb-1">
+                                            <label class="block text-sm font-medium mb-1" for="city">Stad <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="text" formControlName="city" placeholder="Antwerpen"
+                                                class="input w-full max-w-xs border-b-indigo-500" />
+                                        </div>
+                                        <div class="flex-1 mb-1">
+                                            <label class="block text-sm font-medium mb-1" for="postal-code">Postcode
+                                                <span class="text-red-500">*</span></label>
+                                            <input formControlName="postalCode" type="text" placeholder="3490"
+                                                class="input w-full max-w-xs border-b-indigo-500" />
 
-                                <!-- City and Postal Code -->
-                                <div class="flex space-x-4">
-                                    <div class="flex-1">
-                                        <label class="block text-sm font-medium mb-1" for="city">Stad <span
+                                        </div>
+                                    </div>
+                                    <!-- Street Address -->
+                                    <div class="flex space-x-4 mb-1">
+                                        <div class="flex-1">
+                                            <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="text" formControlName="streetName" placeholder="Dorspstraat"
+                                                class="input w-full max-w-xs border-b-indigo-500" />
+
+                                        </div>
+                                        <div class="flex-1">
+                                            <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="text" formControlName="streetNumber" placeholder="2"
+                                                class="input w-full max-w-xs border-b-indigo-500" />
+
+
+                                        </div>
+                                        <div class="flex-1">
+                                            <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
+                                            <input type="text" formControlName="busNumber" placeholder="2"
+                                                class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
+
+                                        </div>
+                                    </div>
+                                    <!-- Country -->
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="country">Land <span
                                                 class="text-red-500">*</span></label>
-                                        <input type="text" placeholder="Antwerpen"
-                                            class="input w-full max-w-xs border-b-indigo-500" />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label class="block text-sm font-medium mb-1" for="postal-code">Postcode <span
-                                                class="text-red-500">*</span></label>
-                                        <input type="text" placeholder="3490"
-                                            class="input w-full max-w-xs border-b-indigo-500" />
+                                        <select id="country" class="form-select w-full" formControlName="country">
+                                            <option default value="Belgium">België</option>
+                                            <option value="Netherlands">Nederland</option>
+                                            <option value="UK">United Kingdom</option>
+                                        </select>
 
                                     </div>
-                                </div>
-                                <!-- Street Address -->
-                                <div class="flex space-x-4">
-                                    <div class="flex-1">
-                                        <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
-                                                class="text-red-500">*</span></label>
-                                        <input type="text" placeholder="Dorspstraat"
-                                            class="input w-full max-w-xs border-b-indigo-500" />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
-                                                class="text-red-500">*</span></label>
-                                        <input type="text" placeholder="2"
-                                            class="input w-full max-w-xs border-b-indigo-500" />
-
-                                    </div>
-                                    <div class="flex-1">
-                                        <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
-                                        <input type="text" placeholder="2"
-                                            class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
-
-                                    </div>
-                                </div>
-                                <!-- Country -->
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="country">Land <span
-                                            class="text-red-500">*</span></label>
-                                    <select id="country" class="form-select w-full">
-                                        <option>België</option>
-                                        <option>Nederland</option>
-                                        <option>United Kingdom</option>
-                                    </select>
-                                </div>
+                                </ng-container>
                             </div>
                             <div class="flex items-center justify-between">
-                                <button (click)="step = 2" class="text-sm underline hover:no-underline">&lt;-
+                                <button (click)="setStep(2)" class="text-sm underline hover:no-underline">&lt;-
                                     Terug</button>
-                                <button (click)="step = 4"
+                                <button (click)="saveCompany()"
                                     class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">Volgende
                                     -&gt;</button>
                             </div>
@@ -581,7 +599,7 @@
                                 </optgroup>
                                 <option>Grafische, papier en kartonindustrie</option>
                                 <optgroup label="Industrie & bouw">
-                                    <option>Bouw/option>
+                                    <option>Bouw</option>
                                     <option>Chemie, metaal</option>
                                     <option>Farmaindustrie</option>
                                     <option>Hout- & meubelindustrie<< /option>
@@ -630,11 +648,15 @@
                                 <option>Andere, niet in de lijst vermeldde beroepen</option>
                             </select>
                         </div>
+                        <div class="flex items-center justify-between">
+                            <button (click)="setStep(3)" class="text-sm underline hover:no-underline">&lt;-
+                                Terug</button>
+                            <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" (click)="createOrg()"
+                                href="/dashboard">Ga naar je
+                                dashboard
+                                -&gt;</a>
+                        </div>
 
-
-                        <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" href="/dashboard">Ga naar je
-                            dashboard
-                            -&gt;</a>
                     </div>
 
                 </div>

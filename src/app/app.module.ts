@@ -15,11 +15,16 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MY_DATE_FORMATS } from './shared/dateadapter';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, State, StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/users/users.effects';
@@ -28,6 +33,17 @@ import { OnboardingComponent } from './components/onboarding/onboarding.componen
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
+import { organizationState } from './store/organization/organization.models';
+import { organizationEffects } from './store/organization/organization.effects';
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['organization'],
+    rehydrate: true,
+  })(reducer);
+}
 
 @NgModule({
   declarations: [
@@ -56,16 +72,14 @@ import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
     DashboardRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([UsersEffects, InvoiceDraftEffects]),
+    EffectsModule.forRoot([
+      UsersEffects,
+      InvoiceDraftEffects,
+      organizationEffects,
+    ]),
   ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-    ],
-  bootstrap: [AppComponent]
+  exports: [CommonModule, FormsModule, ReactiveFormsModule],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
