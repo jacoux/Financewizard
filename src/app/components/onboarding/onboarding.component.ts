@@ -90,7 +90,6 @@ export class OnboardingComponent implements OnInit {
       this.crudApi.checkVat(vat).subscribe((data: any) => {
         this.validVat = false;
         this.validVat = data.valid;
-        debugger;
         if (this.validVat) {
           this.companyForm.get('name')?.setValue(data.name);
           const comp = this.companyForm.get('address');
@@ -130,12 +129,8 @@ export class OnboardingComponent implements OnInit {
   }
 
   createOrg() {
-    this.store.dispatch(
-      createOrganization({
-        data: 'test',
-        status: 100,
-      })
-    );
+    // this.store.dispatch(createOrganization());
+    this.crudApi.AddObject(this.companyForm.value, 'organizations');
   }
 
   setDescription(desc: any) {

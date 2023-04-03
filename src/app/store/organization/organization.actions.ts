@@ -8,14 +8,11 @@ export const loadOrganizationSuccess = createAction(
   props<{ data: any }>()
 );
 
-export const createOrganization = createAction(
-  '[Actions] create Organization',
-  props<{ data: any; status: number }>()
-);
+export const createOrganization = createAction('[Actions] create Organization');
 
-export const createOrganizationSucces = createAction(
+export const createOrganizationSuccess = createAction(
   '[Actions] create Organization success',
-  props<{ orgId: string, organization: any; status: any }>()
+  props<{ id: string }>()
 );
 
 export const createOrganizationError = createAction(

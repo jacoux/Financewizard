@@ -74,7 +74,6 @@ export class AuthService {
           this.router.navigate(['onboarding']);
         }
         this.SetUserData(result.user);
-        
       })
       .catch((error) => {
         window.alert(error.message);
@@ -142,7 +141,6 @@ export class AuthService {
   }
 
   updateUser(id: any) {
-    debugger;
     const user = JSON.parse(localStorage.getItem('user')!);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`

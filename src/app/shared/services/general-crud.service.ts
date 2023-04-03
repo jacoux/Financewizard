@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireList } from '@angular/fire/compat/database';
+import { Store } from '@ngrx/store';
 import { response } from 'express';
-import { catchError, map } from 'rxjs';
+import { catchError, lastValueFrom, map } from 'rxjs';
+import { createOrganizationSuccess } from 'src/app/store/organization/organization.actions';
 import { Client, Organization } from '../types/invoice';
 import { AuthService } from './auth.service';
 
@@ -12,14 +14,21 @@ import { AuthService } from './auth.service';
 export class GeneralCrudService {
   configUrl: 'http://localhost:3000/' = 'http://localhost:3000/';
 
-  constructor(private http: HttpClient, private Aservice: AuthService) {}
-
-  AddObject(org: Organization, path: string) {
-    debugger;
+  constructor(
+    private http: HttpClient,
+    private Aservice: AuthService,
+    private store: Store
+  ) {}
+  async AddObject(org: Organization, path: string) {
     const url = this.configUrl + path;
-    return this.http.post(url, org, {
-      headers: { 'Content-Type': 'application/json' },
-    })
+    var res = await lastValueFrom(
+      this.http.post(url, org, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+    );
+    const response: any = res;
+    const id = response.data.id;
+    this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
   // Fetch Single client Object
   GetObject(path: string, id: string) {

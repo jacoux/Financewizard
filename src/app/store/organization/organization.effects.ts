@@ -16,7 +16,7 @@ import { GeneralCrudService } from 'src/app/shared/services/general-crud.service
 import { Organization } from 'src/app/shared/types/invoice';
 import {
   createOrganization,
-  createOrganizationSucces,
+  createOrganizationSuccess,
   createOrganizationError,
 } from './organization.actions';
 import { getOrganization } from './organization.selectors';
@@ -31,31 +31,31 @@ export class organizationEffects {
     private store: Store
   ) {}
 
-  createOrganizationEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(createOrganization),
-      withLatestFrom(this.store.select(getOrganization)),
-      mergeMap(([, org]) =>
-        this.objService.AddObject(org, 'organizations').pipe(
-          map((res: any) =>
-            createOrganizationSucces({ orgId: res.data.id, organization: org, status: 1000 }),
-          ),
-          catchError(async (error) => {
-           return createOrganizationError(error);
-          })
-        )
-      )
-    )
-  );
+  // createOrganizationEffect$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(createOrganization),
+  //     withLatestFrom(this.store.select(getOrganization)),
+  //     mergeMap(([, org]) =>
+  //       this.objService.AddObject(org, 'organizations').pipe(
+  //         map(async (res: any) =>
+  //           createOrganizationSuccess({
+  //             orgId: res,
+  //           })
+  //         ),
+  //         catchError(async (error) => {
+  //           return createOrganizationError(error);
+  //         })
+  //       )
+  //     )
+  //   )
+  // );
 
   createOrgSuccessEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(createOrganizationSucces),
-      tap(({ organization }) => {
-        debugger;
-        this.aService.updateUser(organization);
-      }),
-      tap(() => this.router.navigate(['dashboard']))
+      ofType(createOrganizationSuccess),
+      tap(({ id }) => {
+        this.aService.updateUser(id);
+      })
     )
   );
 }

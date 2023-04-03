@@ -5,7 +5,7 @@ import { Organization } from 'src/app/shared/types/invoice';
 
 @Component({
   templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.sass']
+  styleUrls: ['./organization.component.sass'],
 })
 export class OrganizationComponent implements OnInit {
   organization!: Organization;
@@ -13,34 +13,24 @@ export class OrganizationComponent implements OnInit {
     companyName: new UntypedFormControl(null, [Validators.required]),
     companyEmail: new UntypedFormControl(null, [Validators.required]),
     companyVat: new UntypedFormControl(null, [Validators.required]),
-  })
+  });
 
-
-  constructor(
-    private crudApi: GeneralCrudService
-  ) { 
-
-  }
+  constructor(private crudApi: GeneralCrudService) {}
 
   ngOnInit(): void {
-    debugger
     this.crudApi.GetObjectsList('organizations').subscribe((data: any) => {
-      this.organization = data[0]
-      this.initForm()
+      this.organization = data[0];
+      this.initForm();
     });
   }
 
   initForm() {
     this.organizationForm.patchValue({
-        companyName: this.organization.name,
-        companyEmail: this.organization.companyEmail,
-        companyVat: this.organization.companyVat,
+      companyName: this.organization.name,
+      companyEmail: this.organization.companyEmail,
+      companyVat: this.organization.companyVat,
     });
-  
   }
 
-  submitOrganizationData(){    
-
-  }
-
+  submitOrganizationData() {}
 }

@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Organization } from 'src/app/shared/types/invoice';
-import * as UserActions from './organization.actions';
+import * as OrgActions from './organization.actions';
 
 export const reducerFeatureKey = 'reducer';
 
@@ -20,12 +20,12 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(UserActions.loadOrganization, (state) => ({
+  on(OrgActions.loadOrganization, (state) => ({
     ...state,
     loading: false,
     error: null,
   })),
-  on(UserActions.loadOrganizationSuccess, (state, { data }) => ({
+  on(OrgActions.loadOrganizationSuccess, (state, { data }) => ({
     ...state,
     organization: data.organization,
     loading: true,
@@ -33,7 +33,7 @@ export const reducer = createReducer(
     status: 1,
   })),
 
-  on(UserActions.setOrganizationData, (state, { data, status }) => ({
+  on(OrgActions.setOrganizationData, (state, { data, status }) => ({
     ...state,
     organization: {
       ...state.organization,
@@ -44,7 +44,7 @@ export const reducer = createReducer(
     status: status,
   })),
 
-  on(UserActions.setType, (state, { data, status }) => ({
+  on(OrgActions.setType, (state, { data, status }) => ({
     ...state,
     organization: {
       ...state.organization,
@@ -53,7 +53,7 @@ export const reducer = createReducer(
     status: status,
   })),
 
-  on(UserActions.setCompanyInfo, (state, { organization, status }) => ({
+  on(OrgActions.setCompanyInfo, (state, { organization, status }) => ({
     ...state,
     organization: {
       ...state.organization,
@@ -65,35 +65,33 @@ export const reducer = createReducer(
     status: status,
   })),
 
-  on(UserActions.createOrganization, (state, { data, status }) => ({
-    ...state,
+  on(OrgActions.createOrganizationSuccess, (state, { id }) => ({
+    loading: false,
+    error: null,
     organization: {
       ...state.organization,
-      sector: data,
+      id: id,
     },
-    status: status,
+    status: 100000,
   })),
 
-  on(UserActions.setStep, (state, { status }) => ({
+  on(OrgActions.setStep, (state, { status }) => ({
+    // ...state,
+    // organization: null,
+    // loading: false,
+    // error: null,
+    // status: 1,
     ...state,
     status: status,
   })),
-  on(
-    UserActions.createOrganizationSucces,
-    (state, { organization, status }) => ({
-      ...state,
-      organization: organization,
-      status: status,
-    })
-  ),
 
-  on(UserActions.loadOrganizationFailure, (state, { error }) => ({
+  on(OrgActions.loadOrganizationFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
   })),
 
-  on(UserActions.createOrganizationError, (state, { error }) => ({
+  on(OrgActions.createOrganizationError, (state, { error }) => ({
     ...state,
     loading: false,
     error: error,
