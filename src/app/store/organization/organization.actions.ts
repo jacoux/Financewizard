@@ -15,7 +15,7 @@ export const createOrganization = createAction(
 
 export const createOrganizationSucces = createAction(
   '[Actions] create Organization success',
-  props<{ status: any }>()
+  props<{ orgId: string, organization: any; status: any }>()
 );
 
 export const createOrganizationError = createAction(

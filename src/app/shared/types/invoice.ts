@@ -55,6 +55,7 @@ export enum AccountType {
 }
 
 export interface Organization {
+  _id: string;
   $key: string;
   name: string;
   description: string;

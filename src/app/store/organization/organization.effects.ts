@@ -2,8 +2,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs';
+import { Response, response } from 'express';
+import {
+  catchError,
+  exhaustMap,
+  map,
+  mergeMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
+import { Organization } from 'src/app/shared/types/invoice';
 import {
   createOrganization,
   createOrganizationSucces,
@@ -17,6 +27,7 @@ export class organizationEffects {
     private actions$: Actions,
     private objService: GeneralCrudService,
     private router: Router,
+    private aService: AuthService,
     private store: Store
   ) {}
 
@@ -26,13 +37,25 @@ export class organizationEffects {
       withLatestFrom(this.store.select(getOrganization)),
       mergeMap(([, org]) =>
         this.objService.AddObject(org, 'organizations').pipe(
-          map(
-            () => createOrganizationSucces({ status: 100 }),
-            this.router.navigate(['dashboard'])
+          map((res: any) =>
+            createOrganizationSucces({ orgId: res.data.id, organization: org, status: 1000 }),
           ),
-          catchError(async (error) => createOrganizationError({ error: error }))
+          catchError(async (error) => {
+           return createOrganizationError(error);
+          })
         )
       )
+    )
+  );
+
+  createOrgSuccessEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createOrganizationSucces),
+      tap(({ organization }) => {
+        debugger;
+        this.aService.updateUser(organization);
+      }),
+      tap(() => this.router.navigate(['dashboard']))
     )
   );
 }

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireList } from '@angular/fire/compat/database';
+import { response } from 'express';
+import { catchError, map } from 'rxjs';
 import { Client, Organization } from '../types/invoice';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +12,14 @@ import { Client, Organization } from '../types/invoice';
 export class GeneralCrudService {
   configUrl: 'http://localhost:3000/' = 'http://localhost:3000/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private Aservice: AuthService) {}
 
   AddObject(org: Organization, path: string) {
     debugger;
     const url = this.configUrl + path;
     return this.http.post(url, org, {
       headers: { 'Content-Type': 'application/json' },
-    });
+    })
   }
   // Fetch Single client Object
   GetObject(path: string, id: string) {

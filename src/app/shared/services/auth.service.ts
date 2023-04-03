@@ -45,18 +45,19 @@ export class AuthService {
       })
       .catch((error) => {
         switch (error.code) {
-          case "auth/user-not-found": {
-            window.alert("Deze Gebruiker bestaat niet");
-            break; 
-        }  case "auth/wrong-password": {
-            window.alert("Het wachtwoord klopt niet");
+          case 'auth/user-not-found': {
+            window.alert('Deze Gebruiker bestaat niet');
             break;
           }
-        default: { 
-              window.alert(error.message);
-           break; 
-   } 
-      }
+          case 'auth/wrong-password': {
+            window.alert('Het wachtwoord klopt niet');
+            break;
+          }
+          default: {
+            window.alert(error.message);
+            break;
+          }
+        }
       });
   }
   // Sign up with email/password
@@ -73,6 +74,7 @@ export class AuthService {
           this.router.navigate(['onboarding']);
         }
         this.SetUserData(result.user);
+        
       })
       .catch((error) => {
         window.alert(error.message);
@@ -137,6 +139,23 @@ export class AuthService {
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  updateUser(id: any) {
+    debugger;
+    const user = JSON.parse(localStorage.getItem('user')!);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+      companyId: id,
+    };
+    return userRef.update(userData);
   }
   // Sign out
   SignOut() {

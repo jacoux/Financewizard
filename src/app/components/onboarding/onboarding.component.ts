@@ -40,7 +40,7 @@ export class OnboardingComponent implements OnInit {
     companyEmail: new UntypedFormControl(null, [Validators.required]),
     name: new UntypedFormControl(null, [Validators.required]),
     employee: new UntypedFormGroup({
-      name: new UntypedFormControl(null, [Validators.required]),
+      email: new UntypedFormControl(null, [Validators.required]),
       role: new UntypedFormControl(null, [Validators.required]),
     }),
     companyVat: new UntypedFormControl(null, [Validators.required]),
@@ -121,7 +121,7 @@ export class OnboardingComponent implements OnInit {
     this.companyForm
       .get('companyEmail')
       ?.setValue(this.authService.userData.email);
-    employee?.get('name')?.setValue(this.authService.userData.email);
+    employee?.get('email')?.setValue(this.authService.userData.email);
     employee?.get('role')?.setValue(mainRole.ADMIN);
     this.companyForm.setErrors;
     this.store.dispatch(

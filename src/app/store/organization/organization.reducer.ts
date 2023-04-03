@@ -74,11 +74,15 @@ export const reducer = createReducer(
     status: status,
   })),
 
+  on(UserActions.setStep, (state, { status }) => ({
+    ...state,
+    status: status,
+  })),
   on(
-    UserActions.setStep,
     UserActions.createOrganizationSucces,
-    (state, { status }) => ({
+    (state, { organization, status }) => ({
       ...state,
+      organization: organization,
       status: status,
     })
   ),
