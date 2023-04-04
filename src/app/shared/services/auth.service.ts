@@ -101,7 +101,7 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
   }
   // Sign in with Google
   GoogleAuth() {
@@ -143,11 +143,24 @@ export class AuthService {
 
   UpdateUser(id: any) {
     const user = JSON.parse(localStorage.getItem('user')!);
-    const userRef = this.afs.doc(`users/${user.uid}`);
-    console.log('companyId', id);
-    console.log('uid', user.uid);
-    return userRef.update({ companyId: id });
-  }
+    if (user) {
+      const userRef = this.afs.doc(`users/${user.uid}`);
+      userRef.update({ companyId: id });
+      this.userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        companyId: id,
+      };
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      return this.router.navigate(['/dashboard']);
+    } else {
+      alert('geen gebruiker gevonden');
+      return;
+    }
+  } 
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {

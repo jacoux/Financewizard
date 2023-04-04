@@ -21,7 +21,7 @@ export class GeneralCrudService {
   ) {}
   async AddObject(org: Organization, path: string) {
     const url = this.configUrl + path;
-    var res = await lastValueFrom(
+    const res = await lastValueFrom(
       this.http.post(url, org, {
         headers: { 'Content-Type': 'application/json' },
       })
