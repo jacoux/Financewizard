@@ -13,3 +13,8 @@ export const loadUsersFailure = createAction(
   '[Actions] Load Actionss Failure',
   props<{ error: any }>()
 );
+
+export const setUser = createAction(
+  '[Actions] set user Actionss',
+  props<{ data: any }>()
+);

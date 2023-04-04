@@ -3,6 +3,6 @@ export interface User {
   email: string;
   displayName: string;
   photoURL: string;
-  companyId?: string | undefined;
+  companyId: string;
   emailVerified: boolean;
 }

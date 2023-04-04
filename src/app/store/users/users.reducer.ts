@@ -18,13 +18,28 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-    on(UserActions.loadUsers, (state) => ({...state,loading:      false, error:null})),
+  on(UserActions.loadUsers, (state) => ({
+    ...state,
+    loading: false,
+    error: null,
+  })),
   on(UserActions.loadUsersSuccess, (state, { data }) => ({
     ...state,
-    users:data.users,
+    users: data.users,
     loading: true,
-    error: null
+    error: null,
   })),
-  on(UserActions.loadUsersFailure, (state,{error}) => ({...state,loading: false, error})),
 
+  on(UserActions.setUser, (state, { data }) => ({
+    ...state,
+    users: data.users,
+    loading: true,
+    error: null,
+  })),
+
+  on(UserActions.loadUsersFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  }))
 );

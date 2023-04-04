@@ -7,15 +7,17 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  userData: any; // Save logged in user data
+  userData: any;
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
+    public store: Store,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
@@ -68,7 +70,6 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.SetUserData(result.user);
-
         if (laterFillInCompanyDetails) {
           this.SendVerificationMail();
         } else {
@@ -114,8 +115,8 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
-        this.SetUserData(result.user);
+        this.GetUser(result.user);
+        return this.router.navigate(['dashboard']);
       })
       .catch((error) => {
         window.alert(error);
@@ -134,7 +135,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      companyId: '',
+      companyId: user?.companyId,
     };
     return userRef.set(userData, {
       merge: true,
@@ -160,7 +161,28 @@ export class AuthService {
       alert('geen gebruiker gevonden');
       return;
     }
-  } 
+  }
+
+  GetUser(user: any) {
+    debugger;
+    this.afs
+      .collection('users')
+      .doc(user.uid)
+      .ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.userData = doc.data();
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          console.log(doc.data());
+        } else {
+          console.log('There is no document!');
+        }
+      })
+      .catch(function (error) {
+        console.log('There was an error getting your document:', error);
+      });
+  }
+
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
