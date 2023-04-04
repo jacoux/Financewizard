@@ -16,7 +16,7 @@ export class GeneralCrudService {
 
   constructor(
     private http: HttpClient,
-    private Aservice: AuthService,
+    private authService: AuthService,
     private store: Store
   ) {}
   async AddObject(org: Organization, path: string) {
@@ -28,6 +28,7 @@ export class GeneralCrudService {
     );
     const response: any = res;
     const id = response.data.id;
+    this.authService.UpdateUser(id);
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
   // Fetch Single client Object

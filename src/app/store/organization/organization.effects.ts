@@ -50,12 +50,12 @@ export class organizationEffects {
   //   )
   // );
 
-  createOrgSuccessEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(createOrganizationSuccess),
-      tap(({ id }) => {
-        this.aService.updateUser(id);
-      })
-    )
-  );
+  // createOrgSuccessEffect$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(createOrganizationSuccess),
+  //     tap(({ id }) => {
+  //       this.aService.UpdateUser(id);
+  //     })
+  //   )
+  // );
 }

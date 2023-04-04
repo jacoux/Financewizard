@@ -67,13 +67,13 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
+        this.SetUserData(result.user);
 
         if (laterFillInCompanyDetails) {
           this.SendVerificationMail();
         } else {
           this.router.navigate(['onboarding']);
         }
-        this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -134,26 +134,19 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      companyId: '',
     };
     return userRef.set(userData, {
       merge: true,
     });
   }
 
-  updateUser(id: any) {
+  UpdateUser(id: any) {
     const user = JSON.parse(localStorage.getItem('user')!);
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      companyId: id,
-    };
-    return userRef.update(userData);
+    const userRef = this.afs.doc(`users/${user.uid}`);
+    console.log('companyId', id);
+    console.log('uid', user.uid);
+    return userRef.update({ companyId: id });
   }
   // Sign out
   SignOut() {
