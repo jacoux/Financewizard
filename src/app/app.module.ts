@@ -35,6 +35,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 import { organizationState } from './store/organization/organization.models';
 import { organizationEffects } from './store/organization/organization.effects';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>

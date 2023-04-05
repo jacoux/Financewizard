@@ -22,9 +22,11 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
+
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
+        this.GetUser(user);
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
       } else {
@@ -171,9 +173,9 @@ export class AuthService {
       .ref.get()
       .then((doc) => {
         if (doc.exists) {
-          this.userData = doc.data();
-          localStorage.setItem('user', JSON.stringify(this.userData));
-          console.log(doc.data());
+          const newU: any = doc.data();
+          this.userData.companyId = newU.companyId;
+          console.log(newU.companyId);
         } else {
           console.log('There is no document!');
         }

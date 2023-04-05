@@ -32,8 +32,12 @@ export class GeneralCrudService {
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
   // Fetch Single client Object
-  GetObject(path: string, id: string) {
-    return this.http.get(this.configUrl + path + '/' + id);
+  async GetObject(path: string, id: string) {
+    const res = await lastValueFrom(
+      this.http.get(this.configUrl + path + '/' + id)
+    );
+    const response: any = res;
+    return response;
   }
   // Fetch clients List
   GetObjectsList(path: string) {

@@ -22,6 +22,8 @@ import { SidebarComponent } from '../components/shared/sidebar/sidebar.component
 import { HeaderComponent } from '../components/shared/header/header.component';
 import { WelcomeMessageComponent } from '../components/shared/welcome-message/welcome-message.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -42,15 +44,17 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     Template3Component,
     ReadyComponent,
     TableComponent,
-    MainDashboardComponent
+    MainDashboardComponent,
   ],
   imports: [
     CommonModule,
-        DashboardRoutingModule,
-     FormsModule,
+    DashboardRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
-  ]
+    MatFormFieldModule,
+    MatInputModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
