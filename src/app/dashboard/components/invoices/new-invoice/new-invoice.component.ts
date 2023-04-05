@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { MY_DATE_FORMATS } from 'src/app/shared/dateadapter';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { Client, Product } from 'src/app/shared/types/invoice';
-
+import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
 
 @Component({
   templateUrl: './new-invoice.component.html',
@@ -24,6 +25,7 @@ export class NewInvoiceComponent implements OnInit {
   payWithin = 0;
   total = 0;
   totalVatAmount = 0;
+  visible: boolean = false;
 
   invoiceFrom = new UntypedFormGroup({
     client: new UntypedFormControl(null, [Validators.required]),
@@ -31,57 +33,91 @@ export class NewInvoiceComponent implements OnInit {
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
     payWithin: new UntypedFormControl(30, [Validators.required]),
     total: new UntypedFormControl(null, [Validators.required]),
+    footer: new UntypedFormControl(null, [Validators.required]),
   });
 
   constructor(
     private fb: UntypedFormBuilder,
-    private crudApi: GeneralCrudService
+    private crudApi: GeneralCrudService,
+    private store: Store
   ) {
     this.addForm = this.fb.group({
       items: [null, Validators.required],
       items_value: ['no', Validators.required],
     });
-
     this.rows = this.fb.array([]);
   }
 
   ngOnInit(): void {
-    this.addForm.addControl('rows', this.rows);
     this.getProducts();
     this.getClients();
-    this.rows?.length === 0 ? this.onAddRow() : '';
+    this.addForm.addControl('rows', this.rows);
   }
 
   onClientChange(id: any) {
-    const test = this.clients.filter((client: Client) => client._id === id);
-    this.selectedClient = test[0];
-  }
-
-  selectProd(i: any, id: any) {
-    const test = this.products.filter((product: Product) => product._id === id);
-    this.selectedProd = test[0];
-    const currentRow = this.getRow().at(i);
-    currentRow.get('price')?.setValue(this.selectedProd.price);
-  }
-
-  calculateTotalWithoutVat(i: any, aantal: any) {
     if (this.addForm) {
-      const currentRow = this.getRow().at(i);
-      const newV = this.selectedProd.price * aantal;
-      currentRow.get('qty')?.setValue(aantal);
-      let vat = currentRow.get('vat')?.value ?? null;
-      this.calculateTotalWithVat(i, vat);
+      const test = this.clients.filter((client: Client) => client._id === id);
+      this.selectedClient = test[0];
     }
   }
 
-  calculateTotalWithVat(i: any, btw: any) {
+  selectProd(i: any, id: any) {
+    if (this.addForm) {
+      const products = this.products.filter(
+        (product: Product) => product._id === id
+      );
+      const product = products[0];
+      const currentRow = this.getRow().at(i);
+      debugger;
+      currentRow.get('price')?.setValue(product.price);
+    }
+  }
+
+  changeAmount(i: any, aantal: any) {
+    if (this.addForm) {
+      const currentRow = this.getRow().at(i);
+      currentRow.get('qty')?.setValue(aantal);
+      this.calculateTotalWithVat(i);
+    }
+  }
+
+  changePrice(i: any, price: number) {
+    const currentRow = this.getRow().at(i);
+    currentRow.get('price')?.setValue(price);
+    this.calculateTotalWithVat(i);
+  }
+
+  addCustomProduct($event: any) {
+    console.log($event);
+    const withoutVat = $event.price * $event.qty;
+    const vatAmount = (withoutVat * $event.vatPercentage) / 100;
+    const total = withoutVat + vatAmount;
+    const rowData = this.fb.group({
+      name: $event.name,
+      description: $event.description,
+      price: $event.price,
+      qty: $event.qty,
+      vat: $event.vatPercentage,
+      vatAmount: vatAmount,
+      total: total,
+      isCustom: true,
+    });
+    this.rows.push(rowData);
+    this.calculateTotal();
+    // this.addClass();
+  }
+
+  calculateTotalWithVat(i: any, vat?: number) {
+    const currentRow = this.getRow().at(i);
+    const btw = vat ?? currentRow.get('vat')?.value ?? null;
     if (this.addForm) {
       const currentRow = this.getRow().at(i);
 
       let price;
+      let priceFromRow = currentRow.get('price')?.value;
       price = currentRow.get('qty')?.value
-        ? this.selectedProd.price * currentRow.get('qty')?.value
-        : this.selectedProd.price;
+        ? priceFromRow * currentRow.get('qty')?.value
+        : priceFromRow;
 
       let btwValue;
       if (btw) {
@@ -106,6 +142,9 @@ export class NewInvoiceComponent implements OnInit {
     this.totalVatAmount = totalFromRow
       .map((item) => item.vatAmount)
       .reduce((prev, next) => prev + next);
+
+    this.invoiceFrom.get('vatAmount')?.setValue(this.totalVatAmount);
+    this.invoiceFrom.get('total')?.setValue(this.total);
   }
 
   payWithinChange() {
@@ -118,14 +157,8 @@ export class NewInvoiceComponent implements OnInit {
   getProducts() {
     this.crudApi.GetObjectsList('products').subscribe((data) => {
       this.products = data;
-      if (!this.selectedProd && this.products) {
-        console.log(this.products[0]);
-        this.selectedProd = this.products[0];
-      }
     });
   }
-
-  submit() {}
 
   getClients() {
     this.crudApi
@@ -150,6 +183,10 @@ export class NewInvoiceComponent implements OnInit {
     this.rows.push(this.createItemFormGroup());
   }
 
+  addClass() {
+    this.visible = !this.visible;
+  }
+
   createItemFormGroup(): UntypedFormGroup {
     return this.fb.group({
       name: null,
@@ -159,6 +196,12 @@ export class NewInvoiceComponent implements OnInit {
       vat: null,
       vatAmount: null,
       total: null,
+      isCustom: false,
     });
+  }
+  submit() {
+    debugger;
+    const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
+    // this.store.dispatch(saveInvoice({ data: invoiceData}));
   }
 }

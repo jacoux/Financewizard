@@ -1,0 +1,63 @@
+<div class="modal-box">
+    <h3 class="font-bold text-lg text-white">Voeg product toe!</h3>
+    <form [formGroup]="productForm" (ngSubmit)="submitProductData()" novalidate>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label>Productnaam</label>
+                        <input type="text" formControlName="name" class="form-control" required />
+                        <!-- errors-->
+                        <p *ngIf="name?.touched && name?.invalid" class="error">
+                            <sup>*</sup>Geef een productnaam in
+                        </p>
+                        <p *ngIf="name?.errors?.['minlength']" class="error">
+                            <sup>*</sup>Min. 2 letters voor de productnaam
+                        </p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Beschrijving</label>
+                        <input type="text" formControlName="description" class="form-control" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>BTW percentage</label>
+                        <input type="number" formControlName="vatPercentage" class="form-control" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Aantal</label>
+                        <input type="number" formControlName="qty" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label>Prijs</label>
+                        <input type="number" formControlName="price" class="form-control" required />
+                        <!-- errors-->
+                        <p *ngIf="price?.touched && price?.invalid" class="error">
+                            <sup>*</sup>Geef een prijs in
+                        </p>
+                        <p *ngIf="price?.errors?.['pattern']" class="error">
+                            <sup>*</sup>Formaat klopt niet
+                        </p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Dit is een uurtarief</label>
+                        <input type="checkbox" formControlName="hourlyRate" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="modal-action">
+        <div class="form-group text-right">
+            <button type="button" class="btn btn-secondary gap-right" (click)="ResetForm()">
+                Reset
+            </button>
+            <button type="submit" class="btn btn-success" [disabled]="!productForm.valid" (click)="submitProductData()">
+                Add product
+            </button>
+            <label for="my-modal" (click)="close()" class="btn btn-error">Sluit</label>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,7 @@ import { WelcomeMessageComponent } from '../components/shared/welcome-message/we
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AddProductModalComponent } from './components/products/add-product-modal/add-product-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MatInputModule } from '@angular/material/input';
     ReadyComponent,
     TableComponent,
     MainDashboardComponent,
+    AddProductModalComponent,
   ],
   imports: [
     CommonModule,

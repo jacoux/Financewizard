@@ -20,40 +20,8 @@ export class ProductsComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    this.crudApi.GetObjectsList('products').subscribe((data) => this.products = data );
-    this.getProductForm();
-  }
-
-  getProductForm() {
-    this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      vatPercentage: [''],
-      price: [''],
-      description: [''],
-      hourlyRate: [],
-    });
-  }
-  get name() {
-    return this.productForm.get('name');
-  }
-  get vatPercentage() {
-    return this.productForm.get('vatPercentage');
-  }
-  get price() {
-    return this.productForm.get('price');
-  }
-  get description() {
-    return this.productForm.get('description');
-  }
-  get hourlyRate() {
-    return this.productForm.get('hourlyRate');
-  }
-  ResetForm() {
-    this.productForm.reset();
-  }
-
-  submitproductData() {
-    // this.crudApi.AddProduct(this.productForm.value);
-    this.ResetForm();
+    this.crudApi
+      .GetObjectsList('products')
+      .subscribe((data) => (this.products = data));
   }
 }

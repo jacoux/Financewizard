@@ -1,3 +1,14 @@
 .footer{
     height: 200px;
 }
+.visible {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+}
+
+.notVisible {
+    visibility: hidden !important;
+    opacity: 0;
+    z-index: 0;
+}

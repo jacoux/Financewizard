@@ -13,3 +13,9 @@ export const loadInvoiceDraftFailure = createAction(
   '[Actions] Load Actionss Failure',
   props<{ error: any }>()
 );
+
+export const saveInvoice = createAction(
+  '[step 1] set invoice',
+  props<{ data: any }>()
+);
+
