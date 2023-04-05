@@ -33,6 +33,7 @@ export class NewInvoiceComponent implements OnInit {
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
     payWithin: new UntypedFormControl(30, [Validators.required]),
     total: new UntypedFormControl(null, [Validators.required]),
+    vatAmount: new UntypedFormControl(null, [Validators.required]),
     footer: new UntypedFormControl(null, [Validators.required]),
   });
 
@@ -58,6 +59,7 @@ export class NewInvoiceComponent implements OnInit {
     if (this.addForm) {
       const test = this.clients.filter((client: Client) => client._id === id);
       this.selectedClient = test[0];
+      this.invoiceFrom.get('client')?.setValue(this.selectedClient);
     }
   }
 
@@ -70,6 +72,7 @@ export class NewInvoiceComponent implements OnInit {
       const currentRow = this.getRow().at(i);
       debugger;
       currentRow.get('price')?.setValue(product.price);
+      currentRow.get('name')?.setValue(product.name);
     }
   }
 
@@ -202,6 +205,6 @@ export class NewInvoiceComponent implements OnInit {
   submit() {
     debugger;
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
-    // this.store.dispatch(saveInvoice({ data: invoiceData}));
+    this.store.dispatch(saveInvoice({ data: invoiceData }));
   }
 }

@@ -18,13 +18,28 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-    on(UserActions.loadInvoiceDraft, (state) => ({...state,loading:      false, error:null})),
+  on(UserActions.loadInvoiceDraft, (state) => ({
+    ...state,
+    loading: false,
+    error: null,
+  })),
   on(UserActions.loadInvoiceDraftSuccess, (state, { data }) => ({
     ...state,
-    InvoiceDraft:data.invoiceDraft,
+    invoiceDraft: data,
     loading: true,
-    error: null
+    error: null,
   })),
-  on(UserActions.loadInvoiceDraftFailure, (state,{error}) => ({...state,loading: false, error})),
 
+  on(UserActions.saveInvoice, (state, { data }) => ({
+    ...state,
+    invoiceDraft: data,
+    loading: true,
+    error: null,
+  })),
+
+  on(UserActions.loadInvoiceDraftFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  }))
 );

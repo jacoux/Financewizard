@@ -1,11 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loadInvoiceDraft = createAction(
-  '[Actions] Load Actionss'
-);
+export const loadInvoiceDraft = createAction('[Actions] Load Actionss draft');
 
 export const loadInvoiceDraftSuccess = createAction(
-  '[Actions] Load Actionss Success',
+  '[Actions] Load Actionss draft Success',
   props<{ data: any }>()
 );
 

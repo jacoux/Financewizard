@@ -41,7 +41,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['organization'],
+    keys: ['organization', 'invoiceDraft'],
     rehydrate: true,
   })(reducer);
 }
