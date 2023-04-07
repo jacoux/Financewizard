@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { MY_DATE_FORMATS } from 'src/app/shared/dateadapter';
+
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { Client, Product } from 'src/app/shared/types/invoice';
 import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
@@ -40,7 +40,8 @@ export class NewInvoiceComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private crudApi: GeneralCrudService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {
     this.addForm = this.fb.group({
       items: [null, Validators.required],

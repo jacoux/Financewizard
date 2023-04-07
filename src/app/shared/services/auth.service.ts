@@ -166,7 +166,6 @@ export class AuthService {
   }
 
   GetUser(user: any) {
-    debugger;
     this.afs
       .collection('users')
       .doc(user.uid)

@@ -1,0 +1,22 @@
+<div class="relative p-4 sm:p-6 rounded-sm overflow-hidden mb-8 full-width chat-container">
+    <div class="chat chat-start">
+        <div class="chat-bubble text-white chat-bubble-primary ">Hallo <br />Stel je vraag hieronder.</div>
+    </div>
+    <div *ngFor="let chat of chat">
+        <div class="chat chat-start">
+            <div class="chat-bubble text-white chat-bubble-primary ">{{chat.q}}</div>
+        </div>
+        <div class="chat chat-end" *ngIf="render">
+            <div class="chat-bubble chat-bubble-secondary">{{chat.a}}</div>
+        </div>
+    </div>
+
+    <form class="full-width fixed bottom-10" style="width: 80%;" [formGroup]="question">
+        <p *ngIf="loading"> Laden...</p>
+        <textarea *ngIf="!loading" style="width: 90%;" formControlName="q"
+            class="bg-gray-800 textarea textarea-succes text-white m-3" placeholder="Stel uw vraag"></textarea>
+        <button class="btn ml-4 bg-gray-800 -3 text-white" (click)="ask()">Verzend</button>
+
+    </form>
+
+</div>

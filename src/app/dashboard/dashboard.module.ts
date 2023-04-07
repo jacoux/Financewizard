@@ -25,6 +25,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AddProductModalComponent } from './components/products/add-product-modal/add-product-modal.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AddProductModalComponent } from './components/products/add-product-moda
     TableComponent,
     MainDashboardComponent,
     AddProductModalComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,

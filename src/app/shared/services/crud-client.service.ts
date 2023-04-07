@@ -21,7 +21,7 @@ export class CrudClientService {
   }
   // Fetch clients List
   GetclientsList() {
-      return this.http.get<Client>(this.configUrl);
+      return this.http.get<Client>('http://localhost:3000/clients');
   }
   // Update client Object
   Updateclient(client: Client) {

@@ -16,6 +16,7 @@ export class AllClientsComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+    debugger;
   this.crudApi.GetclientsList().subscribe((data: Client) => this.clients = data );
 
   }

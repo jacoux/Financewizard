@@ -32,9 +32,9 @@
             </h3>
             <ul class="mt-3">
                 <!-- Klanten -->
-                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-900">
+                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
                     <a class="block text-pink-100 hover:text-white truncate transition duration-150 hover:text-gray-800"
-                        href="/dashboard/clients/create">
+                        [routerLink]="['/dashboard/clients/overview']" >
                         <div class="flex items-center">
                             <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                 <path class="fill-current text-gray-400 text-indigo-500"
@@ -53,9 +53,9 @@
                 <!-- Facturen -->
 
 
-                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
                     <a class="block text-pink-100 hover:text-white truncate transition duration-150 hover:text-gray-200"
-                        href="/dashboard/invoices/create">
+                        [routerLink]="['/dashboard/invoices/create']">
                         <div class="flex items-center">
                             <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                 <path class="fill-current text-gray-600" d="M0 20h24v2H0z"></path>
@@ -69,9 +69,9 @@
                 </li>
 
                 <!-- producten -->
-                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
                     <a class="block text-pink-100 hover:text-white truncate transition duration-150"
-                        href="/dashboard/products">
+                        [routerLink]="['/dashboard/products']">
                         <div class="flex items-center">
                             <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                 <path class="fill-current text-gray-400"
@@ -88,9 +88,9 @@
 
                 <!-- Organisatie -->
 
-                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
                     <a class="block text-pink-100 hover:text-white truncate transition duration-150"
-                        href="/dashboard/account">
+                        [routerLink]="['/dashboard/account']">
                         <div class="flex items-center">
                             <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                 <path class="fill-current text-gray-400"
@@ -105,6 +105,19 @@
                         </div>
                     </a>
                 </li>
+<li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
+    <a class="block text-pink-100 hover:text-white truncate transition duration-150" [routerLink]="['/dashboard/chat']">
+        <div class="flex items-center">
+            <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                <path class="fill-current text-gray-400" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z"></path>
+                <path class="fill-current text-gray-700" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z"></path>
+                <path class="fill-current text-gray-600" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z">
+                </path>
+            </svg>
+            <span class="text-sm font-medium ml-3">Chat</span>
+        </div>
+    </a>
+</li>
             </ul>
         </div>
         <!-- More group -->

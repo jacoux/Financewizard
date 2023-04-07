@@ -11,6 +11,8 @@ import { User } from 'src/app/shared/types/user';
 export class MainDashboardComponent implements OnInit {
   user: any;
   company: any;
+  render: any;
+  answer: any;
   constructor(
     public authService: AuthService,
     private store: Store,
@@ -18,7 +20,6 @@ export class MainDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.user = localStorage.getItem('user');
     this.company = this.orgApi.GetObject(
       'organizations',

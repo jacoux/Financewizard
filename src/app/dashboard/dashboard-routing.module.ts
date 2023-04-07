@@ -13,48 +13,57 @@ import { InvoiceCheckComponent } from './components/invoices/invoice-check/invoi
 import { ReadyComponent } from './components/invoices/ready/ready.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
+import { ChatComponent } from './components/chat/chat.component';
 const dashboardRoutes: Routes = [
-    {
-    path: 'dashboard', component: MainDashboardComponent, canActivate:[AuthGuard],
-    children: [
-  { path: 'invoices',
-    children: [
-      {
-        path: 'create',
-        component: NewInvoiceComponent
-      },
-      {
-        path: 'check',
-        component: InvoiceCheckComponent
-      },
-     {
-        path: 'ready',
-        component: ReadyComponent
-      },
-
-    ]
-
-  },
-  { path: 'clients', component: ClientComponent,
-    children: [
-      {
-        path: 'overview',
-        component: AllClientsComponent,
-      },
-      {
-        path: 'create',
-        component: CreateClientComponent,
-      },
-      {
-          path: ':id',
-          component: EditClientComponent,
-      },
-] },
-  { path: 'products', component: ProductsComponent },
   {
-    path: 'account', component: OrganizationComponent
-  },
-       ]
+    path: 'dashboard',
+    component: MainDashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'invoices',
+        children: [
+          {
+            path: 'create',
+            component: NewInvoiceComponent,
+          },
+          {
+            path: 'check',
+            component: InvoiceCheckComponent,
+          },
+          {
+            path: 'ready',
+            component: ReadyComponent,
+          },
+        ],
+      },
+      {
+        path: 'clients',
+        children: [
+          {
+            path: 'overview',
+            component: AllClientsComponent,
+          },
+          {
+            path: 'create',
+            component: CreateClientComponent,
+          },
+          {
+            path: ':id',
+            component: EditClientComponent,
+          },
+        ],
+      },
+      { path: 'products', component: ProductsComponent },
+      {
+        path: 'account',
+        component: OrganizationComponent,
+      },
+      {
+        path: 'chat',
+        component: ChatComponent,
+      },
+    ],
   },
 ];
 @NgModule({
