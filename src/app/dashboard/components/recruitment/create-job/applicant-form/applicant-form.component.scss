@@ -1,0 +1,7 @@
+.tile {
+    color: black;
+
+    &:hover {
+        cursor: grabbing;
+    }
+}

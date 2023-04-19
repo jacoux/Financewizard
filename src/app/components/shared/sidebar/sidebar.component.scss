@@ -1,0 +1,9 @@
+.show-active {
+    display: none;
+}
+
+.active {
+    .show-active {
+        display: block;
+    }
+}

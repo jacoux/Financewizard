@@ -1,0 +1,61 @@
+<div class="px-4 pt-12 pb-8">
+    <div class="max-w-md mx-auto w-full">
+        <div class="relative">
+            <div class="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-gray-200" aria-hidden="true"></div>
+            <ul class="relative flex justify-between w-full">
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="/dashboard/recruitment/create-job">1</a>
+
+                </li>
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-indigo-500 text-white"
+                        href="/dashboard/recruitment/create-job/step-2">2</a>
+
+                </li>
+
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="/dashboard/recruitment/create-job/step-3">3</a>
+
+                </li>
+
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="/dashboard/recruitment/create-job/step-4">4</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section [formGroup]="addForm">
+    <div class="flex flex-row mt-6 space-x-4 col-12" *ngFor="let row of getControls(); let index = index;" [id]="index">
+        <div class="col-12">
+            <label class="label">
+                <span class="label-text">Titel</span>
+            </label>
+            <input type="text" [value]="row.get('title')?.value" placeholder="Titel"
+                class="input input-bordered input-primary w-full max-w-xs" />
+            <label class="label">
+                <span class="label-text">Beschrijving</span>
+            </label>
+            <textarea type="textarea" [value]="row.get('description')?.value" placeholder="Beschrijving"
+                class="input input-bordered input-primary w-full"></textarea>
+        </div>
+        <button class="btn btn-circle btn-outline btn-primary-outline mt-8" (click)="onRemoveRow(index)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+    <select class="select select-primary w-full max-w-xs" (change)="selectTemplate($event.target.value)">
+        <option disabled selected>Kies template</option>
+        <option value="HHH">Huishoudhulp</option>
+        <option value="general">Algemeen</option>
+        <option value="long">Extra lang</option>
+    </select>
+    <button class="btn btn-wide btn-primary" (click)="onAddRow()">Voeg rij toe</button>
+
+</section>

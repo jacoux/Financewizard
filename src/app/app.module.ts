@@ -13,8 +13,9 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import {
   MatNativeDateModule,
   MAT_DATE_FORMATS,
@@ -36,6 +37,7 @@ import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 import { organizationState } from './store/organization/organization.models';
 import { organizationEffects } from './store/organization/organization.effects';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { InputComponent } from './components/shared/input/input.component';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -53,6 +55,7 @@ export function localStorageSyncReducer(
     SignUpComponent,
     ForgotPasswordComponent,
     OnboardingComponent,
+    InputComponent,
   ],
   imports: [
     MatDatepickerModule,
@@ -69,6 +72,7 @@ export function localStorageSyncReducer(
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatTooltipModule,
     BrowserAnimationsModule,
     DashboardRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),

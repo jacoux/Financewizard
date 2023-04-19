@@ -1,0 +1,490 @@
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-8">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Huishoudhulp Landen</h1>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+            <!-- Add board button -->
+            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                    <path
+                        d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                    </path>
+                </svg>
+                <span class="ml-2"></span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Filters -->
+
+    <div class="mb-4 border-b border-gray-200">
+
+        <ul class="text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar">
+            <li class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                <a [class]="tab === Tab.GENERAL ? 'block pb-3 text-indigo-500 whitespace-nowrap border-b-2 border-indigo-500': 'block pb-3 text-gray-500 hover:text-gray-600 whitespace-nowrap' "
+                    (click)="tab = Tab.GENERAL">Overzicht Vacature</a>
+            </li>
+            <li class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                <a [class]="tab === Tab.APPLICATION ? 'block pb-3 text-indigo-500 whitespace-nowrap border-b-2 border-indigo-500': 'block pb-3 text-gray-500 hover:text-gray-600 whitespace-nowrap' "
+                    (click)="tab = Tab.APPLICATION">Sollicitanten</a>
+            </li>
+            <li class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                <a [class]="tab === Tab.STATUS ? 'block pb-3 text-indigo-500 whitespace-nowrap border-b-2 border-indigo-500': 'block pb-3 text-gray-500 hover:text-gray-600 whitespace-nowrap' "
+                    (click)="tab = Tab.STATUS">Bord</a>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="tab === Tab.GENERAL">
+        <create-job></create-job>
+    </div>
+    <div *ngIf="tab === Tab.APPLICATION">
+        <job-applications></job-applications>
+    </div>
+    <!-- Cards -->
+    <div class="grid grid-cols-12 gap-x-4 gap-y-8 " cdkDropList cdkDropListOrientation="horizontal"
+        *ngIf="tab === Tab.STATUS">
+
+        <!-- Tasks cards -->
+        <!-- Nieuw -->
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">Nieuw🖋️</h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <!-- Card 1 -->
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline"
+                                        href="/dashboard/recruitment/applicant/123">Lotte desmet</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">7</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline" href="#0">Fien
+                                        Jacobs</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">1</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </header>
+        </div>
+
+        <!-- Review -->
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">Review</h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <!-- Card 1 -->
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline" href="#0">Bram
+                                        Van Damme</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">2</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </header>
+        </div>
+
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">Uitnodiging gesprek</h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <!-- Card 1 -->
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline"
+                                        href="#0">Jeroen Vermeulen</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">3</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </header>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">In sollicitatie </h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline"
+                                        href="#0">Ruben Peeters</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <div class="flex shrink-0 -space-x-3 -ml-px">
+                                <span class="badge bg-indigo-500 text-white text-sm"> Testen </span>
+                            </div>
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">12</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </header>
+        </div>
+        <!-- Column 3 -->
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">Aangeworven 🎉</h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <!-- Card 1 -->
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline"
+                                        href="#0">Lotte desmet</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">7</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </header>
+        </div>
+
+        <!-- Column 4 -->
+        <div class="col-span-full sm:col-span-6 xl:col-span-2">
+
+            <!-- Column header -->
+            <header>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="grow font-semibold text-gray-800 truncate">Gesloten 📒</h2>
+                    <button class="shrink-0 text-indigo-500 hover:text-indigo-600 ml-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                            <path
+                                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Cards -->
+                <div class="grid gap-1">
+
+                    <!-- Card 1 -->
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 p-4">
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <!-- Title -->
+                            <h2 class="font-semibold text-gray-800 mb-1"></h2>
+                            <!-- Content -->
+                            <div>
+                                <div class="text-sm"><a class="font-medium text-gray-800 hover:underline"
+                                        href="#0">Eline Van Hoof</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex shrink-0 -space-x-3 -ml-px">
+                                <span class="badge bg-red-500 text-white text-sm"> Afgewezen </span>
+                            </div>
+                            <!-- Right side -->
+                            <div class="flex items-center">
+
+                                <!-- Replies button -->
+                                <button class="flex items-center text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z">
+                                        </path>
+                                    </svg>
+                                    <div class="text-sm text-gray-500">12</div>
+                                </button>
+                                <!-- Attach button -->
+                                <button class="text-gray-400 hover:text-indigo-500 ml-3">
+                                    <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0zM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </header>
+        </div>
+
+    </div>
+
+</div>

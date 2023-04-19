@@ -1,0 +1,41 @@
+<div class="px-4 pt-12 pb-8">
+    <div class="max-w-md mx-auto w-full">
+        <div class="relative">
+            <div class="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-gray-200" aria-hidden="true"></div>
+            <ul class="relative flex justify-between w-full">
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="/dashboard/recruitment/create-job">1</a>
+
+                </li>
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="/dashboard/recruitment/create-job/step-2">2</a>
+
+                </li>
+
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-indigo-500 text-white"
+                        href="onboarding-03.html">3</a>
+
+                </li>
+
+                <li>
+                    <a class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-gray-100 text-gray-500"
+                        href="onboarding-04.html">4</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mb-8">
+    <h2 class="text-2xl text-gray-800 font-bold mb-6">Sollicitatieproces</h2>
+</div>
+
+<div class="flex mb-8 space-x-4">
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="tile col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200 px-4 py-4"
+            *ngFor="let movie of movies; let i = index" cdkDrag>{{i + 1}} {{movie}}</div>
+    </div>
+</div>

@@ -1,0 +1,868 @@
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+    <div class="sm:flex sm:justify-between sm:items-center mb-8">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Vacatures</h1>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+            <!-- Delete button -->
+            <div class="table-items-action hidden">
+                <div class="flex items-center">
+                    <div class="hidden xl:block text-sm italic mr-2 whitespace-nowrap"><span
+                            class="table-items-count"></span> items selected</div>
+                    <button
+                        class="btn bg-white border-gray-200 hover:border-gray-300 text-red-500 hover:text-red-600">Delete</button>
+                </div>
+            </div>
+
+            <!-- Dropdown -->
+            <div class="relative" x-data="{ open: false, selected: 2 }">
+                <button
+                    class="btn justify-between min-w-44 bg-white border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600"
+                    aria-label="Select date range" aria-haspopup="true" :aria-expanded="open" aria-expanded="false">
+                    <span class="flex items-center">
+                        <svg class="w-4 h-4 fill-current text-gray-500 shrink-0 mr-2" viewBox="0 0 16 16">
+                            <path
+                                d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z">
+                            </path>
+                        </svg>
+                        <span x-text="$refs.options.children[selected].children[1].innerHTML">April</span>
+                    </span>
+                    <svg class="shrink-0 ml-1 fill-current text-gray-400" width="11" height="7" viewBox="0 0 11 7">
+                        <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z"></path>
+                    </svg>
+                </button>
+                <div class="z-10 absolute top-full right-0 w-full bg-white border border-gray-200 py-1.5 rounded shadow-lg overflow-hidden mt-1"
+                    x-transition:enter="transition ease-out duration-100 transform"
+                    x-transition:enter-start="opacity-0 -translate-y-2"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" style="display: none;">
+                    <div class="font-medium text-sm text-gray-600" x-ref="options">
+                        <button tabindex="0" class="flex items-center w-full hover:bg-gray-50 py-1 px-3 cursor-pointer"
+                            :class="selected === 0 &amp;&amp; 'text-indigo-500'">
+                            <svg class="shrink-0 mr-2 fill-current text-indigo-500 invisible"
+                                :class="selected !== 0 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+                                <path
+                                    d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z">
+                                </path>
+                            </svg>
+                            <span>Today</span>
+                        </button>
+                        <button tabindex="0" class="flex items-center w-full hover:bg-gray-50 py-1 px-3 cursor-pointer"
+                            :class="selected === 1 &amp;&amp; 'text-indigo-500'">
+                            <svg class="shrink-0 mr-2 fill-current text-indigo-500 invisible"
+                                :class="selected !== 1 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+                                <path
+                                    d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z">
+                                </path>
+                            </svg>
+                            <span>Last 7 Days</span>
+                        </button>
+                        <button tabindex="0"
+                            class="flex items-center w-full hover:bg-gray-50 py-1 px-3 cursor-pointer text-indigo-500"
+                            :class="selected === 2 &amp;&amp; 'text-indigo-500'">
+                            <svg class="shrink-0 mr-2 fill-current text-indigo-500"
+                                :class="selected !== 2 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+                                <path
+                                    d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z">
+                                </path>
+                            </svg>
+                            <span>Last Month</span>
+                        </button>
+                        <button tabindex="0" class="flex items-center w-full hover:bg-gray-50 py-1 px-3 cursor-pointer"
+                            :class="selected === 3 &amp;&amp; 'text-indigo-500'">
+                            <svg class="shrink-0 mr-2 fill-current text-indigo-500 invisible"
+                                :class="selected !== 3 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+                                <path
+                                    d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z">
+                                </path>
+                            </svg>
+                            <span>Last 12 Months</span>
+                        </button>
+                        <button tabindex="0" class="flex items-center w-full hover:bg-gray-50 py-1 px-3 cursor-pointer"
+                            :class="selected === 4 &amp;&amp; 'text-indigo-500'">
+                            <svg class="shrink-0 mr-2 fill-current text-indigo-500 invisible"
+                                :class="selected !== 4 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+                                <path
+                                    d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z">
+                                </path>
+                            </svg>
+                            <span>All Time</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter button -->
+            <div class="relative inline-flex">
+                <button class="btn bg-white border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600">
+                    <span class="sr-only">Filter</span><wbr>
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                        <path
+                            d="M9 15H7a1 1 0 010-2h2a1 1 0 010 2zM11 11H5a1 1 0 010-2h6a1 1 0 010 2zM13 7H3a1 1 0 010-2h10a1 1 0 010 2zM15 3H1a1 1 0 010-2h14a1 1 0 010 2z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Add customer button -->
+            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                    <path
+                        d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
+                    </path>
+                </svg>
+                <span class="hidden xs:block ml-2">Vacature toevoegen</span>
+            </button>
+
+        </div>
+
+    </div>
+    <div class="grid grid-cols-12 gap-6">
+        <div class="col-span-full col-span-12">
+            <div>
+                <h2 class="text-2xl text-gray-800 font-bold mb-6">Open vacatures</h2>
+                <!-- Start -->
+                <div class="mb-8 border-b border-gray-200">
+                    <ul
+                        class="text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar">
+                        <li (click)="view = 'cards'"
+                            class="hover:cursor-pointer pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                            <div
+                                [class]="view === 'cards' ? 'text-indigo-500 hover:text-gray-600 whitespace-nowrap flex items-center': ' text-gray-500  hover:text-gray-600 whitespace-nowrap flex items-center'">
+                                <svg class="w-4 h-4 shrink-0 fill-current text-gray-400 mr-2" viewBox=" 0 0 16 16">
+
+                                    <path d="M0 0h24v24H0z">
+                                    </path>
+
+                                </svg>
+                                <span>Tegels</span>
+                            </div>
+                        </li>
+                        <li (click)="view = 'list'"
+                            class="hover:cursor-pointer pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                            <div
+                                [class]="view === 'list' ? 'text-indigo-500 hover:text-gray-600 whitespace-nowrap flex items-center' : 'text-gray-500 hover:text-gray-600 whitespace-nowrap flex items-center' ">
+                                <svg class="w-4 h-4 shrink-0 fill-current text-gray-400 mr-2" viewBox=" 0 0 16 16">
+                                    <path
+                                        d="M5 9h11v2H5V9zM0 9h3v2H0V9zm5 4h6v2H5v-2zm-5 0h3v2H0v-2zm5-8h7v2H5V5zM0 5h3v2H0V5zm5-4h11v2H5V1zM0 1h3v2H0V1z">
+                                    </path>
+                                </svg>
+                                <span>Lijst</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End -->
+            </div>
+        </div>
+        <ng-container *ngIf="view === 'cards'">
+            <!-- Card 1 -->
+            <div class="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900"
+                                            href="/dashboard/recruitment/job/123">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Huishoudhulp
+                                                te
+                                                Landen
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">6</div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-title">Nieuw</div>
+                                <div class="stat-value">2</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Bewerk</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Boekhouder
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">2</div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-title">Nieuw</div>
+                                <div class="stat-value">1</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Bewerk</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Project
+                                                manager IT
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">0</div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-title">Nieuw</div>
+                                <div class="stat-value">0</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Bewerk</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">
+                                                Verantwoordelijke
+                                                kinderopvang
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">0</div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-title">Nieuw</div>
+                                <div class="stat-value">0</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Bewerk</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Huishoudhulp
+                                                te
+                                                Landen
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">6</div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-title">Nieuw</div>
+                                <div class="stat-value">2</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Bewerk</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-full col-span-12 border-t border-indigo-500 py-4">
+                <h2>Gesloten vacatures</h2>
+            </div>
+
+            <div
+                class="col-span-full sm:col-span-6 xl:col-span-4 bg-gray-200 shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Huishoudhulp
+                                                te
+                                                Landen
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 bg-gray-200 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">6</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Heropen</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-span-full sm:col-span-6 xl:col-span-4 bg-gray-200 shadow-lg rounded-sm border border-gray-200">
+                <div class="flex flex-col h-full">
+                    <!-- Card top -->
+                    <div class="grow p-5">
+                        <div class="flex justify-between items-start">
+                            <!-- Image + name -->
+                            <header>
+                                <div class="flex mb-2">
+
+                                    <div class="mt-1 pr-1">
+                                        <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
+                                            <h2 class="text-xl leading-snug justify-center font-semibold">Boekhouder
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Menu button -->
+                            <div class="relative inline-flex shrink-0">
+                                <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                    <span class="sr-only">Menu</span>
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                        <circle cx="16" cy="16" r="2" />
+                                        <circle cx="10" cy="16" r="2" />
+                                        <circle cx="22" cy="16" r="2" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </div>
+                        <!-- Bio -->
+                        <div class="mt-2">
+                            <div class="text-sm">Kandidaten:</div>
+                        </div>
+                        <div class="stats border-gray-100 bg-gray-200 text-primary-content">
+
+                            <div class="stat">
+                                <div class="stat-title">Totaal</div>
+                                <div class="stat-value">2</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                    <div class="border-t border-gray-200">
+                        <div class="flex divide-x divide-gray-200r">
+                            <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
+                                href="/dashboard/recruitment/applicants/123">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current shrink-0 mr-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
+                                    </svg>
+                                    <span>Bekijk sollicitanten</span>
+                                </div>
+                            </a>
+                            <a class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 py-4 group"
+                                href="settings.html">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 shrink-0 mr-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                    </svg>
+                                    <span>Heropen</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+        <ng-container *ngIf="view === 'list'">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="p-4">
+                            <div class="flex items-center">
+                                <input id="checkbox-all-search" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Titel
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Datum
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Departement
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Verantwoordelijke
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Acties
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let c of vacancies">
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-table-search-1" type="checkbox"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 white:text-dark whitespace-nowrap">
+                                <a href="/dashboard/recruitment/applicant/123">{{c.title}}</a>
+                            </th>
+                            <td class="px-6 py-4">
+                                <div *ngIf="c.status === 'closed'"
+                                    class="inline-flex font-medium bg-red-100 text-red-500 rounded-full text-center px-2.5 py-0.5">
+                                    {{c.status}}</div>
+                                <div *ngIf="c.status === 'open'"
+                                    class="inline-flex font-medium  bg-green-100 text-green-600 rounded-full text-center px-2.5 py-0.5">
+                                    {{c.status}}</div>
+
+                            </td>
+                            <td class="px-6 py-4">
+                                {{c.publishedDate}}
+
+                            </td>
+                            <td class="px-6 py-4">
+                                {{c.department}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{c.responsible}}
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                <div class="space-x-1">
+                                    <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                        <span class="sr-only">Edit</span>
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                            <path
+                                                d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                    <button class="text-gray-400 hover:text-gray-500 rounded-full">
+                                        <span class="sr-only">Download</span>
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                            <path
+                                                d="M16 20c.3 0 .5-.1.7-.3l5.7-5.7-1.4-1.4-4 4V8h-2v8.6l-4-4L9.6 14l5.7 5.7c.2.2.4.3.7.3zM9 22h14v2H9z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-600 rounded-full">
+                                        <span class="sr-only">Delete</span>
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                            <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
+                                            <path
+                                                d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </ng-container>
+                </tbody>
+            </table>
+        </ng-container>
+        <!-- <div
+        class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-gray-800">Vacature</h2>
+        </header>
+
+        <div class="grow flex flex-col justify-center">
+            <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
+                <div>
+
+                </div>
+                <ul>
+                    <li>- Bekijk vacatures</li>
+                    <li>
+                        <a href="/dashboard/recruitment/create-job">Maak een vacature aan</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div
+        class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-gray-800">Sollicitanten</h2>
+        </header>
+
+        <div class="grow flex flex-col justify-center">
+            <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
+                <div>
+
+                </div>
+                <ul>
+                    <li>- Bekijk sollicitanten</li>
+                    <li>- CV databank</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div
+        class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-gray-800">Instellingen</h2>
+        </header>
+
+        <div class="grow flex flex-col justify-center">
+            <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
+                <div>
+
+                </div>
+                <ul>
+                    <li>- Beheer mailtemplates</li>
+                    <li>- Beheer solliciatatieformulieren</li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div> -->
+    </div>
+</div>

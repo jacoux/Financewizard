@@ -15,7 +15,7 @@
             <div class="">
                 <a href="/" aria-current="page" aria-label="Homepage" class="flex-0 btn btn-ghost px-1">
                     <div class="font-title text-white inline-flex text-lg transition-all duration-200 md:text-3xl"><span
-                            class="lowercase">Finance</span> <span class="text-gray-600 uppercase">wizard</span></div>
+                            class="uppercase">HR </span> <span class="text-gray-600 uppercase">wizard</span></div>
                 </a> <a href="/docs/changelog" class="link link-hover font-mono text-xs text-opacity-50">
                     <div data-tip="Changelog" class="tooltip tooltip-bottom">2.51.3</div>
                 </a>
@@ -117,6 +117,53 @@
             <span class="text-sm font-medium ml-3">Chat</span>
         </div>
     </a>
+</li>
+<li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900 active">
+    <a class="block text-pink-100 hover:text-white truncate transition duration-150"
+        [routerLink]="['/dashboard/recruitment']">
+        <div class="flex items-center">
+            <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                <path class="fill-current text-gray-400"
+                    d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z">
+                </path>
+                <path class="fill-current text-gray-700"
+                    d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z">
+                </path>
+
+            </svg>
+            <span class="text-sm font-medium ml-3">Rekrutering</span>
+        </div>
+    </a>
+    <div class="show-active lg:sidebar-expanded:block 2xl:block">
+        <ul class="pl-9 mt-1">
+            <a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate"
+                [routerLink]="['/dashboard/recruitment']">
+                <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    Vacatures
+                </span>
+            </a>
+            <a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate"
+                [routerLink]="['/dashboard/recruitment/create-job']">
+                <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200"
+                    routerLinkActive="text-indigo-200">
+                    Maak nieuwe vacature
+                </span>
+            </a>
+            <a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate"
+                [routerLink]="['/dashboard/recruitment']">
+                <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    Lijsten
+                </span>
+            </a>
+            <a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate"
+                [routerLink]="['/dashboard/recruitment/all-candidates']">
+                <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200"
+                    routerLinkActive="text-indigo-200">
+                    Kandidaten
+                </span>
+            </a>
+        </ul>
+    </div>
 </li>
             </ul>
         </div>

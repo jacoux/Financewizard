@@ -26,6 +26,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AddProductModalComponent } from './components/products/add-product-modal/add-product-modal.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { CreateJobComponent } from './components/recruitment/create-job/create-job.component';
+import { RecruitmentComponent } from './components/recruitment/recruitment.component';
+import { ApplicantFormComponent } from './components/recruitment/create-job/applicant-form/applicant-form.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ApplicantProcessComponent } from './components/recruitment/create-job/applicant-process/applicant-process.component';
+import { AngularJsonFormModule } from 'angular-json-form';
+import { JobDescriptionComponent } from './components/recruitment/create-job/job-description/job-description.component';
+import { JobApplicantsComponent } from './components/recruitment/job-applicants/job-applicants.component';
+import { ApplicantDetailComponent } from './components/recruitment/job-applicants/applicant-detail/applicant-detail.component';
+import { JobDetailComponent } from './components/recruitment/job-detail/job-detail.component';
+import { AllCandidatesComponent } from './components/recruitment/all-candidates/all-candidates.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -49,6 +62,15 @@ import { ChatComponent } from './components/chat/chat.component';
     MainDashboardComponent,
     AddProductModalComponent,
     ChatComponent,
+    CreateJobComponent,
+    RecruitmentComponent,
+    ApplicantFormComponent,
+    ApplicantProcessComponent,
+    JobDescriptionComponent,
+    JobApplicantsComponent,
+    ApplicantDetailComponent,
+    JobDetailComponent,
+    AllCandidatesComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +81,10 @@ import { ChatComponent } from './components/chat/chat.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
+    DragDropModule,
+    AngularJsonFormModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class DashboardModule {}
