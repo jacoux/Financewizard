@@ -26,12 +26,13 @@ export class NewInvoiceComponent implements OnInit {
   total = 0;
   totalVatAmount = 0;
   visible: boolean = false;
+  showMyDetails: boolean = true;
 
   invoiceFrom = new UntypedFormGroup({
     client: new UntypedFormControl(null, [Validators.required]),
     invoiceDate: new UntypedFormControl(new Date(), [Validators.required]),
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
-    payWithin: new UntypedFormControl(30, [Validators.required]),
+    payWithin: new UntypedFormControl(7, [Validators.required]),
     total: new UntypedFormControl(null, [Validators.required]),
     vatAmount: new UntypedFormControl(null, [Validators.required]),
     footer: new UntypedFormControl(null, [Validators.required]),
@@ -162,6 +163,10 @@ export class NewInvoiceComponent implements OnInit {
     this.crudApi.GetObjectsList('products').subscribe((data) => {
       this.products = data;
     });
+  }
+
+  hide() {
+    this.showMyDetails = !this.showMyDetails;
   }
 
   getClients() {

@@ -12,3 +12,43 @@
     opacity: 0;
     z-index: 0;
 }
+.header-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: underline;
+    color: #d18400;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .icon {
+        width: 20px;
+    }
+}
+
+.inputInvoice {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+
+    .inputF {
+        display: flex;
+    }
+}

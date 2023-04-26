@@ -23,6 +23,7 @@ import { JobApplicantsComponent } from './components/recruitment/job-applicants/
 import { ApplicantDetailComponent } from './components/recruitment/job-applicants/applicant-detail/applicant-detail.component';
 import { JobDetailComponent } from './components/recruitment/job-detail/job-detail.component';
 import { AllCandidatesComponent } from './components/recruitment/all-candidates/all-candidates.component';
+import { EstimatesComponent } from './components/estimates/estimates.component';
 const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
@@ -43,6 +44,23 @@ const dashboardRoutes: Routes = [
           {
             path: 'ready',
             component: ReadyComponent,
+          },
+        ],
+      },
+      {
+        path: 'estimates',
+        children: [
+          {
+            path: 'create',
+            component: EstimatesComponent,
+          },
+          {
+            path: 'check',
+            component: EstimatesComponent,
+          },
+          {
+            path: 'ready',
+            component: EstimatesComponent,
           },
         ],
       },

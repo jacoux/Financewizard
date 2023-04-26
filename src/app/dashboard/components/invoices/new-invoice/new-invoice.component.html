@@ -1,229 +1,234 @@
-
 <form (submit)="submit()" [formGroup]="invoiceFrom" class="grid grid-cols-12 gap-6">
   <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
-    <header class="px-5 py-4 border-b border-gray-100">
-    </header>
     <div id="dashboard-card-04-legend" class="flex flex-row px-5 py-3">
       <div class="basis-1/4">
       </div>
       <div class="basis-1/2">
-        <ul class="steps center">
+        <app-stepper></app-stepper>
+        <!-- <ul class="steps center">
           <li class="step step-primary">Gegevens</li>
-          <li class="step ">Laatste check & Genereer Factuur</li>
+          <li class="step ">Laatste check & maak factuur</li>
           <li class="step">Klaar</li>
-        </ul>
+        </ul> -->
       </div>
       <div class="basis-1/4">
-        <button routerLink="/dashboard/invoices/check" class="btn btn-wide btn-primary">Volgende</button>
       </div>
 
     </div>
-    </div>
-
-  <div class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-xl rounded-box rounded-sm">
-    <header class="px-5 py-4 border-b border-gray-100">
-      <h2 class="font-semibold text-gray-800">Jouw gegevens</h2>
-    </header>
-    <div id="dashboard-card-04-legend" class="px-5 py-3">
-      <div class="indicator mb-6">
-        <span class="indicator-item badge badge-primary">Premium</span>
-        <select class="select select-primary w-full " disabled>
-          <option disabled selected>Kies organisatie</option>
-          <option>Game of Thrones</option>
-          <option>Lost</option>
-          <option>Breaking Bad</option>
-          <option>Walking Dead</option>
-        </select>
-      </div>
-      <div class=" bg-base-100">
-        <div class="card-body">
-          <h2 class="card-title">Jacoux bv</h2>
-          <p>Helstraat 12B</p>
-          <p>3400 Landen</p>
-          <p>0493 02 97 13</p>
-          <p>BE 0704 651 352</p>
+  </div>
+  <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
+    <div id="dashboard-card-04-legend" class=" px-5 py-3">
+      <header class="px-5 py-4  header-card">
+        <h2 class="font-semibold text-gray-800">Jouw gegevens</h2>
+        <div class="dropdown-icon" style="width: 20px;" (click)="hide()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z"
+              fill="#000000" />
+          </svg>
         </div>
-      </div>
+      </header>
+      <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
+        <div class="basis-1/2">
+          <div class="max-w-sm">
+            <img class="max-w-sm py-5" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" />
+          </div>
+        </div>
+        <div class="basis-1/2">
+          <div class=" bg-base-100">
+            <div class="card-body">
+              <input type="text" class="input input-bordered input-primary w-full max-w-xs" placeholder="Factuurnaam" />
+              <h2 class="card-title">Jacoux bv</h2>
+              <p>Helstraat 12B</p>
+              <p>3400 Landen</p>
+              <p>0493 02 97 13</p>
+              <p>BE 0704 651 352</p>
+              </div>
+            <div class="edit edit-button">
+            
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666666">
+            
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+            
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+            
+                <g id="SVGRepo_iconCarrier">
+                  <path opacity="0.15" d="M4 20H8L18 10L14 6L4 16V20Z" fill="#d18400" />
+                  <path d="M18 10L21 7L17 3L14 6M18 10L8 20H4V16L14 6M18 10L14 6" stroke="#d18400" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+            
+              </svg>
+              <p class="pl-5"> Bewerk gegevens</p>
+            </div>
+            </div>
+        </div>
 
+      </div>
     </div>
   </div>
   <!-- aan-->
-  <div class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-xl rounded-box rounded-sm ">
-    <header class="px-5 py-4 border-b border-gray-100">
-      <h2 class="font-semibold text-gray-800">Klant</h2>
-    </header>
-    <div id="dashboard-card-04-legend " class="px-5 py-3">
-      <select (change)="onClientChange($event.target.value)" class="select select-primary w-full mb-6">
-        <option *ngFor="let client of clients" [value]="client._id">{{client.name}}</option>
-
-      </select>
-      <br>
-      <!-- <a href="/clients/create">Voeg nieuwe klant toe</a> -->
-      <div class=" bg-base-100 " *ngIf="selectedClient">
-        <div class="card-body">
-          <h2 class="card-title">{{selectedClient.name}}</h2>
-          <p>{{selectedClient.address}}</p>
-          <p>{{selectedClient.vat}}</p>
+  <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
+    <div id="dashboard-card-04-legend" class=" px-5 py-3">
+      <header class="px-5 py-4  header-card">
+        <h2 class="font-semibold text-gray-800">Factuurgegevens</h2>
+        <div class="dropdown-icon" style="width: 20px;" (click)="hide()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z"
+              fill="#000000" />
+          </svg>
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- Aanmaakdatum -->
-  <div
-    class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
-    <header class="px-5 py-4 border-b border-gray-100">
-      <h2 class="font-semibold text-gray-800">Aanmaakdatum</h2>
-    </header>
-    <!-- Chart built with Chart.js 3 -->
-    <!-- Check out src/js/components/dashboard-card-06.js for config -->
-    <div class="grow flex flex-col justify-center">
-      <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
-        <div>
-          <mat-datepicker-toggle class="pt-9 picker-icon" matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <input matInput formControlName="invoiceDate" (dateChange)="payWithinChange()" [matDatepicker]="picker"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <mat-datepicker #picker></mat-datepicker>
-        </div>
-      </div>
-    </div>
-    </div>
-    
-    <!-- Betalen binnen -->
-    <div
-      class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
-      <header class="px-5 py-4 border-b border-gray-100">
-        <h2 class="font-semibold text-gray-800">betaaltermijn</h2>
       </header>
-    
-      <div class="grow flex flex-col justify-center">
-      <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
-        <div>
-          <input type="range" [(ngModel)]="payWithin" (change)="payWithinChange()" min=0 max=100 value=30
-            formControlName="payWithin" class="range range-secondary" />
-        </div>
-        <p> Betalen binnen {{payWithin}} dagen</p>
+      <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
+        <div class="basis-1/2">
+          <!-- <a href="/clients/create">Voeg nieuwe klant toe</a> -->
+          <div class=" bg-base-100 ">
+            <div class="card-body">
+              <select (change)="onClientChange($event.target.value)" class="select select-primary w-full mb-6">
+                <option selected>Klantgegevens</option>
+                <option *ngFor="let client of clients" [value]="client._id">{{client.name}}</option>
 
-      </div>
-      </div>
-      </div>
-      <!-- Uiterste betaaldatum -->
-      <div
-        class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
-        <header class="px-5 py-4 border-b border-gray-100">
-          <h2 class="font-semibold text-gray-800">Uiterste betaaldatum</h2>
-        </header>
-        <!-- Chart built with Chart.js 3 -->
-        <!-- Check out src/js/components/dashboard-card-06.js for config -->
-        <div class="grow flex flex-col justify-center">
-          <div id="dashboard-card-06-legend" class="px-5 pt-2 pb-6">
-            <div>
-              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-      
-              <input matInput matSuffix [matDatepicker]="picker2" formControlName="paymentDate"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <mat-datepicker #picker2></mat-datepicker>
+              </select>
+              <div *ngIf="selectedClient">
+                <h2 class="card-title">{{selectedClient.name}}</h2>
+                <p>{{selectedClient.address}}</p>
+                <p>{{selectedClient.vat}}</p>
+              </div>
+              </div>
+              </div>
+              </div>
+        <div class="basis-1/2">
+          <div class=" bg-base-100">
+            <div class="card-body">
+              <div class="flex flex-row inputInvoice">
+                <label class="color-gray-200 pr-10">Aanmaakdatum:</label>
+                <div
+                  class="inputF flex bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500">
+                  <mat-datepicker-toggle class=" picker-icon text-gray-900 " matIconSuffix
+                    [for]="picker"></mat-datepicker-toggle>
+                  <input formControlName="invoiceDate" (dateChange)="payWithinChange()" [matDatepicker]="picker">
+                  <mat-datepicker #picker></mat-datepicker>
+                </div>
+              </div>
+              <div class="flex flex-row inputInvoice">
+                <label class="color-gray-200 pr-10">Betaaldatum:</label>
+                <div class="inputF flex bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500">
+                  <mat-datepicker-toggle class=" picker-icon text-gray-900 " matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <input formControlName="paymentDate" [matDatepicker]="picker2">
+                  <mat-datepicker #picker2></mat-datepicker>
+                </div>
+                </div>
+                            <div>
+                              <input type="range" [(ngModel)]="payWithin" (change)="payWithinChange()" min=0 max=100 value=30
+                                formControlName="payWithin" class="range range-secondary" />
+                              <p> Betalen binnen {{payWithin}} dagen</p>
+                              
+                              </div>
+                              </div>
+                              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+  <!-- Factuurgegevens -->
+  <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
+    <header class="px-5 py-4 border-b border-gray-100">
+      <h2 class="font-semibold text-gray-800">Factuur</h2>
+    </header>
+    <div id="dashboard-card-04-legend" class="px-5 py-3">
+      <section [formGroup]="addForm">
+        <div class="flex flex-row mt-6 space-x-4" *ngFor="let row of getControls(); let index = index;" [id]="index">
+          <div class="basis-1/4">
+            <div class="relative max-w-sm">
+              <label class="label">
+                <span class="label-text"> Item
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                  style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                  <path
+                    d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                  </path>
+                </svg>
+  
+              </label>
+              <select *ngIf="!row.get('isCustom')?.value && products.length > 0"
+                (change)="selectProd(index, $event.target.value)" class="select select-primary w-full max-w-xs">
+                <option *ngFor="let prod of products" [value]="prod._id">{{prod.name}}</option>
+              </select>
+              <input *ngIf="row.get('isCustom')?.value" [value]="row.get('name')?.value"
+                class="input input-bordered input-primary w-full max-w-xs" />
+
+            </div>
+            </div>
+            <div class="basis-1/12">
+              <div class="relative max-w-sm">
+                <label class="label">
+                  <span class="label-text">Aantal</span>
+                </label>
+                <input (change)="changeAmount(index, $event.target.value)" type="number" [value]="row.get('qty')?.value"
+                  placeholder="Aantal" class="input input-bordered input-primary w-full max-w-xs" />
+              </div>
+            </div>
+            <div class="basis-1/6">
+              <div class="relative max-w-sm">
+                <label class="label">
+                  <span class="label-text">Prijs</span>
+                </label>
+                <input (change)="changePrice(index, $event.target.value)" type="number" [value]="row.get('price')?.value"
+                placeholder="Prijs" class="input input-bordered input-primary w-full max-w-xs" />
             </div>
           </div>
-        </div>
-      </div>
-      <!-- Factuurgegevens -->
-      <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
-        <header class="px-5 py-4 border-b border-gray-100">
-          <h2 class="font-semibold text-gray-800">Factuur</h2>
-        </header>
-        <div id="dashboard-card-04-legend" class="px-5 py-3">
-          <section [formGroup]="addForm">
-            <div class="flex flex-row mt-6 space-x-4" *ngFor="let row of getControls(); let index = index;" [id]="index">
-              <div class="basis-1/4">
-                <div class="relative max-w-sm">
-                  <label class="label">
-                    <span class="label-text"> Item
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                      style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
-                      <path
-                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                      </path>
-                    </svg>
-            
-                  </label>
-                  <select *ngIf="!row.get('isCustom')?.value && products.length > 0" (change)="selectProd(index, $event.target.value)"
-                    class="select select-primary w-full max-w-xs">
-                    <option *ngFor="let prod of products" [value]="prod._id">{{prod.name}}</option>
-                  </select>
-                      <input *ngIf="row.get('isCustom')?.value" [value]="row.get('name')?.value"
-                        class="input input-bordered input-primary w-full max-w-xs" />
 
-                </div>
-                </div>
-                <div class="basis-1/12">
-                  <div class="relative max-w-sm">
-                    <label class="label">
-                      <span class="label-text">Aantal</span>
-                    </label>
-                    <input (change)="changeAmount(index, $event.target.value)" type="number" [value]="row.get('qty')?.value"
-                      placeholder="Aantal" class="input input-bordered input-primary w-full max-w-xs" />
-                  </div>
-                </div>
-                <div class="basis-1/6">
-                  <div class="relative max-w-sm">
-                    <label class="label">
-                      <span class="label-text">Prijs</span>
-                    </label>
-                    <input (change)="changePrice(index, $event.target.value)" type="number" [value]="row.get('price')?.value"
-                      placeholder="Prijs"
-                      class="input input-bordered input-primary w-full max-w-xs" />
-                  </div>
-                </div>
-                
-                <div class="basis-1/12">
-                  <div class="relative max-w-sm">
-                    <label class="label">
-                      <span class="label-text">BTW</span>
-                    </label>
-                    <select [value]="row.get('vat')?.value" class="select select-primary w-full max-w-xs"
-                      (change)="calculateTotalWithVat(index, $event.target.value)">
-                      <option disabled selected>BTW</option>
-                      <option value="21">21%</option>
-                      <option value="6">6%</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <div class="basis-1/12">
-                  <div class="relative max-w-sm">
-                    <label class="label">
-                      <span class="label-text">BTW prijs</span>
-                    </label>
-                    <input disabled [value]="row.get('vatAmount')?.value" type="number" placeholder="123"
-                      class="input input-bordered input-primary w-full max-w-xs" />
-                  </div>
-                </div>
-                
-                <div class="basis-1/6">
-                  <div class="relative max-w-sm">
-                    <label class="label">
-                      <span class="label-text">Totaal</span>
-                    </label>
-                    <input disabled type="number" [value]="row.get('total')?.value" placeholder="Totaal"
-                      class="input input-bordered input-primary w-full max-w-xs" />
-                  </div>
-                </div>
-                <div class="basis-1/12">
-                  <button class="btn btn-circle btn-outline btn-primary-outline mt-8" (click)="onRemoveRow(index)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-                </div>
-                <div class="flex flex-row mt-6 space-x-4">
-                  <div class="basis-1/4 group">
-                    <button class="btn btn-wide btn-primary" (click)="onAddRow()">Snel invullen</button>
-                  </div>
-            <div class="basis-1/4">
-              <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg manueel toe</button>
+          <div class="basis-1/12">
+            <div class="relative max-w-sm">
+              <label class="label">
+                <span class="label-text">BTW</span>
+              </label>
+              <select [value]="row.get('vat')?.value" class="select select-primary w-full max-w-xs"
+                (change)="calculateTotalWithVat(index, $event.target.value)">
+                <option disabled selected>BTW</option>
+                <option value="21">21%</option>
+                <option value="6">6%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="basis-1/12">
+            <div class="relative max-w-sm">
+              <label class="label">
+                <span class="label-text">BTW prijs</span>
+              </label>
+              <input disabled [value]="row.get('vatAmount')?.value" type="number" placeholder="123"
+                class="input input-bordered input-primary w-full max-w-xs" />
+            </div>
+          </div>
+
+          <div class="basis-1/6">
+            <div class="relative max-w-sm">
+              <label class="label">
+                <span class="label-text">Totaal</span>
+              </label>
+              <input disabled type="number" [value]="row.get('total')?.value" placeholder="Totaal"
+                class="input input-bordered input-primary w-full max-w-xs" />
+            </div>
+          </div>
+          <div class="basis-1/12">
+            <button class="btn btn-circle btn-outline btn-primary-outline mt-8" (click)="onRemoveRow(index)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              </button>
               </div>
+              </div>
+              <div class="flex flex-row mt-6 space-x-4">
+                <div class="basis-1/4 group">
+                  <button class="btn btn-wide btn-primary" (click)="onAddRow()">Snel invullen</button>
+                </div>
+                <div class="basis-1/4">
+                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg manueel toe</button>
+                </div>
               </div>
               
               <div class="stats text-primary-content mt-6">
@@ -239,20 +244,20 @@
                 </div>
               
               </div>
-            </section>
-            </div>
-            </div>
-            <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
-              <header class="px-5 py-4 border-b border-gray-100">
-                <h2 class="font-semibold text-gray-800">Voettekst</h2>
-              </header>
-              <div id="dashboard-card-04-legend" class="px-5 py-3">
-                <textarea formControlName="footer" class="textarea w-full mt-6"
-                  placeholder="Te betalen voor ... op rekeningnummer..."></textarea>
+              </section>
+              </div>
+              </div>
+              <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
+                <header class="px-5 py-4 border-b border-gray-100">
+                  <h2 class="font-semibold text-gray-800">Voettekst</h2>
+                </header>
+                <div id="dashboard-card-04-legend" class="px-5 py-3">
+                  <textarea formControlName="footer" class="textarea w-full mt-6"
+                    placeholder="Te betalen voor ... op rekeningnummer..."></textarea>
 
     </div>
-    </div>
-        <button class="btn btn-wide btn-primary" (click)="submit()"> Volgende stap</button>
+  </div>
+  <button class="btn btn-wide btn-primary" (click)="submit()"> Volgende stap</button>
 
 </form>
 <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">

@@ -39,6 +39,8 @@ import { JobDetailComponent } from './components/recruitment/job-detail/job-deta
 import { AllCandidatesComponent } from './components/recruitment/all-candidates/all-candidates.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EstimatesComponent } from './components/estimates/estimates.component';
+import { StepperComponent } from '../components/shared/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ApplicantDetailComponent,
     JobDetailComponent,
     AllCandidatesComponent,
+    EstimatesComponent,
+    StepperComponent,
   ],
   imports: [
     CommonModule,

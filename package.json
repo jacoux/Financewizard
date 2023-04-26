@@ -36,6 +36,7 @@
     "dom-to-image": "^2.6.0",
     "firebase": "^9.16.0",
     "jspdf": "^2.5.1",
+    "list.js": "^2.3.1",
     "moment": "^2.29.4",
     "nanoid": "^4.0.1",
     "ngrx-store-localstorage": "^14.0.0",
