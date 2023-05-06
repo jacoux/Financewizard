@@ -57,7 +57,7 @@
                 (click)="authService.ForgotPassword(userName.value)">Wachtwoord vergeten?</button>
             </div>
             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3"
-              (click)="authService.SignIn(userName.value, userPassword.value)">Inloggen</button>
+              (click)="signIn(userName.value, userPassword.value)">Inloggen</button>
           </div>
         </form>
         <p class="text-1xl text-gray-800 font-bold mb-6">

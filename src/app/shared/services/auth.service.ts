@@ -8,12 +8,17 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
+import { error } from 'console';
+import { response } from 'express';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any;
   constructor(
+    private http: HttpClient,
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
@@ -35,35 +40,34 @@ export class AuthService {
       }
     });
   }
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Observable((observer) => observer.next(new Error()))
+    );
+  }
   // Sign in with email/password
   SignIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.router.navigate(['dashboard']);
-          }
-        });
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case 'auth/user-not-found': {
-            window.alert('Deze Gebruiker bestaat niet');
-            break;
-          }
-          case 'auth/wrong-password': {
-            window.alert('Het wachtwoord klopt niet');
-            break;
-          }
-          default: {
-            window.alert(error.message);
-            break;
-          }
-        }
-      });
+    return this.http.post(
+      'http://localhost:3000/login',
+      { email: email, password: password },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
+
   // Sign up with email/password
   SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
     return this.afAuth
