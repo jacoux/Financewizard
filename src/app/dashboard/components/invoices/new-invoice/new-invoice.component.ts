@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -209,7 +215,6 @@ export class NewInvoiceComponent implements OnInit {
     });
   }
   submit() {
-    debugger;
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
     this.store.dispatch(saveInvoice({ data: invoiceData }));
   }

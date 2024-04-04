@@ -32,86 +32,96 @@
 <div class="mb-8">
     <h2 class="text-2xl text-gray-800 font-bold mb-6">Algemene info</h2>
 </div>
-<div>
-    <label class="block text-sm font-medium mb-1 color-gray-200" for="default">Titel van de job *</label>
-    <input id="large" class="form-input w-full border border-gray-200 px-4 py-3 mb-6" type="text">
-</div>
-<div class="flex mb-8 space-x-4">
-    <div class="w-1/2 ... ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200 mr-4" for="default">Afdeling</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>HR</option>
-            <option>IT</option>
-            <option>Marketing</option>
-        </select>
+<form (submit)="submit()" [formGroup]="createJobGeneralForm">
+    <div>
+        <label class="block text-sm font-medium mb-1 color-gray-200" for="default">Titel van de job *</label>
+        <input id="large" formControlName="title" class="form-input w-full border border-gray-200 px-4 py-3 mb-6"
+            type="text">
     </div>
-    <div class="w-1/2 ... ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Werktestellingsgraad</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>Halftijds</option>
-            <option>Voltijds</option>
-            <option>4/5de</option>
-        </select>
+    <div class="flex mb-8 space-x-4">
+        <div class="w-1/2 ... ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200 mr-4" for="default">Afdeling</label>
+            <select class="select select-bordered w-full" formControlName="department">
+                <option disabled selected>HR</option>
+                <option>IT</option>
+                <option>Marketing</option>
+            </select>
+        </div>
+        <div class="w-1/2 ... ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200"
+                for="default">Werktestellingsgraad</label>
+            <select class="select select-bordered w-full" formControlName="employmentRatio">
+                <option disabled selected>Halftijds</option>
+                <option>Voltijds</option>
+                <option>4/5de</option>
+            </select>
+        </div>
     </div>
-</div>
 
-<div class="flex  mb-8 space-x-4">
-    <div class="w-1/2  ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Max aantal
-            sollicitanten</label>
-        <input id="normal" class="form-input w-full border border-gray-200 px-4 py-2" type="text">
+    <div class="flex  mb-8 space-x-4">
+        <div class="w-1/2  ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Max aantal
+                sollicitanten</label>
+            <input id="normal" class="form-input w-full border border-gray-200 px-4 py-2"
+                formControlName="maxAmountOfApplicants" type="text">
 
+        </div>
+        <div class="w-1/2 ... ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" formControlName="contractTerm"
+                for="default">Duur contract</label>
+            <select class="select select-bordered w-full">
+                <option disabled selected>Onbepaalde duur</option>
+                <option>Bepaalde duur</option>
+                <option>Vervanging</option>
+            </select>
+        </div>
     </div>
-    <div class="w-1/2 ... ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Duur contract</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>Onbepaalde duur</option>
-            <option>Bepaalde duur</option>
-            <option>Vervanging</option>
-        </select>
-    </div>
-</div>
 
 
-<div class="flex  mb-8 space-x-4">
-    <div class="w-1/2  ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Salarispakket</label>
+    <div class="flex  mb-8 space-x-4">
+        <div class="w-1/2  ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" formControlName="" salaryPackage
+                for="default">Salarispakket</label>
 
-        <select class="select select-bordered w-full">
-            <option disabled selected>Standaard</option>
-            <option>Voltijds</option>
-            <option>4/5de</option>
-        </select>
-        <label class="flex items-center">
-            <input type="checkbox" class="form-checkbox">
-            <span class="text-sm ml-2">Toon salaris op website</span>
-        </label>
+            <select class="select select-bordered w-full">
+                <option disabled selected>pakket-1</option>
+                <option>pakket-2</option>
+                <option>pakket-3</option>
+            </select>
+            <label class="flex items-center">
+                <input type="checkbox" class="form-checkbox">
+                <span class="text-sm ml-2">Toon salaris op website</span>
+            </label>
+        </div>
+        <div class="w-1/2 ... ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" formControlName="experience"
+                for="default">Ervaring</label>
+            <select class="select select-bordered w-full">
+                <option disabled selected>Geen ervaring verreist</option>
+                <option>1j</option>
+                <option>2j</option>
+            </select>
+        </div>
     </div>
-    <div class="w-1/2 ... ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Ervaring</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>geen ervaring verreist</option>
-            <option>1j</option>
-            <option>2j</option>
-        </select>
-    </div>
-</div>
 
-<div class="flex  mb-8 space-x-4">
-    <div class="w-1/2  ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Locatie</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>Leuven</option>
-            <option>Landen</option>
-            <option>Variabel</option>
-        </select>
+    <div class="flex  mb-8 space-x-4">
+        <div class="w-1/2  ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" formControlName="address"
+                for="default">Locatie</label>
+            <select class="select select-bordered w-full" (change)="getLocation($event.target.value)">
+                <option value="1" selected>Ferm Wijchmaal (Remylaan 4, 3018 Leuven)</option>
+                <option value="2">Kinderopvang Landen (helstraat 12b, 3400 Landen)</option>
+                <option value="3">Variabel</option>
+            </select>
+        </div>
+        <div class="w-1/2 ... ">
+            <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Verantwoordelijke</label>
+            <select class="select select-bordered w-full">
+                <option disabled selected>Niels Jacobs</option>
+                <option>Jill Pairoux</option>
+                <option>4/5de</option>
+            </select>
+        </div>
     </div>
-    <div class="w-1/2 ... ">
-        <label class="block text-sm font-medium mb-1 w-6/12 color-gray-200" for="default">Verantwoordelijke</label>
-        <select class="select select-bordered w-full">
-            <option disabled selected>Niels Jacobs</option>
-            <option>Jill Pairoux</option>
-            <option>4/5de</option>
-        </select>
-    </div>
-</div>
+</form>
+<button type="button" (click)="submit()"> Volgende</button>

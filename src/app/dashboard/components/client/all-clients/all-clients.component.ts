@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
-import { Client } from 'src/app/shared/types/invoice';
+import { Client, ClientResponse } from 'src/app/shared/types/invoice';
 
 @Component({
   selector:"all-clients-overview",
@@ -10,14 +10,13 @@ import { Client } from 'src/app/shared/types/invoice';
   styleUrls: ['./all-clients.component.sass']
 })
 export class AllClientsComponent implements OnInit {
-  clients: any;
+  clients: Client[] = [];
   constructor(
     public crudApi: CrudClientService,
   ) {
   }
   ngOnInit() {
-    debugger;
-  this.crudApi.GetclientsList().subscribe((data: Client) => this.clients = data );
+  this.crudApi.GetclientsList().subscribe((data: ClientResponse) => this.clients = data.items);
 
   }
 

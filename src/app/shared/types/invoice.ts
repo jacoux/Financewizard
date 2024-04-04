@@ -23,6 +23,14 @@ export interface Client {
   updatedAt?: Date;
 }
 
+export interface ClientResponse {
+  items: Client[]; 
+  page: 1
+  perPage: 30
+  totalItems: 1
+  totalPages: 1
+}
+
 export interface Product {
   _id: string;
   name: string;

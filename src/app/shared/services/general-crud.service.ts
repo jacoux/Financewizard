@@ -12,7 +12,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class GeneralCrudService {
-  configUrl: 'http://localhost:3000/' = 'http://localhost:3000/';
+  configUrl: 'http://127.0.0.1:8090/api/collections/' =
+    'http://127.0.0.1:8090/api/collections/';
 
   constructor(
     private http: HttpClient,
@@ -39,6 +40,18 @@ export class GeneralCrudService {
     const response: any = res;
     return response;
   }
+
+  AddObjectNotAsync(data: any, path: string) {
+    const url = this.configUrl + path;
+    // auth_token; =
+    this.http.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${auth_token}`,
+      },
+    });
+  }
+
   // Fetch clients List
   GetObjectsList(path: string) {
     return this.http.get(this.configUrl + path);

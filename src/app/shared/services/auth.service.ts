@@ -60,8 +60,8 @@ export class AuthService {
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.http.post(
-      'http://localhost:3000/login',
-      { email: email, password: password },
+      'http://127.0.0.1:8090/api/collections/users/auth-with-password',
+      { identity: email, password: password },
       {
         headers: { 'Content-Type': 'application/json' },
       }
