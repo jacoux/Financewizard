@@ -30,6 +30,13 @@ export interface ClientResponse {
   totalItems: 1
   totalPages: 1
 }
+export interface InvoiceResponse {
+  items: Invoice[]; 
+  page: 1
+  perPage: 30
+  totalItems: 1
+  totalPages: 1
+}
 
 export interface Product {
   _id: string;

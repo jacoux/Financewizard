@@ -34,6 +34,10 @@ const dashboardRoutes: Routes = [
         path: 'invoices',
         children: [
           {
+            path: 'overview',
+            component: AllInvoicesComponent,
+          },
+          {
             path: 'create',
             component: NewInvoiceComponent,
           },

@@ -13,14 +13,7 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {}
 
   signIn(email: string, password: string) {
-    this.authService.SignIn(email, password).subscribe((result) => {
-      if (result) {
-        this.router.navigate(['dashboard']);
-      } else {
-        alert(' er liep iets mis');
-      }
-      console.log(result);
-      debugger;
-    });
+    this.authService.SignIn(email, password);
+    return this.router.navigate(['dashboard']);
   }
 }

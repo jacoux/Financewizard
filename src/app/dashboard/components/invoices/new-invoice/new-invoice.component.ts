@@ -78,7 +78,6 @@ export class NewInvoiceComponent implements OnInit {
       );
       const product = products[0];
       const currentRow = this.getRow().at(i);
-      debugger;
       currentRow.get('price')?.setValue(product.price);
       currentRow.get('name')?.setValue(product.name);
     }

@@ -11,8 +11,6 @@ import { User } from 'src/app/shared/types/user';
 export class MainDashboardComponent implements OnInit {
   user: any;
   company: any;
-  render: any;
-  answer: any;
   constructor(
     public authService: AuthService,
     private store: Store,
@@ -20,10 +18,12 @@ export class MainDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
+    // @ts-expect-error
+    this.user = JSON.parse(localStorage.getItem('user'));
+    debugger;
     this.company = this.orgApi.GetObject(
-      'organizations',
-      this.user?.componentId
+      'companies/records',
+      this.user.companyId
     );
   }
 }

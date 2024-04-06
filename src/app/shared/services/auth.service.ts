@@ -11,16 +11,19 @@ import { Store } from '@ngrx/store';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 import { error } from 'console';
+import PocketBase from 'pocketbase';
+
 import { response } from 'express';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any;
+  pb = new PocketBase('http://127.0.0.1:8090');
+
   constructor(
     private http: HttpClient,
     public afs: AngularFirestore, // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public store: Store,
     public ngZone: NgZone // NgZone service to remove outside scope warning
@@ -28,17 +31,6 @@ export class AuthService {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
 
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        this.GetUser(user);
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
-      }
-    });
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -59,23 +51,30 @@ export class AuthService {
   }
   // Sign in with email/password
   SignIn(email: string, password: string) {
-    return this.http.post(
-      'http://127.0.0.1:8090/api/collections/users/auth-with-password',
-      { identity: email, password: password },
-      {
-        headers: { 'Content-Type': 'application/json' },
+    const authData = this.pb
+      .collection('users')
+      .authWithPassword(email, password);
+    
+    if (authData) {
+      this.GetUser(authData);
+      if (this.userData) {
+        this.SetUserData(this.userData);
       }
-    );
+      return this.router.navigate(['dashboard']);
+
+    }
+    return;
   }
 
   // Sign up with email/password
   SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+    return this.pb
+      .collection('user')
+      .create({email: email, password: password, laterFillInCompanyDetails})
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.SetUserData(result.user);
+        this.SetUserData(result['user']);
         if (laterFillInCompanyDetails) {
           this.SendVerificationMail();
         } else {
@@ -88,22 +87,22 @@ export class AuthService {
   }
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
+    // return this.afAuth.currentUser
+    //   .then((u: any) => u.sendEmailVerification())
+    //   .then(() => {
+    //     this.router.navigate(['verify-email-address']);
+    //   });
   }
   // Reset Forggot password
   ForgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
+    // return this.afAuth
+    //   .sendPasswordResetEmail(passwordResetEmail)
+    //   .then(() => {
+    //     window.alert('Password reset email sent, check your inbox.');
+    //   })
+    //   .catch((error) => {
+    //     window.alert(error);
+    //   });
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
@@ -112,40 +111,38 @@ export class AuthService {
   }
   // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+    // return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       this.router.navigate(['dashboard']);
-    });
+    // });
   }
   // Auth logic to run auth providers
   AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.GetUser(result.user);
-        return this.router.navigate(['dashboard']);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
+    // return this.afAuth
+    //   .signInWithPopup(provider)
+    //   .then((result) => {
+    //     debugger;
+    //     this.GetUser(result.user);
+    //     return this.router.navigate(['dashboard']);
+    //   })
+    //   .catch((error) => {
+    //     window.alert(error);
+    //   });
   }
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
+    debugger;
     const userData: User = {
-      uid: user.uid,
+      uid: user.id,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
+      displayName: user.username,
+      photoURL: user.avatar,
+      emailVerified: user.verified,
       companyId: user?.companyId,
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+ localStorage.setItem('user', JSON.stringify(userData));
+
   }
 
   UpdateUser(id: any) {
@@ -170,29 +167,29 @@ export class AuthService {
   }
 
   GetUser(user: any) {
-    this.afs
-      .collection('users')
-      .doc(user.uid)
-      .ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          const newU: any = doc.data();
-          this.userData.companyId = newU.companyId;
-          console.log(newU.companyId);
-        } else {
-          console.log('There is no document!');
-        }
-      })
-      .catch(function (error) {
-        console.log('There was an error getting your document:', error);
-      });
+    // after the above you can also access the auth data from the authStore
+    // console.log(this.pb.authStore.token);
+
+    // "logout" the last authenticated account
+    // this.pb.authStore.clear();
+    // /api/collections/ users / records;
+    debugger;
+      if (this.pb.authStore?.model?.['id']) {
+        const newU: any = this.pb.authStore?.model
+        debugger;
+        this.userData = newU;
+          this.userData.companyId = newU.linkedCompany[0];
+                // console.log(this.userData.companyId);
+              } else {
+                console.log('There is no document!');
+              }
   }
 
   // Sign out
   SignOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
+     this.pb.authStore.clear();
+          localStorage.removeItem('user');
+    this.router.navigate(['sign-in']);
+    return;;
   }
 }

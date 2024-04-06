@@ -11,7 +11,6 @@ import { CreateClientComponent } from './components/client/create-client/create-
 import { AllClientsComponent } from './components/client/all-clients/all-clients.component';
 import { EditClientComponent } from './components/client/edit-client/edit-client.component';
 import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
-import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
 import { ClientComponent } from './components/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from '../components/shared/table/table.component';
@@ -53,7 +52,6 @@ import { StepperComponent } from '../components/shared/stepper/stepper.component
     AllClientsComponent,
     EditClientComponent,
     NewInvoiceComponent,
-    AllInvoicesComponent,
     OrganizationComponent,
     InvoiceCheckComponent,
     Template1Component,
