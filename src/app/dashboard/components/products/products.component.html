@@ -1,6 +1,58 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-          <app-table [products]="products"></app-table>
-    <!-- <div>
+<div class="flex flex-col">
+  <h2>All invoices</h2>
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8">
+
+    <!-- Position Column -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description">
+        Description
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">
+            Price without VAT
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} {{element.currency}} </td>
+        </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="vat">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by VAT %">
+            VAT
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.vatPercentage}} % </td>
+        </ng-container>
+    <ng-container matColumnDef="isHourlyRate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by hourly rate">
+        Hourly rate
+      </th>
+      <td mat-cell *matCellDef="let element"> 
+        <div  class=""> 
+        <span *ngIf="element.isHourlyRate" class="material-icons">&#xE876;</span>
+        <span *ngIf="!element.isHourlyRate" class="material-icons">&#xE5cd;</span>
+      </div> 
+    </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>    <!-- <div>
         <h2> all products</h2>
         <div  *ngFor="let product of products">
             <p> {{product.name}} | {{product.description}} | {{product.vatPercentage}} | {{product.price}} | {{product.hourlyrate}}</p>
@@ -8,7 +60,7 @@
     </div> -->
   </div>
 
-  <label for="my-modal" class="btn text-white	s">Voeg een product toe</label>
+  <label for="my-modal" class="btn text-white	s">Add a product</label>
   
   <!-- Put this part before </body> tag -->
   <input type="checkbox" id="my-modal" class="modal-toggle" />

@@ -41,13 +41,24 @@ export interface InvoiceResponse {
 export interface Product {
   _id: string;
   name: string;
-  organizationId: number;
+  companyId: number;
   vatPercentage: string;
   price: number;
+  vatApplicable?: boolean;
   description: string;
   currency: Currency;
   isHourlyRate?: boolean;
 }
+
+export interface ProductResponse {
+  items: Client[];
+  page: 1;
+  perPage: 30;
+  totalItems: 1;
+  totalPages: 1;
+}
+
+
 
 export enum Priority {
   LOW,
