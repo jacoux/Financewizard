@@ -31,18 +31,19 @@
       <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
         <div class="basis-1/2">
           <div class="max-w-sm">
-            <img class="max-w-sm py-5" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" />
+            <img class="max-w-sm py-5" [src]="logo" />
           </div>
         </div>
         <div class="basis-1/2">
           <div class=" bg-base-100">
             <div class="card-body">
               <input type="text" class="input input-bordered input-primary w-full max-w-xs" placeholder="Factuurnaam" />
-              <h2 class="card-title">Jacoux bv</h2>
-              <p>Helstraat 12B</p>
-              <p>3400 Landen</p>
-              <p>0493 02 97 13</p>
-              <p>BE 0704 651 352</p>
+              <h2 class="card-title">{{company?.name}}</h2>
+              <p>{{company?.address?.streetName}} {{company?.address?.streetNumber}}</p>
+              <p>{{company?.address?.postalCode}} {{company?.address?.city}} </p>
+              <p>{{company?.address?.country}}
+              <p>{{company?.companyVat}}
+              <p>{{company?.companyEmail}}
               </div>
             <div class="edit edit-button">
             
@@ -87,13 +88,13 @@
             <div class="card-body">
               <select (change)="onClientChange($event.target.value)" class="select select-primary w-full mb-6">
                 <option selected>Klantgegevens</option>
-                <option *ngFor="let client of clients" [value]="client._id">{{client.name}}</option>
+                <option *ngFor="let client of clients" [value]="client.id">{{client.firstName}}</option>
 
               </select>
               <div *ngIf="selectedClient">
-                <h2 class="card-title">{{selectedClient.name}}</h2>
-                <p>{{selectedClient.address}}</p>
-                <p>{{selectedClient.vat}}</p>
+                <h2 class="card-title">{{selectedClient?.firstName}}</h2>
+                <p>{{selectedClient?.address}}</p>
+                <p>{{selectedClient?.vat}}</p>
               </div>
               </div>
               </div>

@@ -1,5 +1,5 @@
 <div>
-    <h2> Alle Klanten</h2>
+        <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">All clients ✨</h1>
       <div>
         <div class="flex flex-col">
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-12">
@@ -39,7 +39,7 @@
                     <tr class="bg-gray-100 border-b" *ngFor="let client of clients">
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client._id}} 
+                        {{client.id}} 
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {{client.email}}
@@ -51,7 +51,7 @@
                         {{client.responsible}}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client.name}}
+                        {{client?.name}}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         <button class="bg-red hover:bg-green text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
@@ -79,10 +79,14 @@
         </div>
       </div>
       <div class="content-center">
-      <button class="bg-white hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex">
-        <a class="btn btn-primary" href="/clients/create">
-       Voeg nieuwe klant toe
-        </a>
-      </button>
+          <label for="my-modal" class="btn text-white	s">Add a new client</label>
+          
+          <!-- Put this part before </body> tag -->
+          <input type="checkbox" id="my-modal" class="modal-toggle" />
+          <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">>
+            <app-create-client-modal (toggle)="addClass()"></app-create-client-modal>
+          </div>
+
     </div>
     </div>
+

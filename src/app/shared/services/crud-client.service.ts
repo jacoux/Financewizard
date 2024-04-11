@@ -2,26 +2,57 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
 import { Client, ClientResponse } from '../types/invoice';
+import PocketBase from 'pocketbase';
+import { result } from 'lodash';
+import { AllClientsComponent } from 'src/app/dashboard/components/client/all-clients/all-clients.component';
+import { EventEmitter } from 'stream';
+import { User } from '../types/user';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrudClientService {
-  clientsRef!: AngularFireList<any>;
-  clientRef!: AngularFireObject<any>;
+  pb = new PocketBase('http://127.0.0.1:8090');
   configUrl: 'http://127.0.0.1:8090/api/collections/clients' =
     'http://127.0.0.1:8090/api/collections/clients';
 
   constructor(private db: AngularFireDatabase, private http: HttpClient) {}
 
-  Addclient(client: Client) {}
+  async Addclient(client: Client) {
+    // @ts-expect-error
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    client.companyId = user.companyId
+
+    //     dummy DataTransferconst data = {
+    //     "name": "test",
+    //     "vat": "test",
+    //     "responsible": "test",
+    //     "email": "test@example.com",
+    //     "firstName": "test",
+    //     "tel": "test",
+    //     "companyId": "RELATION_RECORD_ID",
+    //     "lastName": "test",
+    //     "address": "JSON"
+    // };
+    const record = await this.pb
+      .collection('clients')
+      .create(client)
+      .then((value) => {
+        if (value.id) {
+          alert('Client created successfully');
+        } 
+      });
+  }
   // Fetch Single client Object
   Getclient(id: string) {
     return this.http.get<Client>(this.configUrl + '/records/' + id);
   }
   // Fetch clients List
   GetclientsList() {
-    return this.http.get<ClientResponse>('http://127.0.0.1:8090/api/collections/clients/records');
+    return this.http.get<ClientResponse>(
+      'http://127.0.0.1:8090/api/collections/clients/records'
+    );
   }
   // Update client Object
   Updateclient(client: Client) {}

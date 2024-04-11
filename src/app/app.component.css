@@ -141,6 +141,11 @@ a.article:hover {
     color: #fff !important;
 }
 
+h2 {
+    font-weight: bold;
+    font-size: 18px ;
+}
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

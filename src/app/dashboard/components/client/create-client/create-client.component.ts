@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
 
 @Component({
+  selector: 'app-create-client-modal',
   templateUrl: './create-client.component.html',
-  styleUrls: ['./create-client.component.sass']
+  styleUrls: ['./create-client.component.sass'],
 })
 export class CreateClientComponent implements OnInit {
-
-
+  @Output() toggle = new EventEmitter<string>();
 
   public clientForm!: UntypedFormGroup;
   p: number = 1;
@@ -17,23 +17,26 @@ export class CreateClientComponent implements OnInit {
   hideWhenNoClient: boolean = false;
   noData: boolean = false;
   preLoader: boolean = true;
+
   constructor(
     public crudApi: CrudClientService,
     public fb: UntypedFormBuilder,
     private database: AngularFireDatabase
-  ) {
-  }
+  ) {}
   ngOnInit() {
-    this.database.list('/clients-list').valueChanges().subscribe(list => {
-      this.clients = list ?? []
-    })
+    this.database
+      .list('/clients-list')
+      .valueChanges()
+      .subscribe((list) => {
+        this.clients = list ?? [];
+      });
     this.studenForm();
   }
 
   studenForm() {
     this.clientForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: [''],
+      name: [''],
       vat: [''],
       email: [
         '',
@@ -67,5 +70,9 @@ export class CreateClientComponent implements OnInit {
   submitClientData() {
     this.crudApi.Addclient(this.clientForm.value);
     this.ResetForm();
+  }
+
+  close() {
+    this.toggle.emit();
   }
 }

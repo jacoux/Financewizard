@@ -1,6 +1,7 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
 <div class="flex flex-col">
-  <h2>All invoices</h2>
+          <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">All products ✨</h1>
+
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
     class="mat-elevation-z8">
 
@@ -52,12 +53,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-</div>    <!-- <div>
-        <h2> all products</h2>
-        <div  *ngFor="let product of products">
-            <p> {{product.name}} | {{product.description}} | {{product.vatPercentage}} | {{product.price}} | {{product.hourlyrate}}</p>
-        </div>
-    </div> -->
+</div> 
   </div>
 
   <label for="my-modal" class="btn text-white	s">Add a product</label>

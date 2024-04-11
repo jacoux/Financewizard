@@ -5,20 +5,22 @@ import { CrudClientService } from 'src/app/shared/services/crud-client.service';
 import { Client, ClientResponse } from 'src/app/shared/types/invoice';
 
 @Component({
-  selector:"all-clients-overview",
+  selector: 'all-clients-overview',
   templateUrl: './all-clients.component.html',
-  styleUrls: ['./all-clients.component.sass']
+  styleUrls: ['./all-clients.component.sass'],
 })
 export class AllClientsComponent implements OnInit {
   clients: Client[] = [];
-  constructor(
-    public crudApi: CrudClientService,
-  ) {
-  }
+  visible = false;
+  constructor(public crudApi: CrudClientService) {}
   ngOnInit() {
-  this.crudApi.GetclientsList().subscribe((data: ClientResponse) => this.clients = data.items);
-
+    this.crudApi
+      .GetclientsList()
+      .subscribe((data: ClientResponse) => (this.clients = data.items));
   }
 
+  addClass() {
+    this.visible = !this.visible;
+  }
 }
 

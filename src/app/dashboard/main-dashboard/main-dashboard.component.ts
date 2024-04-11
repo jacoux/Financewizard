@@ -20,7 +20,7 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
     // @ts-expect-error
     this.user = JSON.parse(localStorage.getItem('user'));
-    debugger;
+    
     this.company = this.orgApi.GetObject(
       'companies/records',
       this.user.companyId

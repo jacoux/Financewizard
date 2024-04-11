@@ -8,16 +8,16 @@ export interface Invoice {
 }
 
 export interface Client {
-  _id: string;
+  id: any;
   email: string;
   vat: string;
   name: string;
   responsible: string;
-  organizationId: string;
+  companyId: string;
   firstName?: string;
   lastName?: string;
   tel?: string;
-  address?: string;
+  address?: Address;
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -91,6 +91,7 @@ export interface Organization {
   companyVat: string;
   companyEmail: string;
   address: Address;
+  logo: string;
   responsible: Responsible[];
   bank?: Bank[];
   defaultInvoiceDetails?: DefaultInvoiceDetails;

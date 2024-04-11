@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
-import { Client, Product } from 'src/app/shared/types/invoice';
+import { Client, ClientResponse, Organization, Product } from 'src/app/shared/types/invoice';
+import { User } from 'src/app/shared/types/user';
 import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
 
 @Component({
@@ -26,6 +27,8 @@ export class NewInvoiceComponent implements OnInit {
   itemForm!: UntypedFormGroup;
   products!: any;
   clients!: any;
+  company!: Organization;
+  logo!: string;
   selectedClient!: Client;
   selectedProd!: Product;
   payWithin = 0;
@@ -59,14 +62,16 @@ export class NewInvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    this.getCompany();
     this.getClients();
     this.addForm.addControl('rows', this.rows);
   }
 
   onClientChange(id: any) {
+    debugger;
     if (this.addForm) {
-      const test = this.clients.filter((client: Client) => client._id === id);
-      this.selectedClient = test[0];
+      const client = this.clients.filter((client: Client) => client.id === id);
+      this.selectedClient = client;
       this.invoiceFrom.get('client')?.setValue(this.selectedClient);
     }
   }
@@ -164,20 +169,42 @@ export class NewInvoiceComponent implements OnInit {
     this.invoiceFrom.controls['paymentDate'].setValue(payDate);
   }
 
+  getClients() {
+    this.crudApi
+      .GetObjectsList('clients/records')
+      // @ts-ignore
+      .subscribe((data: ClientResponse) => { this.clients = data.items });
+  }
+
   getProducts() {
-    this.crudApi.GetObjectsList('products').subscribe((data) => {
-      this.products = data;
-    });
+    this.crudApi
+      .GetObjectsList('products/records')
+      // @ts-ignore
+      .subscribe((data: ProductResponse) => {
+        this.products = data.items;
+      });
+  }
+  getCompany() {
+    debugger;
+
+    // @ts-expect-error
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+
+    this.crudApi
+      .GetObjectsList('companies/records/' + user.companyId)
+      // @ts-ignore
+      .subscribe((data: Organization) => {
+        this.company = data;
+        this.logo =
+          'http://127.0.0.1:8090/api/files/companies/' +
+          data.id +
+          '/' +
+          data.logo;
+      });
   }
 
   hide() {
     this.showMyDetails = !this.showMyDetails;
-  }
-
-  getClients() {
-    this.crudApi
-      .GetObjectsList('clients')
-      .subscribe((data) => (this.clients = data));
   }
 
   getControls() {
@@ -216,5 +243,6 @@ export class NewInvoiceComponent implements OnInit {
   submit() {
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
     this.store.dispatch(saveInvoice({ data: invoiceData }));
+    this.router.navigate(['invoices','check']);
   }
 }
