@@ -15,6 +15,7 @@ import { GeneralCrudService } from 'src/app/shared/services/general-crud.service
 import { Client, ClientResponse, Organization, Product } from 'src/app/shared/types/invoice';
 import { User } from 'src/app/shared/types/user';
 import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
+import { setCompanyInfo } from 'src/app/store/organization/organization.actions';
 
 @Component({
   templateUrl: './new-invoice.component.html',
@@ -46,6 +47,7 @@ export class NewInvoiceComponent implements OnInit {
     vatAmount: new UntypedFormControl(null, [Validators.required]),
     footer: new UntypedFormControl(null, [Validators.required]),
   });
+    placeholder_footer = "te betalen voor... op rekeningnummer ...";
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -71,7 +73,7 @@ export class NewInvoiceComponent implements OnInit {
     debugger;
     if (this.addForm) {
       const client = this.clients.filter((client: Client) => client.id === id);
-      this.selectedClient = client;
+      this.selectedClient = client[0];
       this.invoiceFrom.get('client')?.setValue(this.selectedClient);
     }
   }
@@ -185,8 +187,6 @@ export class NewInvoiceComponent implements OnInit {
       });
   }
   getCompany() {
-    debugger;
-
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
 
@@ -194,6 +194,18 @@ export class NewInvoiceComponent implements OnInit {
       .GetObjectsList('companies/records/' + user.companyId)
       // @ts-ignore
       .subscribe((data: Organization) => {
+
+        if (data) {
+              this.store.dispatch(
+                setCompanyInfo({
+                  organization: data,
+                  status: 4,
+                })
+              );
+        }
+        this.placeholder_footer =
+          data.defaultInvoiceDetails?.footer ||
+          'te betalen voor... op rekeningnummer ...';
         this.company = data;
         this.logo =
           'http://127.0.0.1:8090/api/files/companies/' +
@@ -243,6 +255,6 @@ export class NewInvoiceComponent implements OnInit {
   submit() {
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
     this.store.dispatch(saveInvoice({ data: invoiceData }));
-    this.router.navigate(['invoices','check']);
+    this.router.navigate(['dashboard','invoices','check']);
   }
 }

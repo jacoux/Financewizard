@@ -2,21 +2,37 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@ang
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getInvoiceDraft } from 'src/app/store/invoiceDraft/invoiceDraft.selectors';
+import { Client, Invoice, Organization, Product } from 'src/app/shared/types/invoice';
+import { getOrganization } from 'src/app/store/organization/organization.selectors';
 
 @Component({
   selector: 'app-template2',
   templateUrl: './template2.component.html',
 })
 export class Template2Component implements OnInit {
-  @Input()events!: Observable<void>;
+  @Input() events!: Observable<void>;
   @ViewChild('htmlData') htmlData!: ElementRef;
-  eventsSubscription: any;
 
- ngOnInit(): void {
-  this.eventsSubscription = this.events.subscribe(() => this.openPDF());
- }
-  
-    public openPDF(): void {
+  eventsSubscription: any;
+  invoiceData!: Invoice;
+  invoiceProducts: any;
+  org!: Organization;
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.store.select(getInvoiceDraft).subscribe((data) => {
+      this.invoiceData = data[0];
+      this.invoiceProducts = data[1];
+    });
+    this.store.select(getOrganization).subscribe((data) => {
+      this.org = data;
+    });
+    this.eventsSubscription = this.events.subscribe(() => this.openPDF());
+  }
+
+  public openPDF(): void {
     let DATA: any = document.getElementById('htmlData');
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;

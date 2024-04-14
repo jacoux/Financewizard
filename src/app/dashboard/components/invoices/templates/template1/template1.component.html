@@ -13,7 +13,7 @@
                                         style="line-height: 45px; border-spacing: 2px;">
                                         <h1 class="w-full: p-9"
                                             style="width: 100%; max-width: 500px; border-spacing: 2px; line-height: 45px;">
-                                            {{org.name}}</h1>
+                                            {{org?.name}}</h1>
                                     </td>
                                     <td class="block p-9 pt-0 pb-2 w-full text-right" style="border-spacing: 2px;">
                                         Factuurnummer #: 1776<br class="text-right" style="border-spacing: 2px;">
@@ -109,7 +109,7 @@
                                 <th scope="row"
                                     class="pt-4 pl-4 pr-3 text-sm font-light text-left text-slate-800 sm:hidden">BTW
                                 </th>
-                                <td class="pt-4 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">€ {{invoiceData.vatAmount}}
+                                <td class="pt-4 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">€ {{invoiceData?.vatAmount}}
                                 </td>
                             </tr>
                         <tr>
@@ -138,12 +138,12 @@
                 <div class="container px-20 mx-auto">
                     <div class="flex flex-col items-center py-6 lg:h-[6rem] lg:flex-row">
                         <div class="lg:w-full">
-                            <h3 class="text-1xl font-semibold text-slate-200">{{org.name}}</h3>
+                            <h3 class="text-1xl font-semibold text-slate-200">{{org?.name}}</h3>
                         </div>
                         <div class="lg:w-full">
-                            <h3 class="text-1xl font-semibold text-slate-200">{{org.address.streetName}},
-                                {{org.address.streetNumber}}/{{org.address.streetNumber}}
-                                {{org.address.postalCode}} {{org.address.city}} </h3>
+                            <h3 class="text-1xl font-semibold text-slate-200">{{org?.address?.streetName}},
+                                {{org.address?.streetNumber}}/{{org.address?.streetNumber}}
+                                {{org.address?.postalCode}} {{org.address?.city}} </h3>
                         </div>
                         <div class="lg:w-full">
                             <h3 class="text-1xl font-semibold text-slate-200">{{org.companyVat}}</h3>

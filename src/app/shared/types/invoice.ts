@@ -4,7 +4,13 @@ export interface Invoice {
   client: Client;
   organization: Organization;
   product: Product;
+  invoiceDate: Date;
+  paymentDate: Date;
+  invoiceNumber: Date;
+  payWithin: number;
   total: number;
+  vatAmount: number;
+  footer: number;
 }
 
 export interface Client {
@@ -81,6 +87,7 @@ export enum AccountType {
 }
 
 export interface Organization {
+  companyName?: string;
   id: string;
   $key: string;
   name: string;

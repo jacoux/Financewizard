@@ -30,6 +30,7 @@ export class GeneralCrudService {
     const response: any = res;
     const id = response.data.id;
     this.authService.UpdateUser(id);
+    debugger;
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
   // Fetch Single client Object

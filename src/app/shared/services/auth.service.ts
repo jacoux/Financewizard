@@ -14,6 +14,8 @@ import { error } from 'console';
 import PocketBase from 'pocketbase';
 
 import { response } from 'express';
+import { setOrganizationData } from 'src/app/store/organization/organization.actions';
+import { GeneralCrudService } from './general-crud.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +32,6 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -49,19 +50,21 @@ export class AuthService {
       () => new Observable((observer) => observer.next(new Error()))
     );
   }
+
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password);
-    
+
     if (authData) {
       this.GetUser(authData);
+
       if (this.userData) {
         this.SetUserData(this.userData);
       }
       return this.router.navigate(['dashboard']);
-
     }
     return;
   }
@@ -70,7 +73,7 @@ export class AuthService {
   SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
     return this.pb
       .collection('user')
-      .create({email: email, password: password, laterFillInCompanyDetails})
+      .create({ email: email, password: password, laterFillInCompanyDetails })
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
@@ -112,7 +115,7 @@ export class AuthService {
   // Sign in with Google
   GoogleAuth() {
     // return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard']);
     // });
   }
   // Auth logic to run auth providers
@@ -141,8 +144,7 @@ export class AuthService {
       emailVerified: user.verified,
       companyId: user?.companyId,
     };
- localStorage.setItem('user', JSON.stringify(userData));
-
+    localStorage.setItem('user', JSON.stringify(userData));
   }
 
   UpdateUser(id: any) {
@@ -174,22 +176,22 @@ export class AuthService {
     // this.pb.authStore.clear();
     // /api/collections/ users / records;
     debugger;
-      if (this.pb.authStore?.model?.['id']) {
-        const newU: any = this.pb.authStore?.model
-        debugger;
-        this.userData = newU;
-          this.userData.companyId = newU.linkedCompany[0];
-                // console.log(this.userData.companyId);
-              } else {
-                console.log('There is no document!');
-              }
+    if (this.pb.authStore?.model?.['id']) {
+      const newU: any = this.pb.authStore?.model;
+      debugger;
+      this.userData = newU;
+      this.userData.companyId = newU.linkedCompany[0];
+      // console.log(this.userData.companyId);
+    } else {
+      console.log('There is no document!');
+    }
   }
 
   // Sign out
   SignOut() {
-     this.pb.authStore.clear();
-          localStorage.removeItem('user');
+    this.pb.authStore.clear();
+    localStorage.removeItem('user');
     this.router.navigate(['sign-in']);
-    return;;
+    return;
   }
 }

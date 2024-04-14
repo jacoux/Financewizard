@@ -19,9 +19,9 @@
                                                 INVOICE</h1>
                                         </td>
                                         <td class="block p-9 pb-3 pt-3 w-full text-right" style="border-spacing: 2px;">
-                                            Invoice #: 1776<br class="text-right" style="border-spacing: 2px;">
-                                            Created: 5/12/2022<br class="text-right" style="border-spacing: 2px;">
-                                            Created: 6/12/2022<br class="text-right" style="border-spacing: 2px;"></td>
+                                            Invoice #: {{invoiceData?.invoiceNumber}}<br class="text-right" style="border-spacing: 2px;">
+                                            Created: {{invoiceData.invoiceDate | date: 'dd/MM/yyyy'}} <br class="text-right" style="border-spacing: 2px;">
+                                            Pay before: {{invoiceData.paymentDate | date: 'dd/MM/yyyy'}}<br class="text-right" style="border-spacing: 2px;"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -32,10 +32,12 @@
                             <table class="w-full" style="border-spacing: 2px;">
                                 <tbody class="" style="border-spacing: 2px;">
                                     <tr class="" style="border-spacing: 2px;">
-                                        <td class="block w-full text-left" style="border-spacing: 2px;">Fry &amp; Fritz
-                                            LLC<br class="" style="border-spacing: 2px;">
-                                            314 Main St<br class="" style="border-spacing: 2px;">
-                                            Hungryville, OK 20314<br class="" style="border-spacing: 2px;"></td>
+                                        <td class="block w-full text-left" style="border-spacing: 2px;">
+                                            {{invoiceData?.client?.firstName}}<br class="" style="border-spacing: 2px;">
+                                            {{invoiceData.client.address?.streetName}} {{invoiceData.client.address?.streetNumber}} {{invoiceData.client.address?.busNumber}}<br class="" style="border-spacing: 2px;">
+                                            {{invoiceData.client.address?.postalCode}} {{invoiceData.client.address?.city}} {{invoiceData.client.address?.country}}<br class="" style="border-spacing: 2px;">
+                                        {{invoiceData.client.vat}}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -87,26 +89,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b border-slate-800">
+                                
+                                <tr *ngFor="let product of invoiceProducts " class="border-b border-slate-800">
                                     <td class="py-3 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
-                                        <div class="font-medium text-slate-800">Restaurant Website Design</div>
+                                        <div class="font-medium text-slate-800">{{product.name}} {{product.description}}</div>
                                     </td>
-                                    <td class="hidden px-3 py-3 text-sm text-right text-slate-800 sm:table-cell">1</td>
+                                    <td class="hidden px-3 py-3 text-sm text-right text-slate-800 sm:table-cell">{{product.qty}}</td>
                                     <td class="hidden px-3 py-3 text-sm text-right text-slate-800 sm:table-cell">
-                                        $5000.00</td>
+                                        {{product.price}} </td>
                                     <td class="py-3 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">
-                                        $5000.00</td>
+                                        {{product.total}}</td>
                                 </tr>
-                                <tr class="border-b border-slate-800">
-                                    <td class="py-3 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
-                                        <div class="font-medium text-slate-800">Extra Features</div>
-                                    </td>
-                                    <td class="hidden px-3 py-3 text-sm text-right text-slate-800 sm:table-cell">3</td>
-                                    <td class="hidden px-3 py-3 text-sm text-right text-slate-800 sm:table-cell">
-                                        $1000.00</td>
-                                    <td class="py-3 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">
-                                        $3000.00</td>
-                                </tr>
+
                                 <tr class="border-b border-slate-800">
                                     <td class="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
                                         <div class="font-medium text-slate-800"></div>
@@ -136,14 +130,14 @@
                                 <tr>
                                     <th scope="row" colspan="3"
                                         class="hidden pt-3 pl-6 pr-3 text-sm font-light text-right text-slate-800 sm:table-cell md:pl-0">
-                                        Subtotal</th>
+                                        VAT</th>
                                     <th scope="row"
                                         class="pt-3 pl-4 pr-3 text-sm font-light text-left text-slate-800 sm:hidden">
-                                        Subtotal</th>
+                                        VAT</th>
                                     <td class="pt-3 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">
-                                        $8000.00</td>
+                                        {{invoiceData.vatAmount}} </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row" colspan="3"
                                         class="hidden pt-3 pl-6 pr-3 text-sm font-light text-right text-slate-800 sm:table-cell md:pl-0">
                                         Discount</th>
@@ -160,9 +154,9 @@
                                     <th scope="row"
                                         class="pt-3 pl-4 pr-3 text-sm font-light text-left text-slate-800 sm:hidden">Tax
                                     </th>
-                                    <td class="pt-3 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">$700.00
+                                    <td class="pt-3 pl-3 pr-4 text-sm text-right text-slate-800 sm:pr-6 md:pr-0">{{invoiceData.vatAmount}}
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row" colspan="3"
                                         class="hidden pt-3 pl-6 pr-3 text-sm font-normal text-right text-slate-800 sm:table-cell md:pl-0">
@@ -172,7 +166,7 @@
                                         Total</th>
                                     <td
                                         class="pt-3 pl-3 pr-4 text-sm font-normal text-right text-slate-800 sm:pr-6 md:pr-0">
-                                        $8200.00</td>
+                                        {{invoiceData.total}}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -211,11 +205,14 @@
                     </g>
                 </svg>
                 <div class="container mx-auto text-center py-3 mb-5">
-                    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Novena Inc</h1>
+                    <h1 class="w-full my-2 text-3xl font-bold leading-tight text-center text-white">{{org.name}}</h1>
                     <div class="w-full mb-4">
-                        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+                        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t">{{org.companyVat}}</div>
                     </div>
-                    <h3 class="my-4 text-3xl leading-tight">125 W Main Nashville TN 72014</h3>
+                    <h3 class="my-4 text-2xl leading-tight">
+                        {{org.address.streetName}}
+                        {{org.address.streetNumber}} {{org.address.postalCode}} {{org.address.city}}
+                    </h3>
                 </div>
             </tbody>
         </table>
