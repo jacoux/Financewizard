@@ -20,7 +20,7 @@ export class InvoiceCheckComponent implements OnInit {
 
   emitEventToTemplate() {
     this.eventsSubject.next();
-    this.router.navigateByUrl('/invoices/ready');
+    this.router.navigate(['dashboard','invoices', 'ready']);
 }
   chooseTemplate(templateNumber:number) {
     this.template = templateNumber;

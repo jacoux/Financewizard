@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "themesberg"
+    ],
+    "i18n-ally.localesPaths": [
+        "src/i18n"
     ]
 }
