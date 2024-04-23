@@ -16,6 +16,9 @@ import PocketBase from 'pocketbase';
 import { response } from 'express';
 import { setOrganizationData } from 'src/app/store/organization/organization.actions';
 import { GeneralCrudService } from './general-crud.service';
+import { State } from 'src/app/store/users/users.reducer';
+import { setUser } from 'src/app/store/users/users.actions';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +30,7 @@ export class AuthService {
     private http: HttpClient,
     public afs: AngularFirestore, // Inject Firestore service
     public router: Router,
-    public store: Store,
+    private store: Store<State>,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
@@ -51,17 +54,17 @@ export class AuthService {
     );
   }
 
-
   // Sign in with email/password
   SignIn(email: string, password: string) {
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password);
-
+    debugger;
     if (authData) {
       this.GetUser(authData);
 
       if (this.userData) {
+    this.store.dispatch(setUser({ data: this.userData }));
         this.SetUserData(this.userData);
       }
       return this.router.navigate(['dashboard']);
@@ -70,26 +73,68 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
-    return this.pb
-      .collection('user')
-      .create({ email: email, password: password, laterFillInCompanyDetails })
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
+  async SignUp(
+    username: string,
+    email: string,
+    password: string,
+    laterFillInCompanyDetails: boolean
+  ) {
+    const data = {
+      username: username,
+      email: email,
+      emailVisibility: true,
+      password: password,
+      passwordConfirm: password,
+      name: email,
+      verified: false,
+      linkedCompany: [null],
+      role: ['piy39lmtx9o94re'],
+    };
+    debugger;
+    const record = await this.pb.collection('users').create(data);
+
+    // (optional) send an email verification request
+    if (record.id) {
+      // avatar: '';
+      // collectionId: '_pb_users_auth_';
+      // collectionName: 'users';
+      // created: '2024-04-20 12:16:26.135Z';
+      // email: 'test@mail.be';
+      // emailVisibility: true;
+      // id: 'fss6dgup50ims0f';
+      // linkedCompany: [];
+      // name: 'test@mail.be';
+      // role: ['piy39lmtx9o94re'];
+      // updated: '2024-04-20 12:16:26.135Z';
+      // username: 'test';
+      // verified: false;
+
+      this.store.dispatch(setUser({data: record}));
+      if (laterFillInCompanyDetails) {
+        this.SendVerificationMail(email);
+      } else {
+        this.router.navigate(['onboarding']);
+      }
+    } else {
+      alert('something went wrong');
+    }
+
+    // return this.pb
+    //   .collection('users')
+    //   .create({ email: email, password: password })
+    //   .then((result) => {
+    /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.SetUserData(result['user']);
-        if (laterFillInCompanyDetails) {
-          this.SendVerificationMail();
-        } else {
-          this.router.navigate(['onboarding']);
-        }
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+    // this.SetUserData(result['user']);
+
+    // })
+    // .catch((error) => {
+    //   window.alert(error.message);
+    // });
   }
   // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
+  SendVerificationMail(user: string) {
+    this.pb.collection('users').requestVerification(user);
     // return this.afAuth.currentUser
     //   .then((u: any) => u.sendEmailVerification())
     //   .then(() => {

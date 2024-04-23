@@ -8,3 +8,24 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn {
+    position: relative;
+    border-width: 2px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    border: 0;
+    border-radius: 0;
+background-color: #FFC857;}
+
+
+.bg-indigo-500 {
+   background-color: #FFC857;
+}

@@ -38,15 +38,20 @@
 
       <div class="max-w-sm mx-auto w-full px-4 py-8">
 
-        <h1 class="text-3xl text-gray-800 font-bold mb-6">Maak een gratis account aan✨</h1>
+        <h1 class="text-3xl text-gray-800 font-bold mb-6">Create a free account✨</h1>
         <!-- Form -->
-        <div class="flex items-center justify-between mt-6 mb-6">
+        <!-- <div class="flex items-center justify-between mt-6 mb-6">
           <div class="w-10" (click)="authService.GoogleAuth()">
             <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" />
           </div>
-        </div>
+        </div> -->
         <form>
           <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1" for="email">Name <span
+                  class="text-red-500">*</span></label>
+              <input id="email" #userName class="form-input w-full border-b-4 border-indigo-500" type="text" />
+            </div>
             <div>
               <label class="block text-sm font-medium mb-1" for="email">Email <span
                   class="text-red-500">*</span></label>
@@ -65,7 +70,7 @@
                 <span class="text-sm ml-2">Ik geef mijn bedrijfsgegevens later in</span>
               </label>
             </div>
-            <button (click)="authService.SignUp(userEmail.value, userPwd.value, companyFill.checked)"
+            <button (click)="authService.SignUp(userName.value, userEmail.value, userPwd.value, companyFill.checked)"
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 whitespace-nowrap">Registreer
             </button>
           </div>

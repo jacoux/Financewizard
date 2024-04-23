@@ -38,7 +38,7 @@
 
       <div class="max-w-sm mx-auto px-4 py-8">
 
-        <h1 class="text-3xl text-gray-800 font-bold mb-6">Welkom terug! ✨</h1>
+        <h1 class="text-3xl text-gray-800 font-bold mb-6">Welcome  back! ✨</h1>
         <!-- Form -->
         <form>
           <div class="space-y-4">
@@ -60,20 +60,26 @@
               (click)="signIn(userName.value, userPassword.value)">Inloggen</button>
           </div>
         </form>
-        <p class="text-1xl text-gray-800 font-bold mb-6">
+        <!-- <p class="text-1xl text-gray-800 font-bold mb-6">
           Log in via socials
         </p>
         <div class="flex items-center justify-between mt-6">
           <div class="w-10" (click)="authService.GoogleAuth()">
             <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" />
           </div>
-        </div>
+        </div> -->
         <!-- Footer -->
         <div class="pt-5 mt-6 border-t border-gray-200">
-          <div class="text-sm">
-            Nog geen account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="/sign-up">Registreer
-              gratis</a>
-          </div>
+                  <h1 class="text-3xl text-gray-800 font-bold mb-6">No account yet?</h1>          
+            
+            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">
+            <a href="/sign-up"> Sign up </a></button>
+
+            <!-- <button class="btn bg-green-500 hover:bg-indigo-600 text-white ml-3">
+            <a href="/dashboard"> Go without account</a></button>
+            <div class="text-sm">
+              <small> You can still create an account later</small>
+          </div> -->
           <!-- Warning -->
           <!-- <div class="mt-5">
             <div class="bg-yellow-100 text-yellow-600 px-3 py-2 rounded">

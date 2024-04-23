@@ -8,8 +8,8 @@
         </div>
         
         <!-- Calling SendVerificationMail() method using authService Api -->
-        <div class="formGroup">
-          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
+        <div class="formGroup"*ngIf="authService.userData as user">
+          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail(user.email)">
             <i class="fas fa-redo-alt"></i>
             Resend Verification Email
           </button>
