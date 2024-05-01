@@ -56,10 +56,10 @@
 </div> 
   </div>
 
-  <label for="my-modal" class="btn text-white	s">Add a product</label>
+  <label for="my-modal" class="btn text-white	s" (click)="visible = true">Voeg product toe</label>
   
   <!-- Put this part before </body> tag -->
   <input type="checkbox" id="my-modal" class="modal-toggle" />
-  <div class="modal">
-    <app-add-product-modal></app-add-product-modal>
+  <div class="modal" *ngIf="visible">
+  <app-add-product-modal (productData)="addCustomProduct($event)" (toggle)="addClass()"></app-add-product-modal>
   </div>

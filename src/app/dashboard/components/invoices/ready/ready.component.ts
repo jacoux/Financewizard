@@ -1,13 +1,15 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import * as confetti from 'canvas-confetti';
+import { CrudInvoiceService } from 'src/app/shared/services/crud-invoice.service';
 @Component({
   templateUrl: './ready.component.html',
   styleUrls: ['./ready.component.css'],
 })
 export class ReadyComponent implements OnInit {
-  constructor(private renderer2: Renderer2, private elementRef: ElementRef) {}
+  constructor(private renderer2: Renderer2, private elementRef: ElementRef, private invoiceService: CrudInvoiceService) {}
   ngOnInit(): void {
     this.surprise();
+    this.invoiceService.AddInvoice();
   }
 
   public surprise(): void {
@@ -20,8 +22,8 @@ export class ReadyComponent implements OnInit {
     });
 
     myConfetti({
-      particleCount: 300,
-      startVelocity: 60,
+      particleCount: 50,
+      startVelocity: 30,
       spread: 180,
       origin: {
         x: Math.random(),

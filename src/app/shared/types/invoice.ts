@@ -6,10 +6,11 @@ export interface Invoice {
   product: Product;
   invoiceDate: Date;
   paymentDate: Date;
-  invoiceNumber: Date;
+  invoiceNumber: number;
   payWithin: number;
   total: number;
   vatAmount: number;
+  invoiceName: string;
   footer: number;
 }
 
@@ -45,6 +46,7 @@ export interface InvoiceResponse {
 }
 
 export interface Product {
+  id: string;
   _id: string;
   name: string;
   companyId: number;
@@ -101,6 +103,7 @@ export interface Organization {
   logo: string;
   responsible: Responsible[];
   bank?: Bank[];
+  invoiceNumberPrefix?: string;
   defaultInvoiceDetails?: DefaultInvoiceDetails;
 }
 

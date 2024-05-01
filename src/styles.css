@@ -9,7 +9,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.btn {
+.btn-primary {
     position: relative;
     border-width: 2px;
     padding-left: 2rem;
@@ -22,10 +22,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: 600;
     line-height: 1.5;
     border: 0;
-    border-radius: 0;
+    border-radius: 5px;
+    color: blacks;
 background-color: #FFC857;}
 
-
-.bg-indigo-500 {
-   background-color: #FFC857;
-}

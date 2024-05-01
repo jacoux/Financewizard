@@ -6,7 +6,7 @@ import { response } from 'express';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { createOrganizationSuccess } from 'src/app/store/organization/organization.actions';
 import { State } from 'src/app/store/users/users.reducer';
-import { Client, Organization } from '../types/invoice';
+import { Client, Organization, Product } from '../types/invoice';
 import { AuthService } from './auth.service';
 import { getUsers } from 'src/app/store/users/users.selectors';
 import { userInfo } from 'os';
@@ -70,6 +70,11 @@ export class GeneralCrudService {
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
 
+  async AddProduct(product: Product) {
+
+    this.pb.collection('products').create(product);
+  }
+
   // Fetch Single client Object
   async GetObject(path: string, id: string) {
     const res = await lastValueFrom(
@@ -92,7 +97,12 @@ export class GeneralCrudService {
 
   // Fetch clients List
   GetObjectsList(path: string) {
-    return this.http.get(this.configUrl + path);
+    const auth_token = localStorage.getItem('token');
+    const apiUrl = this.configUrl + path;
+    const headers = { Authorization: auth_token };
+    // @ts-expect-error
+
+    return this.http.get(apiUrl, { headers });
   }
   // Update client Object
   Updateobject(client: Client) {}

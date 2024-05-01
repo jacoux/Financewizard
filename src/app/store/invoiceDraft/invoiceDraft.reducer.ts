@@ -36,6 +36,12 @@ export const reducer = createReducer(
     loading: true,
     error: null,
   })),
+  on(UserActions.saveInvoiceComplete, (state) => ({
+    ...state,
+    invoiceDraft: [],
+    loading: true,
+    error: null,
+  })),
 
   on(UserActions.loadInvoiceDraftFailure, (state, { error }) => ({
     ...state,

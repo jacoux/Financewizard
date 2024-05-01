@@ -9,16 +9,30 @@ import { OnboardingComponent } from './components/onboarding/onboarding.componen
 import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { LoggedInAuthGuard } from './shared/guard/loggedinauth.guard';
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
+  {
+    path: '',
+    redirectTo: '/sign-in',
+    pathMatch: 'full',
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent,
+    canActivate: [LoggedInAuthGuard],
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    canActivate: [LoggedInAuthGuard],
+  },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
   {
-    path: 'onboarding', component: OnboardingComponent,
+    path: 'onboarding',
+    component: OnboardingComponent,
   },
-  { path: 'dashboard', loadChildren : () => DashboardModule}
+  { path: 'dashboard', loadChildren: () => DashboardModule },
 ];
 @NgModule({
   declarations: [],

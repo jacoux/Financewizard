@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label>Prijs</label>
+                        <label>Prijs zonder BTW</label>
                         <input type="number" formControlName="price" class="form-control" required />
                         <!-- errors-->
                         <p *ngIf="price?.touched && price?.invalid" class="error">
@@ -55,9 +55,9 @@
                 Reset
             </button>
             <button type="submit" class="btn btn-success" [disabled]="!productForm.valid" (click)="submitProductData()">
-                Add product
+                Voeg toe
             </button>
-            <label for="my-modal" (click)="close()" class="btn btn-error">Close</label>
+            <label for="my-modal" (click)="close()" class="btn btn-error">Sluit</label>
         </div>
     </div>
 </div>

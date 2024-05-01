@@ -37,7 +37,13 @@
         <div class="basis-1/2">
           <div class=" bg-base-100">
             <div class="card-body">
-              <input type="text" class="input input-bordered input-primary w-full max-w-xs" placeholder="Factuurnaam" />
+              <input type="text" class="input input-bordered input-primary w-full max-w-xs" formControlName="invoiceName"  placeholder="Factuurnaam" />
+              <div>
+                {{company?.invoiceNumberPrefix}}
+              <input type="text" class="input input-bordered input-primary w-full max-w-xs" formControlName="invoiceNumber"
+                placeholder="Factuur nummer" />
+
+              </div>
               <h2 class="card-title">{{company?.name}}</h2>
               <p>{{company?.address?.streetName}} {{company?.address?.streetNumber}}</p>
               <p>{{company?.address?.postalCode}} {{company?.address?.city}} </p>
@@ -155,9 +161,9 @@
                 </svg>
   
               </label>
-              <select *ngIf="!row.get('isCustom')?.value && products.length > 0"
+              <select *ngIf="!row.get('isCustom')?.value && products?.length > 0"
                 (change)="selectProd(index, $event.target.value)" class="select select-primary w-full max-w-xs">
-                <option *ngFor="let prod of products" [value]="prod._id">{{prod.name}}</option>
+                <option *ngFor="let prod of products" [value]="prod.id">{{prod.name}}</option>
               </select>
               <input *ngIf="row.get('isCustom')?.value" [value]="row.get('name')?.value"
                 class="input input-bordered input-primary w-full max-w-xs" />
@@ -229,7 +235,7 @@
                   <button class="btn btn-wide btn-primary" (click)="onAddRow()">Snel invullen</button>
                 </div>
                 <div class="basis-1/4">
-                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg manueel toe</button>
+                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg Product toe</button>
                 </div>
               </div>
               
@@ -256,7 +262,10 @@
                 <div id="dashboard-card-04-legend" class="px-5 py-3">
                   <textarea formControlName="footer" class="textarea w-full mt-6"
                     [placeholder]="placeholder_footer"></textarea>
-
+    </div>
+                <div id="dashboard-card-04-legend" class="px-5 py-3">
+                  <textarea formControlName="paymentDetails" class="textarea w-full mt-6"
+                    placeholder="Geef je rekingnummer in"></textarea>
     </div>
   </div>
   <button class="btn btn-wide btn-primary" (click)="submit()"> Volgende stap</button>

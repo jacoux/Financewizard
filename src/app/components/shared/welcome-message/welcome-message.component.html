@@ -44,17 +44,17 @@
 
     <!-- Content -->
     <div class="formGroup" *ngIf="authService.userData as user">
-        <div *ngIf="!user.emailVerified">
-            <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
-            <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+        <div *ngIf="!user.verified">
+            <p class="text-center">We hebben een verificatiemail gestuurd naar <strong>{{user.displayName}}</strong>.</p>
+            <p class="text-center">bekijk even je email en bevestig je e-mailadres.</p>
         </div>
 
         <div *ngIf="!user.companyId">
             <p class="text-center">Gelieve <a href="/dashboard/account" class="underline">hier</a> je bedrijf op te
                 zetten ✎</p>
         </div>
-        <div class="relative text-center pt-2" *ngIf="user.emailVerified && user.companyId">
-            <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Hallo, Niels. 👋</h1>
+        <div class="relative text-center pt-2" *ngIf="user.verified && user.companyId">
+            <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Hallo, {{user.name}}. 👋</h1>
         </div>
 
     </div>

@@ -23,7 +23,7 @@ export class ProductsComponent implements OnInit {
     'isHourlyRate',
   ];
   dataSource = new MatTableDataSource(this.products);
-
+  visible = false;
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
 
@@ -47,7 +47,14 @@ export class ProductsComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+  addClass() {
+    this.visible = !this.visible;
+  }
 
+  addCustomProduct(product: any) { 
+    debugger;
+    this.crudApi.AddProduct(product);
+  }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);

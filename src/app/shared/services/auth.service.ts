@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 import { error } from 'console';
-import PocketBase from 'pocketbase';
+import PocketBase, { RecordAuthResponse } from 'pocketbase';
 
 import { response } from 'express';
 import { setOrganizationData } from 'src/app/store/organization/organization.actions';
@@ -55,20 +55,23 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  SignIn(email: string, password: string) {
+   async SignIn(email: string, password: string) {
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password);
-    debugger;
-    if (authData) {
+     debugger;
+    if (await authData) {
       this.GetUser(authData);
-
       if (this.userData) {
-    this.store.dispatch(setUser({ data: this.userData }));
+        this.store.dispatch(setUser({ data: this.userData }));
         this.SetUserData(this.userData);
+      } else {
+        alert('helaas heb je geen account of is je wachtwoord fout');
       }
+
       return this.router.navigate(['dashboard']);
     }
+
     return;
   }
 
@@ -180,14 +183,13 @@ export class AuthService {
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any) {
-    debugger;
     const userData: User = {
       uid: user.id,
       email: user.email,
       displayName: user.username,
       photoURL: user.avatar,
       emailVerified: user.verified,
-      companyId: user?.companyId,
+      companyId: user?.linkedCompany?.[0]
     };
     localStorage.setItem('user', JSON.stringify(userData));
   }
@@ -215,17 +217,19 @@ export class AuthService {
 
   GetUser(user: any) {
     // after the above you can also access the auth data from the authStore
-    // console.log(this.pb.authStore.token);
+    console.log(this.pb.authStore.token);
 
     // "logout" the last authenticated account
     // this.pb.authStore.clear();
     // /api/collections/ users / records;
-    debugger;
+    
     if (this.pb.authStore?.model?.['id']) {
       const newU: any = this.pb.authStore?.model;
       debugger;
       this.userData = newU;
       this.userData.companyId = newU.linkedCompany[0];
+      this.userData.token = this.pb.authStore.token;
+      localStorage.setItem('token', this.pb.authStore.token);
       // console.log(this.userData.companyId);
     } else {
       console.log('There is no document!');
