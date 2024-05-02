@@ -1,6 +1,7 @@
 import { User } from './user';
 
 export interface Invoice {
+  paymentDetails: any;
   client: Client;
   organization: Organization;
   product: Product;

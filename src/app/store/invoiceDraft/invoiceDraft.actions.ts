@@ -12,6 +12,11 @@ export const loadInvoiceDraftFailure = createAction(
   props<{ error: any }>()
 );
 
+export const setInvoiceForEdit = createAction(
+  '[step 1] set invoice for editing',
+  props<{ data: any }>()
+);
+
 export const saveInvoice = createAction(
   '[step 1] set invoice',
   props<{ data: any }>()

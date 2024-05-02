@@ -199,12 +199,21 @@ export class NewInvoiceComponent implements OnInit {
       if (invoiceDraft?.client.id) {
         this.onClientChange(invoiceDraft?.client.id);
       }
+      this.invoiceFrom.controls['invoiceName'].setValue(
+        invoiceDraft?.invoiceName
+      );
+      this.invoiceFrom.controls['invoiceNumber'].setValue(
+        invoiceDraft?.invoiceNumber
+      );
       this.invoiceFrom.controls['invoiceDate'].setValue(invoiceDraft?.invoiceDate);
       this.invoiceFrom.controls['paymentDate'].setValue(invoiceDraft?.paymentDate);
       this.invoiceFrom.controls['payWithin'].setValue(invoiceDraft?.payWithin);
       this.invoiceFrom.controls['total'].setValue(invoiceDraft?.total);
       this.invoiceFrom.controls['vatAmount'].setValue(invoiceDraft?.vatAmount);
       this.invoiceFrom.controls['footer'].setValue(invoiceDraft?.footer);
+      this.invoiceFrom.controls['paymentDetails'].setValue(
+        invoiceDraft?.paymentDetails
+      );
 
           if (products?.length > 0) {
             // first row is allready added

@@ -15,7 +15,6 @@ import { ClientComponent } from './components/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from '../components/shared/table/table.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { SidebarComponent } from '../components/shared/sidebar/sidebar.component';
 import { HeaderComponent } from '../components/shared/header/header.component';
@@ -23,6 +22,8 @@ import { WelcomeMessageComponent } from '../components/shared/welcome-message/we
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 import { AddProductModalComponent } from './components/products/add-product-modal/add-product-modal.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CreateJobComponent } from './components/recruitment/create-job/create-job.component';
@@ -40,6 +41,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EstimatesComponent } from './components/estimates/estimates.component';
 import { StepperComponent } from '../components/shared/stepper/stepper.component';
+import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
 
 @NgModule({
   declarations: [
@@ -80,9 +82,9 @@ import { StepperComponent } from '../components/shared/stepper/stepper.component
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     DragDropModule,
     AngularJsonFormModule,
     MatTableModule,
