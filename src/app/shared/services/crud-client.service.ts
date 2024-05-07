@@ -7,15 +7,16 @@ import { result } from 'lodash';
 import { AllClientsComponent } from 'src/app/dashboard/components/client/all-clients/all-clients.component';
 import { EventEmitter } from 'stream';
 import { User } from '../types/user';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrudClientService {
-  pb = new PocketBase('http://127.0.0.1:8090');
-  configUrl: 'http://127.0.0.1:8090/api/collections/clients' =
-    'http://127.0.0.1:8090/api/collections/clients';
+  env = environment.apiUrl
+  pb = new PocketBase(environment.apiUrl);
+  configUrl = this.env + '/api/collections/clients';
 
   constructor(private db: AngularFireDatabase, private http: HttpClient) {}
 
@@ -68,7 +69,7 @@ export class CrudClientService {
   // Fetch clients List
   GetclientsList() {
     return this.http.get<ClientResponse>(
-      'http://127.0.0.1:8090/api/collections/clients/records'
+      environment.apiUrl +'/api/collections/clients/records'
     );
   }
   // Update client Object

@@ -11,16 +11,16 @@ import { AuthService } from './auth.service';
 import { getUsers } from 'src/app/store/users/users.selectors';
 import { userInfo } from 'os';
 import PocketBase from 'pocketbase';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralCrudService {
-  configUrl: 'http://127.0.0.1:8090/api/collections/' =
-    'http://127.0.0.1:8090/api/collections/';
+  configUrl = environment.apiUrl + '/api/collections/';
 
-  pb = new PocketBase('http://127.0.0.1:8090');
+  pb = new PocketBase(environment.apiUrl);
 
   constructor(
     private http: HttpClient,

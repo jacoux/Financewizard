@@ -17,6 +17,7 @@ import { User } from 'src/app/shared/types/user';
 import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
 import { InvoiceDraftState } from 'src/app/store/invoiceDraft/invoiceDraft.models';
 import { setCompanyInfo } from 'src/app/store/organization/organization.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './new-invoice.component.html',
@@ -268,7 +269,7 @@ export class NewInvoiceComponent implements OnInit {
           'te betalen voor... op rekeningnummer ...';
         this.company = data;
         this.logo =
-          'http://127.0.0.1:8090/api/files/companies/' +
+          environment.apiUrl + '/api/files/companies/' +
           data.id +
           '/' +
           data.logo;

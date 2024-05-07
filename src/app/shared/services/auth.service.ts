@@ -18,13 +18,14 @@ import { setOrganizationData } from 'src/app/store/organization/organization.act
 import { GeneralCrudService } from './general-crud.service';
 import { State } from 'src/app/store/users/users.reducer';
 import { setUser } from 'src/app/store/users/users.actions';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any;
-  pb = new PocketBase('http://127.0.0.1:8090');
+  pb = new PocketBase(environment.apiUrl);
 
   constructor(
     private http: HttpClient,
@@ -55,11 +56,11 @@ export class AuthService {
   }
 
   // Sign in with email/password
-   async SignIn(email: string, password: string) {
+  async SignIn(email: string, password: string) {
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password);
-     debugger;
+    debugger;
     if (await authData) {
       this.GetUser(authData);
       if (this.userData) {
@@ -112,7 +113,7 @@ export class AuthService {
       // username: 'test';
       // verified: false;
 
-      this.store.dispatch(setUser({data: record}));
+      this.store.dispatch(setUser({ data: record }));
       if (laterFillInCompanyDetails) {
         this.SendVerificationMail(email);
       } else {
@@ -189,7 +190,7 @@ export class AuthService {
       displayName: user.username,
       photoURL: user.avatar,
       emailVerified: user.verified,
-      companyId: user?.linkedCompany?.[0]
+      companyId: user?.linkedCompany?.[0],
     };
     localStorage.setItem('user', JSON.stringify(userData));
   }
@@ -222,7 +223,7 @@ export class AuthService {
     // "logout" the last authenticated account
     // this.pb.authStore.clear();
     // /api/collections/ users / records;
-    
+
     if (this.pb.authStore?.model?.['id']) {
       const newU: any = this.pb.authStore?.model;
       debugger;

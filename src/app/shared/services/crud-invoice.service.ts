@@ -7,14 +7,14 @@ import { Client, Invoice } from '../types/invoice';
 import PocketBase from 'pocketbase';
 import { saveInvoice, saveInvoiceComplete, setInvoiceForEdit } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrudInvoiceService {
-  pb = new PocketBase('http://127.0.0.1:8090');
-  configUrl: 'http://127.0.0.1:8090/api/collections/clients' =
-    'http://127.0.0.1:8090/api/collections/clients';
+  pb = new PocketBase(environment.apiUrl);
+  configUrl = environment.apiUrl + '/api/collections/clients';
 
   constructor(private store: Store, private router: Router) {}
   // Get data from the store to retrieve and display/parse in the invoice
