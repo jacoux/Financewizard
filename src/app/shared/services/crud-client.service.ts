@@ -22,7 +22,7 @@ export class CrudClientService {
   async Addclient(client: Client) {
     // @ts-expect-error
     const user: User = JSON.parse(localStorage.getItem('user'));
-    client.companyId = user.companyId
+    client.companyId = user.companyId;
 
     //     dummy DataTransferconst data = {
     //     "name": "test",
@@ -41,12 +41,29 @@ export class CrudClientService {
       .then((value) => {
         if (value.id) {
           alert('Client created successfully');
-        } 
+        }
       });
   }
+
+  async deleteClient(id: string) {
+    await this.pb.collection('clients').delete(id);
+  }
+
   // Fetch Single client Object
-  Getclient(id: string) {
-    return this.http.get<Client>(this.configUrl + '/records/' + id);
+  async getclient(id: string) {
+    let client = undefined;
+    const record = this.pb
+      .collection('clients')
+      .getOne(id)
+      .then((value) => {
+        if (value) {
+          client = value;
+        } else {
+          client = undefined;
+        }
+      });
+    await record;
+    return client;
   }
   // Fetch clients List
   GetclientsList() {
@@ -55,7 +72,10 @@ export class CrudClientService {
     );
   }
   // Update client Object
-  Updateclient(client: Client) {}
+  async updateclient(id: string, client: Client) {
+    const record = await this.pb.collection('clients').update(id, client);
+    return record;
+  }
   // Delete client Object
-  Deleteclient(id: string) {}
+  deleteclient(id: string) {}
 }

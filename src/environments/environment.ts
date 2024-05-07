@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrl: "http://127.0.0.1:8090",
   firebase: {
     apiKey: "AIzaSyBGr2VH71cpyXCGTtzl_p9tHwZ722sDFAc",
     authDomain: "invoice-app-11c2b.firebaseapp.com",

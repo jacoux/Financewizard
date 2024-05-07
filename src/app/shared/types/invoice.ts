@@ -16,12 +16,12 @@ export interface Invoice {
 }
 
 export interface Client {
-  id: any;
+  id?: any;
   email: string;
   vat: string;
   name: string;
-  responsible: string;
-  companyId: string;
+  responsible?: string;
+  companyId?: string;
   firstName?: string;
   lastName?: string;
   tel?: string;
@@ -47,10 +47,10 @@ export interface InvoiceResponse {
 }
 
 export interface Product {
+  qty?: any;
   id: string;
-  _id: string;
   name: string;
-  companyId: number;
+  companyId?: number;
   vatPercentage: string;
   price: number;
   vatApplicable?: boolean;

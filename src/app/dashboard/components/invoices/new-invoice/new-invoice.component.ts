@@ -211,12 +211,11 @@ export class NewInvoiceComponent implements OnInit {
       this.invoiceFrom.controls['total'].setValue(invoiceDraft?.total);
       this.invoiceFrom.controls['vatAmount'].setValue(invoiceDraft?.vatAmount);
       this.invoiceFrom.controls['footer'].setValue(invoiceDraft?.footer);
-      this.invoiceFrom.controls['paymentDetails'].setValue(
-        invoiceDraft?.paymentDetails
-      );
+      this.invoiceFrom.controls['paymentDetails'].setValue(invoiceDraft?.paymentDetails);
 
-          if (products?.length > 0) {
+      if (products?.length > 0) {
             // first row is allready added
+
             products.forEach((element: any) => {
               const rowData = this.fb.group({
                 name: element.name,
@@ -228,8 +227,10 @@ export class NewInvoiceComponent implements OnInit {
                 total: element.total,
                 isCustom: element.isCustom,
               });
+                  this.rows.removeAt(0);
               this.rows.push(rowData);
             });
+        this.calculateTotal() 
           }
     })
 

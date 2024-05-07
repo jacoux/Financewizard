@@ -34,9 +34,6 @@ export class AllInvoicesComponent implements OnInit {
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    private route: ActivatedRoute,
-    private store: Store,
-    private router: Router,
     public crudApi: GeneralCrudService,
     public invoiceService: CrudInvoiceService
   ) {}

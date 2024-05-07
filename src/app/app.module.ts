@@ -15,6 +15,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 import {
   MatNativeDateModule,
@@ -70,6 +71,7 @@ export function localStorageSyncReducer(
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     FormsModule,
+    MatSortModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatTooltipModule,

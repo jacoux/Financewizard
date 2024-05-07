@@ -15,12 +15,14 @@ import { Product } from 'src/app/shared/types/invoice';
 export class ProductsComponent implements OnInit {
   public productForm!: UntypedFormGroup;
   products: Product[] = [];
+  product: Product | undefined;
   displayedColumns: string[] = [
     'price',
     'name',
     'vat',
     'description',
     'isHourlyRate',
+    'actions',
   ];
   dataSource = new MatTableDataSource(this.products);
   visible = false;
@@ -47,14 +49,33 @@ export class ProductsComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-  addClass() {
-    this.visible = !this.visible;
+
+  deleteProduct(id: string) {
+    this.crudApi.deleteProduct(id);
+    window.location.reload();
   }
 
-  addCustomProduct(product: any) { 
+  addClass() {
     debugger;
+    this.visible = !this.visible;
+    this.product = undefined
+  }
+
+  addCustomProduct(product: any) {
     this.crudApi.AddProduct(product);
   }
+
+  getSingleProduct(id: string) {
+    this.crudApi.getProduct(id).then((product) => {
+      this.product = product;
+    });
+  }
+
+  editProduct(id: number) {
+    this.getSingleProduct(id.toString());
+    this.visible = true;
+  }
+
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);

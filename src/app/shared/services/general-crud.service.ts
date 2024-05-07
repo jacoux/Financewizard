@@ -71,8 +71,27 @@ export class GeneralCrudService {
   }
 
   async AddProduct(product: Product) {
-
     this.pb.collection('products').create(product);
+  }
+
+  async deleteProduct(id: string) {
+    await this.pb.collection('products').delete(id);
+  }
+
+  async getProduct(id: string) {
+    let product;
+    const record = await this.pb.collection('products').getOne(id).then( value => {
+if (value) {
+        product = value;
+      }
+      else {
+        product = undefined;
+    }
+    })
+     await record 
+      return product;
+     
+
   }
 
   // Fetch Single client Object
