@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,7 +30,6 @@ export class ProductsComponent implements OnInit {
 
     public crudApi: GeneralCrudService,
     public fb: UntypedFormBuilder,
-    private database: AngularFireDatabase
   ) {}
   ngOnInit() {
     this.crudApi

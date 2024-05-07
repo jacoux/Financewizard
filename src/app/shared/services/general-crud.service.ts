@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireList } from '@angular/fire/compat/database';
 import { Store } from '@ngrx/store';
 import { response } from 'express';
 import { catchError, lastValueFrom, map } from 'rxjs';

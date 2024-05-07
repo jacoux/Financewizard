@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
 import { Client } from 'src/app/shared/types/invoice';
@@ -22,7 +21,6 @@ export class CreateClientComponent implements OnInit, OnChanges {
   constructor(
     public crudApi: CrudClientService,
     public fb: UntypedFormBuilder,
-    private database: AngularFireDatabase
   ) {}
   ngOnInit() {
     this.studenForm();

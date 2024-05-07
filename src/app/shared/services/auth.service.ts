@@ -1,11 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../types/user';
 import * as auth from 'firebase/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -29,7 +25,6 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    public afs: AngularFirestore, // Inject Firestore service
     public router: Router,
     private store: Store<State>,
     public ngZone: NgZone // NgZone service to remove outside scope warning
@@ -198,16 +193,6 @@ export class AuthService {
   UpdateUser(id: any) {
     const user = JSON.parse(localStorage.getItem('user')!);
     if (user) {
-      const userRef = this.afs.doc(`users/${user.uid}`);
-      userRef.update({ companyId: id });
-      this.userData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-        companyId: id,
-      };
       localStorage.setItem('user', JSON.stringify(this.userData));
       return this.router.navigate(['/dashboard']);
     } else {

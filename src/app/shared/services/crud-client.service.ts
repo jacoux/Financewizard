@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
 import { Client, ClientResponse } from '../types/invoice';
 import PocketBase from 'pocketbase';
 import { result } from 'lodash';
@@ -18,7 +17,7 @@ export class CrudClientService {
   pb = new PocketBase(environment.apiUrl);
   configUrl = this.env + '/api/collections/clients';
 
-  constructor(private db: AngularFireDatabase, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   async Addclient(client: Client) {
     // @ts-expect-error
