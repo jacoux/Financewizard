@@ -87,7 +87,7 @@ export class AuthService {
       name: email,
       verified: false,
       linkedCompany: [null],
-      role: ['piy39lmtx9o94re'],
+      role: [null],
     };
     debugger;
     const record = await this.pb.collection('users').create(data);
