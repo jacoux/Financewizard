@@ -1,3 +1,11 @@
+<div role="alert" class="alert alert-success" *ngIf="showAlert">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>Opgeslaan!</span>
+</div>
+
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
     <!-- Page header -->
@@ -490,7 +498,7 @@
                 </div>
                 <div class="prose content" *ngIf="view == 'account'">
                     <div class=" p-6 bg-base-100 shadow-xl mt-2 lg:prose-l">
-                        <h1 id="heading-1">Profiel</h1>
+                        <h1 id="heading-1">Bedrijf</h1>
                         <div class="divider"></div>
                         <form [formGroup]="organizationForm" (ngSubmit)="submitOrganizationData()">
                             <h2 class="mt-10">Bedrijfsinfo</h2>
@@ -525,28 +533,30 @@
                                 </div>
                             </div>
                             <h2 class="mt-20">Adres</h2>
+                       <ng-container formGroupName="address">
+
                             <div class="flex flex-row">
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
                                             <span class="label-text">Straatnaam</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="Straatnaam" formControlName="streetName" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">nummer</span>
+                                            <span class="label-text">Nummer</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="10" formControlName="streetNumber" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                                 <div class="basis-1/4">
                                     <label class="label">
                                         <span class="label-text">Bus</span>
                                     </label>
-                                    <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                    <input type="text" placeholder="bus" formControlName="busNumber" class="input input-bordered  w-full max-w-xs" />
                                 </div>
                             </div>
                 
@@ -556,7 +566,7 @@
                                         <label class="label">
                                             <span class="label-text">Postcode</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="info@site.com" formControlName="postalCode" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                                 <div class="basis-1/4">
@@ -564,10 +574,20 @@
                                         <label class="label">
                                             <span class="label-text">Stad</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="info@site.com" formControlName="city" class="input input-bordered  w-full max-w-xs" />
+                                    </div>
+                                </div>
+                                <div class="basis-1/4">
+                                    <div>
+                                        <label class="label">
+                                            <span class="label-text">Land</span>
+                                        </label>
+                                        <input type="text" placeholder="info@site.com" formControlName="country"
+                                            class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                             </div>
+                            </ng-container>
                             <h2 class="mt-20">Verantwoordelijke</h2>
                 
                             <div class="flex flex-row">
@@ -596,22 +616,23 @@
                                     </div>
                                 </div>
                             </div>
+                            
                 
-                            <h2 class="mt-20">Bankrekening</h2>
-                
+                            <h2 class="mt-20">Bank</h2>
+                <ng-container formGroupName="bank">
                             <div class="flex flex-row">
                                 <div class="basis-1/4">
                                     <label class="label">
                                         <span class="label-text">Rekeningnummer</span>
                                     </label>
-                                    <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                    <input type="text" placeholder="BE 6789 6789 6789 78" formControlName="bankAccountNumber" class="input input-bordered  w-full max-w-xs" />
                                 </div>
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">BICC</span>
+                                            <span class="label-text">BIC</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="GEBABEBB" formControlName="swift" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                                 <div class="basis-1/4">
@@ -619,49 +640,55 @@
                                         <label class="label">
                                             <span class="label-text">Naam rekening</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" placeholder="Bedrijfsrekening" formControlName="nameBankAccount" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                             </div>
-                
+                </ng-container>
+                <ng-container formGroupName="defaultInvoiceDetails">
                             <h2 class="mt-20">Factuur</h2>
                 
                             <div class="flex flex-row">
-                                <div class="basis-1/2">
+                               <div class="basis-1/4">
+                                   <div>
+                                       <label class="label">
+                                           <span class="label-text">Factuurnummer start</span>
+                                       </label>
+                                       <input type="text" formControlName="invoiceNumberStart" placeholder="2024-" class="input input-bordered  w-full max-w-xs" />
+                                   </div>
+                               </div>
+                                <div class="basis-1/4">
                                     <div>
                                         <label class="label">
                                             <span class="label-text">Standaard voettekst</span>
                                         </label>
-                                        <textarea class="textarea" placeholder="voettekst"></textarea>
+                                        <textarea class="textarea" formControlName="footer" placeholder="Te betalen op rekeningnummer GEBABB - 6765 6565 7676 76"  class="input input-bordered  w-full max-w-xs"></textarea>
                                     </div>
                                 </div>
-                                <div class="basis-1/2">
+                                <div class="basis-1/4">
                                     <div>
                                         <label class="label">
                                             <span class="label-text">Ondertitel</span>
                                         </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
+                                        <input type="text" formControlName="subTitle" placeholder="Bij ons alle dagen feest!" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                             </div>
+                            </ng-container>
                             <div class="flex flex-row">
+
                                 <div class="basis-1/4">
                                     <div>
-                                        <label class="label">
-                                            <span class="label-text">Factuurnummer start</span>
-                                        </label>
-                                        <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
-                                    </div>
-                                </div>
-                                <div class="basis-1/4">
-                                    <div>
-                                        <label class="label">
-                                            <span class="label-text">Logo</span>
-                                        </label>
-                                        <input type="file" class="file-input w-full max-w-xs" />
+                                        <img id="preview_img" [src]="logo" />
+                                        <input type="file" (change)="loadFile($event)" class="file-input w-full max-w-xs" />
                                     </div>
                                 </div>
                             </div>
+                        <div class="flex flex-row">
+                             <button type="submit" class="btn btn-success">Gegevens opslaan</button>
+                             <button type="clean" class="btn btn-error">Alle aanpassingen verwijderen</button>
+                        </div>
+
                         </form>
                     </div>
                 </div>

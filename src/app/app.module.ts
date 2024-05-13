@@ -34,6 +34,7 @@ import { organizationState } from './store/organization/organization.models';
 import { organizationEffects } from './store/organization/organization.effects';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputComponent } from './components/shared/input/input.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -66,6 +67,7 @@ export function localStorageSyncReducer(
     MatDatepickerModule,
     MatTooltipModule,
     BrowserAnimationsModule,
+    DashboardModule,
     DashboardRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -76,7 +78,16 @@ export function localStorageSyncReducer(
     ]),
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'nl-BE'
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

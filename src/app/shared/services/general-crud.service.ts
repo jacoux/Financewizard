@@ -69,6 +69,37 @@ export class GeneralCrudService {
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
 
+  async updateCompany(org: Organization) {
+    const record = await this.pb.collection('companies').update(org.id, org);
+    return record;
+  }
+
+  async getCompanyById() {
+    debugger;
+    const auth_token = localStorage.getItem('token');
+    // @ts-expect-error
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+    const id = user.companyId;
+    let company;
+    const record = await this.pb
+      .collection('companies')
+      .getOne(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${auth_token}`,
+        },
+      })
+      .then((value) => {
+        if (value) {
+          company = value;
+        } else {
+          company = undefined;
+        }
+      });
+    await record;
+    return company;
+  }
+
   async AddProduct(product: Product) {
     this.pb.collection('products').create(product);
   }
@@ -122,11 +153,6 @@ if (value) {
 
     return this.http.get(apiUrl, { headers });
   }
-  // Update client Object
-  Updateobject(client: Client) {}
-
-  // Delete client Object
-  Deleteobject(id: string) {}
 
   checkVat(vat: string) {
     return this.http.get(
