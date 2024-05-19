@@ -11,6 +11,7 @@ import { getUsers } from 'src/app/store/users/users.selectors';
 import { userInfo } from 'os';
 import PocketBase from 'pocketbase';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,13 +19,15 @@ import { environment } from 'src/environments/environment';
 })
 export class GeneralCrudService {
   configUrl = environment.apiUrl + '/api/collections/';
+  auth_token = localStorage.getItem('token');
 
   pb = new PocketBase(environment.apiUrl);
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private store: Store<State>
+    private store: Store<State>,
+    private router: Router
   ) {}
   async AddObject(org: Organization, path: string) {
     const url = this.configUrl + path;
@@ -41,11 +44,13 @@ export class GeneralCrudService {
   }
 
   async AddCompany(org: Organization, path: string) {
-    let user: any;
-    this.store.subscribe((userInfo) => {
-      debugger;
-      user = userInfo;
-    });
+    // @ts-expect-error
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+
+    // this.store.subscribe((userInfo) => {
+    //   debugger;
+    //   user = userInfo;
+    // });
 
     // example create data
     const data = {
@@ -63,10 +68,12 @@ export class GeneralCrudService {
     const record = await this.pb.collection('companies').create(data);
 
     const response: any = record;
-    const id = response.data.id;
-    this.authService.UpdateUser(id);
+    const id = response.id;
+
+    this.authService.UpdateUserAfterAssignedToOrganisation(id);
     debugger;
     this.store.dispatch(createOrganizationSuccess({ id: id }));
+    this.router.navigate(['dashboard']);
   }
 
   async updateCompany(org: Organization) {
@@ -101,27 +108,42 @@ export class GeneralCrudService {
   }
 
   async AddProduct(product: Product) {
-    this.pb.collection('products').create(product);
+    this.pb.collection('products').create(product, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.auth_token}`,
+      },
+    });
   }
 
   async deleteProduct(id: string) {
-    await this.pb.collection('products').delete(id);
+    await this.pb.collection('products').delete(id, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.auth_token}`,
+      },
+    });
   }
 
   async getProduct(id: string) {
     let product;
-    const record = await this.pb.collection('products').getOne(id).then( value => {
-if (value) {
-        product = value;
-      }
-      else {
-        product = undefined;
-    }
-    })
-     await record 
-      return product;
-     
-
+    const record = await this.pb
+      .collection('products')
+      .getOne(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
+      .then((value) => {
+        if (value) {
+          product = value;
+        } else {
+          product = undefined;
+        }
+      });
+    await record;
+    return product;
   }
 
   // Fetch Single client Object
@@ -139,7 +161,7 @@ if (value) {
     this.http.post(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${auth_token}`,
+        Authorization: `Bearer ${this.auth_token}`,
       },
     });
   }

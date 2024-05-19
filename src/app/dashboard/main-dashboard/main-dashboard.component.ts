@@ -13,7 +13,6 @@ export class MainDashboardComponent implements OnInit {
   company: any;
   constructor(
     public authService: AuthService,
-    private store: Store,
     private orgApi: GeneralCrudService
   ) {}
 

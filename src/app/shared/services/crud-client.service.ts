@@ -13,16 +13,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CrudClientService {
-  env = environment.apiUrl
+  env = environment.apiUrl;
   pb = new PocketBase(environment.apiUrl);
   configUrl = this.env + '/api/collections/clients';
+  auth_token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
 
   async Addclient(client: Client) {
     // @ts-expect-error
     const user: User = JSON.parse(localStorage.getItem('user'));
-    client.companyId = user.companyId;
+    client.companyId = user.linkedCompany?.[0];
 
     //     dummy DataTransferconst data = {
     //     "name": "test",
@@ -37,7 +38,12 @@ export class CrudClientService {
     // };
     const record = await this.pb
       .collection('clients')
-      .create(client)
+      .create(client, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
       .then((value) => {
         if (value.id) {
           alert('Client created successfully');
@@ -46,7 +52,12 @@ export class CrudClientService {
   }
 
   async deleteClient(id: string) {
-    await this.pb.collection('clients').delete(id);
+    await this.pb.collection('clients').delete(id, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.auth_token}`,
+      },
+    });
   }
 
   // Fetch Single client Object
@@ -54,7 +65,12 @@ export class CrudClientService {
     let client = undefined;
     const record = this.pb
       .collection('clients')
-      .getOne(id)
+      .getOne(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
       .then((value) => {
         if (value) {
           client = value;
@@ -68,12 +84,17 @@ export class CrudClientService {
   // Fetch clients List
   GetclientsList() {
     return this.http.get<ClientResponse>(
-      environment.apiUrl +'/api/collections/clients/records'
+      environment.apiUrl + '/api/collections/clients/records'
     );
   }
   // Update client Object
   async updateclient(id: string, client: Client) {
-    const record = await this.pb.collection('clients').update(id, client);
+    const record = await this.pb.collection('clients').update(id, client, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.auth_token}`,
+      },
+    });
     return record;
   }
   // Delete client Object

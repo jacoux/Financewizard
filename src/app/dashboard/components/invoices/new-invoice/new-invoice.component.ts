@@ -250,7 +250,7 @@ export class NewInvoiceComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user')) as User;
 
     this.crudApi
-      .GetObjectsList('companies/records/' + user.companyId)
+      .GetObjectsList('companies/records/' + user.linkedCompany?.[0])
       // @ts-ignore
       .subscribe((data: Organization) => {
       

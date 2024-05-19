@@ -151,41 +151,32 @@ export class AuthService {
     //     window.alert(error);
     //   });
   }
+
+  async authRefresh() {
+    const authData = await this.pb
+      .collection('users')
+      .authRefresh()
+      .then((response) => {
+        this.SetUserData(response.record);
+        return response.meta;
+      });
+    return authData;
+  }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    const user = this.authRefresh();
+
     return user !== null ? true : false;
   }
-  // Sign in with Google
-  GoogleAuth() {
-    // return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-    this.router.navigate(['dashboard']);
-    // });
-  }
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    // return this.afAuth
-    //   .signInWithPopup(provider)
-    //   .then((result) => {
-    //     debugger;
-    //     this.GetUser(result.user);
-    //     return this.router.navigate(['dashboard']);
-    //   })
-    //   .catch((error) => {
-    //     window.alert(error);
-    //   });
-  }
-  /* Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+
   SetUserData(user: any) {
     const userData: User = {
-      uid: user.id,
+      id: user.id,
       email: user.email,
       displayName: user.username,
       photoURL: user.avatar,
       emailVerified: user.verified,
-      companyId: user?.linkedCompany?.[0],
+      linkedCompany: user?.linkedCompany?.[0],
     };
     localStorage.setItem('user', JSON.stringify(userData));
   }
@@ -201,6 +192,44 @@ export class AuthService {
     }
   }
 
+  // company is made, now set the id of the created company to the user
+  async UpdateUserAfterAssignedToOrganisation(companyId: any) {
+    debugger;
+  // if (user) {
+  //   localStorage.setItem('user', JSON.stringify(this.userData));
+  //   return this.router.navigate(['/dashboard']);
+  // } else {
+  //   alert('Geen gebruiker gevonden');
+  //   return;
+  // }
+  
+    const user = JSON.parse(localStorage.getItem('user')!);
+    const userData: User = {
+      id: user.id,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.avatar,
+      emailVerified: user.emailVerified,
+      linkedCompany: [companyId],
+    };
+  
+
+    const record = await this.pb
+      .collection('users')
+      .update(userData.id, userData);
+    debugger;
+    if (record) {
+      return this.router.navigate(['/dashboard']);
+    }
+    else {
+      alert('Geen gebruiker gevonden');
+      return;
+    }
+  
+  }
+
+
+
   GetUser(user: any) {
     // after the above you can also access the auth data from the authStore
     console.log(this.pb.authStore.token);
@@ -213,7 +242,7 @@ export class AuthService {
       const newU: any = this.pb.authStore?.model;
       debugger;
       this.userData = newU;
-      this.userData.companyId = newU.linkedCompany[0];
+      this.userData.companyId = newU.linkedCompany?.[0];
       this.userData.token = this.pb.authStore.token;
       localStorage.setItem('token', this.pb.authStore.token);
       // console.log(this.userData.companyId);

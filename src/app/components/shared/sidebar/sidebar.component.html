@@ -1,4 +1,4 @@
-<div id="sidebar"
+<div id="sidebar" *ngIf="user?.linkedCompany?.[0]"
     class="flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-200 shrink-0 bg-gray-800 p-4 transition-all duration-200 ease-in-out translate-x-0">
 
     <!-- Sidebar header -->
@@ -142,7 +142,7 @@
                         </div>
                     </a>
                 </li>
-<li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
+<!-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900">
     <a class="block text-pink-100 hover:text-white truncate transition duration-150" [routerLink]="['/dashboard/chat']">
         <div class="flex items-center">
 
@@ -158,8 +158,8 @@
             <span class="text-sm font-medium ml-3">Chat</span>
         </div>
     </a>
-</li>
-<li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900 active">
+</li> -->
+<!-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" routerLinkActive="bg-gray-900 active">
     <a class="block text-pink-100 hover:text-white truncate transition duration-150"
         [routerLink]="['/dashboard/recruitment']">
         <div class="flex items-center">
@@ -206,7 +206,7 @@
             </a>
         </ul>
     </div>
-</li>
+</li> -->
             </ul>
         </div>
         <!-- More group -->

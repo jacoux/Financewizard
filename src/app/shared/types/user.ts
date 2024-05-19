@@ -1,8 +1,8 @@
 export interface User {
-  uid: string;
+  id: string;
   email: string;
   displayName: string;
   photoURL: string;
-  companyId: string;
+  linkedCompany: string[];
   emailVerified: boolean;
 }

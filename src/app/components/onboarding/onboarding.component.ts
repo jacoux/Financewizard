@@ -26,6 +26,7 @@ import {
 } from 'src/app/store/organization/organization.selectors';
 
 @Component({
+  selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
 })

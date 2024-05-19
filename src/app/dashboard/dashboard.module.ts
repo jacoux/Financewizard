@@ -42,6 +42,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { EstimatesComponent } from './components/estimates/estimates.component';
 import { StepperComponent } from '../components/shared/stepper/stepper.component';
 import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
+import { OnboardingComponent } from '../components/onboarding/onboarding.component';
 
 @NgModule({
   declarations: [

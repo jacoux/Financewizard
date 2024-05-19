@@ -12,7 +12,8 @@ export class OrganizationComponent implements OnInit {
   organization!: Organization;
   showAlert: boolean = false;
   view!: string;
-  logo: string = "";
+  isNewCompany: boolean = false;
+  logo: string = '';
   organizationForm = new UntypedFormGroup({
     id: new UntypedFormControl(null, [Validators.required]),
     companyName: new UntypedFormControl(null, [Validators.required]),
@@ -36,22 +37,32 @@ export class OrganizationComponent implements OnInit {
       invoiceNumberStart: new UntypedFormControl(null, [Validators.required]),
       subTitle: new UntypedFormControl(null, [Validators.required]),
     }),
-    
   });
 
   constructor(private crudApi: GeneralCrudService) {}
 
   ngOnInit(): void {
     this.view = 'account';
-    this.crudApi.getCompanyById().then((data: any) => {
-      if (data === undefined) {
-        alert('We hebben een probleem bij het ophalen van je pofiel');
-      } else {
-        this.organization = data;
-         this.logo = environment.apiUrl + '/api/files/companies/' + data.id + '/' + data.logo;
-        this.initForm();
-      }
-    });
+    // @ts-expect-error
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+    if (user.companyId) {
+      this.isNewCompany = true;
+    } else {
+      this.crudApi.getCompanyById().then((data: any) => {
+        if (data === undefined) {
+          alert('We hebben een probleem bij het ophalen van je pofiel');
+        } else {
+          this.organization = data;
+          this.logo =
+            environment.apiUrl +
+            '/api/files/companies/' +
+            data.id +
+            '/' +
+            data.logo;
+        }
+      });
+    }
+    this.initForm();
   }
 
   initForm() {
@@ -82,13 +93,14 @@ export class OrganizationComponent implements OnInit {
   }
 
   submitOrganizationData() {
-    this.crudApi.updateCompany(this.organizationForm.value).then(resp => {
-      resp.id;
-              this.showAlert = true;
-      setTimeout( () => {
-        this.showAlert = false;
-      }, 5000); //displays msg in 10 seconds
-
-    });
+    if (!this.isNewCompany) {
+      this.crudApi.updateCompany(this.organizationForm.value).then((resp) => {
+        resp.id;
+        this.showAlert = true;
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 5000); //displays msg in 10 seconds
+      });
+    }
   }
 }

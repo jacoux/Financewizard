@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class CrudInvoiceService {
   pb = new PocketBase(environment.apiUrl);
   configUrl = environment.apiUrl + '/api/collections/clients';
+  auth_token = localStorage.getItem('token');
 
   constructor(private store: Store, private router: Router) {}
   // Get data from the store to retrieve and display/parse in the invoice
@@ -30,9 +31,9 @@ export class CrudInvoiceService {
   }
 
   async AddInvoice() {
-        const auth_token = localStorage.getItem('token');
+    const auth_token = localStorage.getItem('token');
     const headers = { Authorization: auth_token };
-    
+
     let _dataFrom: any;
 
     this.store.select(getInvoiceDraft).subscribe((data: any) => {
@@ -62,11 +63,11 @@ export class CrudInvoiceService {
     const record = await this.pb
       .collection('invoices')
       .create(_dataFrom, {
-      headers: {
-        'Content-Type': 'application/json',
-        // Authorization: `Bearer ${auth_token}`,
-      },
-    })
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${auth_token}`,
+        },
+      })
       .then((value) => {
         if (value.id) {
           alert('Invoice goed aangemaakt!');
@@ -75,72 +76,60 @@ export class CrudInvoiceService {
       });
   }
 
-  async getInvoice(id:string) {
-    const record = await this.pb.collection('invoices').getOne(id).then((invoice) => {
-      if (invoice) {
-            let products: any;
-        let _dataArr: any;
-        
-        //   _dataArr = [
-        //   {
-        //     invoiceNumber: invoice['invoiceNumber'],
-        //     invoiceName: invoice['invoiceName'],
-        //     invoiceDate: invoice['creatonDate'],
-        //     paymentDate: invoice['paymentDueDate'],
-        //     invoiceNumberPrefix: invoice['invoiceNumberPrefix'],
-        //     companyId: invoice['companyId'],
-        //     client: {
-        //       id: invoice['client'],
-        //     },
-        //     payWithin: invoice['payWithin'],
-        //     currency: '€',
-        //     paymentDetails: invoice['paymentDetails'],
-        //     total: invoice['totalWithVat'],
-        //     vatPercentage: invoice['vatPercentage'],
-        //     chargeVat: invoice['chargeVat'],
-        //     vatAmount: invoice['vatAmount'],
-        //     footer: invoice['footNotes'],
-        //     status: invoice['status'],
-        //   },
-        // ],
+  async getInvoice(id: string) {
+    const record = await this.pb
+      .collection('invoices')
+      .getOne(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        }
+      })
+      .then((invoice) => {
+        if (invoice) {
+          let products: any;
+          let _dataArr: any;
           (products = invoice['products']),
-          this.store.dispatch(
-            setInvoiceForEdit({
-              data: [
-                {
-                  invoiceNumber: invoice['invoiceNumber'],
-                  invoiceName: invoice['invoiceName'],
-                  invoiceDate: invoice['creatonDate'],
-                  paymentDate: invoice['paymentDueDate'],
-                  invoiceNumberPrefix: invoice['invoiceNumberPrefix'],
-                  companyId: invoice['companyId'],
-                  client: {
-                    id: invoice['client'],
+            this.store.dispatch(
+              setInvoiceForEdit({
+                data: [
+                  {
+                    invoiceNumber: invoice['invoiceNumber'],
+                    invoiceName: invoice['invoiceName'],
+                    invoiceDate: invoice['creatonDate'],
+                    paymentDate: invoice['paymentDueDate'],
+                    invoiceNumberPrefix: invoice['invoiceNumberPrefix'],
+                    companyId: invoice['companyId'],
+                    client: {
+                      id: invoice['client'],
+                    },
+                    payWithin: invoice['payWithin'],
+                    currency: '€',
+                    paymentDetails: invoice['paymentDetails'],
+                    total: invoice['totalWithVat'],
+                    vatPercentage: invoice['vatPercentage'],
+                    chargeVat: invoice['chargeVat'],
+                    vatAmount: invoice['vatAmount'],
+                    footer: invoice['footNotes'],
+                    status: invoice['status'],
                   },
-                  payWithin: invoice['payWithin'],
-                  currency: '€',
-                  paymentDetails: invoice['paymentDetails'],
-                  total: invoice['totalWithVat'],
-                  vatPercentage: invoice['vatPercentage'],
-                  chargeVat: invoice['chargeVat'],
-                  vatAmount: invoice['vatAmount'],
-                  footer: invoice['footNotes'],
-                  status: invoice['status'],
-                },
 
-                invoice['products'],
-              ],
-            })
-          );
+                  invoice['products'],
+                ],
+              })
+            );
 
-
-        this.router.navigate(['dashboard', 'invoices', 'create']);
-      }
-    });
-
+          this.router.navigate(['dashboard', 'invoices', 'create']);
+        }
+      });
   }
 
   async deleteInvoice(id: string) {
-    await this.pb.collection('invoices').delete(id);
+    await this.pb.collection('invoices').delete(id, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.auth_token}`,
+      },
+    });
   }
 }

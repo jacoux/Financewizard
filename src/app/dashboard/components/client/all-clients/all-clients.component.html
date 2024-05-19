@@ -67,7 +67,7 @@ BTW nummer      </th>
   </table>
 
         <div class="content-center">
-          <label for="my-modal" class="btn text-white	s">Add a new client</label>
+          <label for="my-modal" class="btn text-white	s">Nieuwe klant toevoegen</label>
                   <input type="checkbox" id="my-modal" class="modal-toggle" />
           <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">
             <app-create-client-modal [client]="client"  (toggle)="addClass()"></app-create-client-modal>
