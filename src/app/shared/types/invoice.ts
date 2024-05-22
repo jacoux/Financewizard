@@ -90,6 +90,7 @@ export enum AccountType {
 }
 
 export interface Organization {
+  companyId?: any;
   companyName?: string;
   id: string;
   $key: string;

@@ -45,7 +45,7 @@ export class OrganizationComponent implements OnInit {
     this.view = 'account';
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-    if (user.companyId) {
+    if (!user.linkedCompany?.[0]) {
       this.isNewCompany = true;
     } else {
       this.crudApi.getCompanyById().then((data: any) => {
@@ -59,15 +59,15 @@ export class OrganizationComponent implements OnInit {
             data.id +
             '/' +
             data.logo;
+            this.initForm();
         }
       });
     }
-    this.initForm();
   }
 
   initForm() {
     this.organizationForm.patchValue({
-      companyName: this.organization.companyName,
+      companyName: this.organization?.companyName,
       id: this.organization.id,
       companyVat: this.organization.companyVat,
       address: this.organization.address,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/types/user';
 
@@ -6,13 +6,15 @@ import { User } from 'src/app/shared/types/user';
   selector: 'app-welcome-message',
   templateUrl: './welcome-message.component.html',
   styleUrls: ['./welcome-message.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeMessageComponent implements OnInit {
   user!: User;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private cds: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // @ts-expect-error
     this.user = JSON.parse(localStorage.getItem('user')) as User;
+    this.cds.detectChanges();
   }
 }

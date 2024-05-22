@@ -4,11 +4,10 @@ import * as auth from 'firebase/auth';
 
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 import { error } from 'console';
 import PocketBase, { RecordAuthResponse } from 'pocketbase';
-
 import { response } from 'express';
 import { setOrganizationData } from 'src/app/store/organization/organization.actions';
 import { GeneralCrudService } from './general-crud.service';
@@ -22,6 +21,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   userData: any;
   pb = new PocketBase(environment.apiUrl);
+  auth_token = localStorage.getItem('token');
 
   constructor(
     private http: HttpClient,
@@ -52,32 +52,29 @@ export class AuthService {
 
   // Sign in with email/password
   async SignIn(email: string, password: string) {
+    debugger;
     const authData = this.pb
       .collection('users')
-      .authWithPassword(email, password);
-    debugger;
-    if (await authData) {
-      this.GetUser(authData);
-      if (this.userData) {
-        this.store.dispatch(setUser({ data: this.userData }));
-        this.SetUserData(this.userData);
-      } else {
-        alert('helaas heb je geen account of is je wachtwoord fout');
-      }
+      .authWithPassword(email, password)
+      .then((authData) => {
+        if (authData) {
+          this.store.dispatch(setUser({ data: this.userData }));
+          this.SetUserData(authData);
+        } else {
+          alert('helaas heb je geen account of is je wachtwoord fout');
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          alert('De inloggegevens zijn onjuist');
+        }
+      });
 
-      return this.router.navigate(['dashboard']);
-    }
-
-    return;
+    return this.router.navigate(['dashboard']);
   }
 
   // Sign up with email/password
-  async SignUp(
-    username: string,
-    email: string,
-    password: string,
-    laterFillInCompanyDetails: boolean
-  ) {
+  async SignUp(username: string, email: string, password: string) {
     const data = {
       username: username,
       email: email,
@@ -85,97 +82,106 @@ export class AuthService {
       password: password,
       passwordConfirm: password,
       name: email,
-      verified: false,
+      verified: true,
+      customVerified: false,
       linkedCompany: [null],
       role: [null],
     };
-    debugger;
     const record = await this.pb.collection('users').create(data);
-
-    // (optional) send an email verification request
     if (record.id) {
-      // avatar: '';
-      // collectionId: '_pb_users_auth_';
-      // collectionName: 'users';
-      // created: '2024-04-20 12:16:26.135Z';
-      // email: 'test@mail.be';
-      // emailVisibility: true;
-      // id: 'fss6dgup50ims0f';
-      // linkedCompany: [];
-      // name: 'test@mail.be';
-      // role: ['piy39lmtx9o94re'];
-      // updated: '2024-04-20 12:16:26.135Z';
-      // username: 'test';
-      // verified: false;
+      this.SetUserData(record);
+      return this.SendVerificationMail(data.email, record.id);
 
-      this.store.dispatch(setUser({ data: record }));
-      if (laterFillInCompanyDetails) {
-        this.SendVerificationMail(email);
-      } else {
-        this.router.navigate(['onboarding']);
-      }
+      // this.store.dispatch(setUser({ data: record }));
+      //   this.router.navigate(['onboarding']);
     } else {
       alert('something went wrong');
     }
-
-    // return this.pb
-    //   .collection('users')
-    //   .create({ email: email, password: password })
-    //   .then((result) => {
-    /* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
-    // this.SetUserData(result['user']);
-
-    // })
-    // .catch((error) => {
-    //   window.alert(error.message);
-    // });
+    return;
   }
   // Send email verfificaiton when new user sign up
-  SendVerificationMail(user: string) {
-    this.pb.collection('users').requestVerification(user);
-    // return this.afAuth.currentUser
-    //   .then((u: any) => u.sendEmailVerification())
-    //   .then(() => {
-    //     this.router.navigate(['verify-email-address']);
-    //   });
+  SendVerificationMail(user: any, id: string) {
+    console.log(user);
+    alert('verificatiemail komt eraan!');
+    const apiUrl = 'https://api.mailersend.com/v1/email';
+    const yourToken =
+      'mlsn.cf58e08028639d59fb5a51c4db77f1b9117054a2c9094cf649ace04ac2aff9e5'; // Replace with your actual MailerSend token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${yourToken}`,
+      }),
+    };
+    const body = {
+      from: {
+        email: 'info@financewizard.be',
+      },
+      to: [
+        {
+          email: user.email,
+        },
+      ],
+      template_id: '351ndgwwmdqgzqx8',
+      personalization: [
+        {
+          email: user.email,
+          data: {
+            id: id,
+          },
+        },
+      ],
+    };
+    debugger;
+    return this.http.post(apiUrl, body, httpOptions).subscribe((response) => {
+      if (response) {
+        console.log(response);
+      }
+    });
   }
   // Reset Forggot password
-  ForgotPassword(passwordResetEmail: string) {
-    // return this.afAuth
-    //   .sendPasswordResetEmail(passwordResetEmail)
-    //   .then(() => {
-    //     window.alert('Password reset email sent, check your inbox.');
-    //   })
-    //   .catch((error) => {
-    //     window.alert(error);
-    //   });
-  }
+  ForgotPassword(passwordResetEmail: string) {}
 
   async authRefresh() {
     const authData = await this.pb
       .collection('users')
       .authRefresh()
       .then((response) => {
-        this.SetUserData(response.record);
-        return response.meta;
+        if (response.record) {
+          this.SetUserData(response.record);
+          localStorage.setItem('token', this.pb.authStore.token);
+          return response.meta;
+        } else {
+          return null;
+        }
+      })
+      .catch((error) => {
+        return null;
       });
-    return authData;
+    return;
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = this.authRefresh();
+    // @ts-expect-error
+    const localUser = JSON.parse(localStorage.getItem('user')) as User;
 
-    return user !== null ? true : false;
+    if (localUser) {
+      const user = this.authRefresh();
+      return user !== null ? true : false;
+    } else {
+      return false;
+    }
   }
 
   SetUserData(user: any) {
     const userData: User = {
       id: user.id,
       email: user.email,
-      displayName: user.username,
+      username: user.username,
       photoURL: user.avatar,
-      emailVerified: user.verified,
+      verified: user.verified,
+      customVerified: user.customVerified,
       linkedCompany: user?.linkedCompany?.[0],
     };
     localStorage.setItem('user', JSON.stringify(userData));
@@ -192,43 +198,59 @@ export class AuthService {
     }
   }
 
+  async UpdateUserAfterVerification(id: string) {
+    if (this.auth_token === null) {
+      this.authRefresh();
+    }
+    const record = await this.pb
+      .collection('users')
+      .update(id, { customVerified: true }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response));
+        return this.router.navigate(['/dashboard']);
+      })
+      .catch(() => {
+        alert('Er ging iets mis met het verifieren van je account');
+      });
+  }
+
   // company is made, now set the id of the created company to the user
   async UpdateUserAfterAssignedToOrganisation(companyId: any) {
-    debugger;
-  // if (user) {
-  //   localStorage.setItem('user', JSON.stringify(this.userData));
-  //   return this.router.navigate(['/dashboard']);
-  // } else {
-  //   alert('Geen gebruiker gevonden');
-  //   return;
-  // }
-  
+    // if (user) {
+    //   return this.router.navigate(['/dashboard']);
+    // } else {
+    //   alert('Geen gebruiker gevonden');
+    //   return;
+    // }
+
     const user = JSON.parse(localStorage.getItem('user')!);
     const userData: User = {
       id: user.id,
       email: user.email,
-      displayName: user.displayName,
+      username: user.username,
       photoURL: user.avatar,
-      emailVerified: user.emailVerified,
+      verified: user.verified,
+      customVerified: user.customVerified,
       linkedCompany: [companyId],
     };
-  
 
     const record = await this.pb
       .collection('users')
       .update(userData.id, userData);
     debugger;
     if (record) {
+      localStorage.setItem('user', JSON.stringify(userData));
       return this.router.navigate(['/dashboard']);
-    }
-    else {
+    } else {
       alert('Geen gebruiker gevonden');
       return;
     }
-  
   }
-
-
 
   GetUser(user: any) {
     // after the above you can also access the auth data from the authStore
@@ -242,7 +264,7 @@ export class AuthService {
       const newU: any = this.pb.authStore?.model;
       debugger;
       this.userData = newU;
-      this.userData.companyId = newU.linkedCompany?.[0];
+      this.userData.linkedCompany[0] = newU.linkedCompany?.[0];
       this.userData.token = this.pb.authStore.token;
       localStorage.setItem('token', this.pb.authStore.token);
       // console.log(this.userData.companyId);
@@ -255,7 +277,7 @@ export class AuthService {
   SignOut() {
     this.pb.authStore.clear();
     localStorage.removeItem('user');
-    this.router.navigate(['sign-in']);
+    this.router.navigate(['/sign-in']);
     return;
   }
 }

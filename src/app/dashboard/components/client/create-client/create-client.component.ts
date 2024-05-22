@@ -101,10 +101,14 @@ export class CreateClientComponent implements OnInit, OnChanges {
     debugger;
     if (this.client) {
        this.clientForm.controls["name"].setValue(this.client?.name);
+       this.clientForm.controls["email"].setValue(this.client?.email);
        this.clientForm.controls["vat"].setValue(this.client?.vat);
        this.clientForm.controls["streetName"].setValue(this.client?.address?.streetName);
        this.clientForm.controls["tel"].setValue(this.client?.tel);
        this.clientForm.controls["streetNumber"].setValue(this.client?.address?.streetNumber);
+       this.clientForm.controls['postalCode'].setValue(
+         this.client?.address?.postalCode
+       );
        this.clientForm.controls["city"].setValue(this.client?.address?.city);
        this.clientForm.controls["country"].setValue(this.client?.address?.country);
     }

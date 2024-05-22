@@ -38,7 +38,7 @@
 
       <div class="max-w-sm mx-auto w-full px-4 py-8">
 
-        <h1 class="text-3xl text-gray-800 font-bold mb-6">Create a free account✨</h1>
+        <h1 class="text-3xl text-gray-800 font-bold mb-6">Maak een gratis account✨</h1>
         <!-- Form -->
         <!-- <div class="flex items-center justify-between mt-6 mb-6">
           <div class="w-10" (click)="authService.GoogleAuth()">
@@ -48,7 +48,7 @@
         <form>
           <div class="space-y-4">
                         <div>
-                          <label class="block text-sm font-medium mb-1" for="email">Name <span class="text-red-500">*</span></label>
+                          <label class="block text-sm font-medium mb-1" for="email">Naam <span class="text-red-500">*</span></label>
                           <input id="email" #userName class="form-input w-full border-b-4 border-indigo-500" type="text" />
                         </div>
             <div>
@@ -57,27 +57,27 @@
               <input id="email" #userEmail class="form-input w-full border-b-4 border-indigo-500" type="email" />
             </div>
             <div>
-              <label class="block text-sm font-medium mb-1" for="password">Password</label>
+              <label class="block text-sm font-medium mb-1" for="password">Wachtwoord</label>
               <input id="password" class="form-input w-full border-b-4 border-indigo-500" #userPwd id="password" (input)="validated($event)" type="password"
                 autocomplete="on" />
             </div>
             <div class="mb-4">
               <ul>
                 <li id="minLength">
-                  <i class="fas fa-times " [ngClass]="passwordTooShort ? 'text-red-500' : 'text-green-500'"></i> Minimum 8 characters</li>
+                  <i class="fas fa-times " [ngClass]="passwordTooShort ? 'text-red-500' : 'text-green-500'"></i> Minimum 8 tekens</li>
                 <li id="lowercase"><i class="fas fa-times" [ngClass]="hasOneNumber ? 'text-green-500' : 'text-red-500'"></i>Minstens 1 nummer</li>
               </ul>
             </div>
             <span id="errorMessage" class="font-semibold text-red-500"></span>
           </div>
           <div class="flex items-center justify-between mt-6">
-            <div class="mr-1">
+            <!-- <div class="mr-1">
               <label class="flex items-center">
                 <input type="checkbox" class="form-checkbox" #companyFill />
                 <span class="text-sm ml-2">Ik geef mijn bedrijfsgegevens later in</span>
               </label>
-            </div>
-            <button (click)="authService.SignUp(userName.value, userEmail.value, userPwd.value, companyFill.checked)"
+            </div> -->
+            <button (click)="authService.SignUp(userName.value, userEmail.value, userPwd.value)"
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 whitespace-nowrap">Registreer
             </button>
           </div>

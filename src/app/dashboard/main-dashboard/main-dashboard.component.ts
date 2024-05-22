@@ -18,11 +18,11 @@ export class MainDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-expect-error
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user<User> = JSON.parse(localStorage.getItem('user'));
     
     this.company = this.orgApi.GetObject(
       'companies/records',
-      this.user.companyId
+      this.user?.verifiedCompany?.[0]
     );
   }
 }

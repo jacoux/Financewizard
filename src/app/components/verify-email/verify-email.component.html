@@ -9,10 +9,10 @@
         
         <!-- Calling SendVerificationMail() method using authService Api -->
         <div class="formGroup"*ngIf="authService.userData as user">
-          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail(user.email)">
+          <!-- <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail(user.email)">
             <i class="fas fa-redo-alt"></i>
             Verzend Verificatie Email opnieuw
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="redirectToLogin">

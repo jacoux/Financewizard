@@ -71,7 +71,6 @@ export class GeneralCrudService {
     const id = response.id;
 
     this.authService.UpdateUserAfterAssignedToOrganisation(id);
-    debugger;
     this.store.dispatch(createOrganizationSuccess({ id: id }));
     this.router.navigate(['dashboard']);
   }
@@ -86,7 +85,7 @@ export class GeneralCrudService {
     const auth_token = localStorage.getItem('token');
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-    const id = user.companyId;
+    const id = user.linkedCompany?.[0];
     let company;
     const record = await this.pb
       .collection('companies')
