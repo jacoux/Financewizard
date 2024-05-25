@@ -39,7 +39,7 @@ export class GeneralCrudService {
     const response: any = res;
     const id = response.data.id;
     this.authService.UpdateUser(id);
-    debugger;
+    
     this.store.dispatch(createOrganizationSuccess({ id: id }));
   }
 
@@ -48,7 +48,7 @@ export class GeneralCrudService {
     const user = JSON.parse(localStorage.getItem('user')) as User;
 
     // this.store.subscribe((userInfo) => {
-    //   debugger;
+    //   
     //   user = userInfo;
     // });
 
@@ -81,7 +81,7 @@ export class GeneralCrudService {
   }
 
   async getCompanyById() {
-    debugger;
+    
     const auth_token = localStorage.getItem('token');
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;

@@ -9,7 +9,7 @@ import { Product } from 'src/app/shared/types/invoice';
 
 @Component({
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.sass'],
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
   public productForm!: UntypedFormGroup;
@@ -54,9 +54,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addClass() {
-    debugger;
     this.visible = !this.visible;
-    this.product = undefined
   }
 
   addCustomProduct(product: any) {

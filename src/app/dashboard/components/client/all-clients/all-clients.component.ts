@@ -9,7 +9,7 @@ import { Client, ClientResponse } from 'src/app/shared/types/invoice';
 @Component({
   selector: 'all-clients-overview',
   templateUrl: './all-clients.component.html',
-  styleUrls: ['./all-clients.component.sass'],
+  styleUrls: ['./all-clients.component.css'],
 })
 export class AllClientsComponent implements OnInit {
   @ViewChild(MatSort)
@@ -59,7 +59,7 @@ export class AllClientsComponent implements OnInit {
 
   editClient(id: number) {
     this.getSingleClient(id.toString());
-    debugger;
+    
     this.visible = true;
   }
 

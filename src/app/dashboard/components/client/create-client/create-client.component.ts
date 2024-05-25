@@ -98,7 +98,7 @@ export class CreateClientComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges() {
-    debugger;
+    
     if (this.client) {
        this.clientForm.controls["name"].setValue(this.client?.name);
        this.clientForm.controls["email"].setValue(this.client?.email);

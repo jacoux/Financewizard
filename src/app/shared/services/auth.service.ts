@@ -52,7 +52,7 @@ export class AuthService {
 
   // Sign in with email/password
   async SignIn(email: string, password: string) {
-    debugger;
+    
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password)
@@ -133,7 +133,7 @@ export class AuthService {
         },
       ],
     };
-    debugger;
+    
     return this.http.post(apiUrl, body, httpOptions).subscribe((response) => {
       if (response) {
         console.log(response);
@@ -242,7 +242,7 @@ export class AuthService {
     const record = await this.pb
       .collection('users')
       .update(userData.id, userData);
-    debugger;
+    
     if (record) {
       localStorage.setItem('user', JSON.stringify(userData));
       return this.router.navigate(['/dashboard']);
@@ -262,7 +262,7 @@ export class AuthService {
 
     if (this.pb.authStore?.model?.['id']) {
       const newU: any = this.pb.authStore?.model;
-      debugger;
+      
       this.userData = newU;
       this.userData.linkedCompany[0] = newU.linkedCompany?.[0];
       this.userData.token = this.pb.authStore.token;

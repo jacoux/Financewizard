@@ -10,7 +10,7 @@ import { Product } from 'src/app/shared/types/invoice';
 @Component({
   selector: 'app-add-product-modal',
   templateUrl: './add-product-modal.component.html',
-  styleUrls: ['./add-product-modal.component.sass'],
+  styleUrls: ['./add-product-modal.component.css'],
 })
 export class AddProductModalComponent implements OnInit, OnChanges {
   @Output() productData = new EventEmitter<string>();
@@ -68,7 +68,7 @@ export class AddProductModalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    debugger;
+    
     if (this.product && this.productForm) {
       this.productForm.controls['name'].setValue(this.product?.name);
       this.productForm.controls['vatPercentage'].setValue(

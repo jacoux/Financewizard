@@ -36,7 +36,7 @@ export class Template1Component implements OnInit {
       this.invoiceProducts = data[1];
     });
     this.store.select(getOrganization).subscribe((data) => {
-      debugger;
+      
       this.org = data;
     });
     this.eventsSubscription = this.events.subscribe(() => this.openPDF());

@@ -9,7 +9,6 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { ProductsComponent } from './components/products/products.component';
 import { CreateClientComponent } from './components/client/create-client/create-client.component';
 import { AllClientsComponent } from './components/client/all-clients/all-clients.component';
-import { EditClientComponent } from './components/client/edit-client/edit-client.component';
 import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
 import { ClientComponent } from './components/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,7 +52,6 @@ import { OnboardingComponent } from '../components/onboarding/onboarding.compone
     ProductsComponent,
     CreateClientComponent,
     AllClientsComponent,
-    EditClientComponent,
     NewInvoiceComponent,
     OrganizationComponent,
     InvoiceCheckComponent,
