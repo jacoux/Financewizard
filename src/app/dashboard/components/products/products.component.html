@@ -1,17 +1,16 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
 <div class="flex flex-col">
   <div class="title-bar">
-              <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">All products ✨</h1>
+              <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle producten ✨</h1>
 
 <div>
-      <label for="product-modal" class="btn btn-primary text-white" (click)="visible = true">Voeg product toe</label>
+      <button class="btn btn-primary text-white" (click)="addProduct()">Voeg product toe</button>
       
       <!-- Put this part before </body> tag -->
-      <input type="checkbox" id="product-modal" class="modal-toggle" />
-      <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">
+      <dialog class="modal modal-open" *ngIf="visible">
         <app-add-product-modal (productData)="addCustomProduct($event)" [product]="product"
           (toggle)="addClass()"></app-add-product-modal>
-      </div>
+      </dialog>
       </div>
   </div>
 

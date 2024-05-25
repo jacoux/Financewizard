@@ -2,11 +2,10 @@
   <div class="title-bar">
   <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle Klanten ✨</h1>
           <div class="content-center">
-            <label for="my-modal" class="btn text-white	s btn-primary">Nieuwe klant toevoegen</label>
-            <input type="checkbox" id="my-modal" class="modal-toggle" />
-            <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">
+            <button (click)="addNewClient()" class="btn text-white	s btn-primary">Nieuwe klant toevoegen</button>
+            <dialog open *ngIf="visible" class="modal-open modal">
               <app-create-client-modal [client]="client" (toggle)="addClass()"></app-create-client-modal>
-            </div>
+            </dialog>
           
           </div>
           </div>
