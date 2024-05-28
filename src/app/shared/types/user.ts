@@ -3,7 +3,7 @@ export interface User {
   email: string;
   username: string;
   photoURL: string;
-  linkedCompany: string[];
+  linkedCompany: any;
   verified: boolean;
   customVerified?: boolean;
 }

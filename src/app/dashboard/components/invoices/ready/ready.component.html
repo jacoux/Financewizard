@@ -18,3 +18,18 @@
 <div class="divider">
     Klaar!
 </div>
+
+<div class="actions">
+    <h2>Wat wil je nu doen?</h2>
+    <button class="btn btn-primary" (click)="downloadInvoice()">Download factuur</button>
+    <div class="btn btn-secundary text-black premium" disabled="disabled">
+        Verzend factuur via mail
+                                    <div class="badge badge-secondary">Premium</div>
+</div>
+</div>
+
+ <div class="mockup-window border bg-base-100 mx-5 mt-10">
+     <app-template1 [events]="eventsSubject.asObservable()" *ngIf="templateInInvoice === 1"></app-template1>
+     <app-template2 [events]="eventsSubject.asObservable()" *ngIf="templateInInvoice === 2"></app-template2>
+     <app-template3 [events]="eventsSubject.asObservable()" *ngIf="templateInInvoice === 3"></app-template3>
+ </div>

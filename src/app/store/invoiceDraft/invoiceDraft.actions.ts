@@ -21,7 +21,11 @@ export const saveInvoice = createAction(
   '[step 1] set invoice',
   props<{ data: any }>()
 );
+export const saveInvoiceTemplate = createAction(
+  '[step 2] set invoice',
+  props<{ data: number }>()
+);
 export const saveInvoiceComplete = createAction(
-  '[step 2] invoice send to db'
+  '[step 3] invoice send to db'
 );
 

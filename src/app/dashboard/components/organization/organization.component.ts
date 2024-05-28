@@ -45,7 +45,11 @@ export class OrganizationComponent implements OnInit {
     this.view = 'account';
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-    if (!user.linkedCompany?.[0]) {
+    const id = user.linkedCompany
+      ? user.linkedCompany
+      : user.linkedCompany?.[0];
+    
+    if (!id) {
       this.isNewCompany = true;
     } else {
       this.crudApi.getCompanyById().then((data: any) => {
@@ -59,7 +63,7 @@ export class OrganizationComponent implements OnInit {
             data.id +
             '/' +
             data.logo;
-            this.initForm();
+          this.initForm();
         }
       });
     }

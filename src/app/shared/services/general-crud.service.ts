@@ -81,11 +81,10 @@ export class GeneralCrudService {
   }
 
   async getCompanyById() {
-    
     const auth_token = localStorage.getItem('token');
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-    const id = user.linkedCompany?.[0];
+    const id = user.linkedCompany ? user.linkedCompany : user.linkedCompany?.[0];
     let company;
     const record = await this.pb
       .collection('companies')

@@ -42,6 +42,8 @@ import { EstimatesComponent } from './components/estimates/estimates.component';
 import { StepperComponent } from '../components/shared/stepper/stepper.component';
 import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
 import { OnboardingComponent } from '../components/onboarding/onboarding.component';
+import { MatSortModule } from '@angular/material/sort';
+import { EstimatesOverviewComponent } from './components/estimates/estimates-overview/estimates-overview.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { OnboardingComponent } from '../components/onboarding/onboarding.compone
     NewInvoiceComponent,
     OrganizationComponent,
     InvoiceCheckComponent,
+    AllInvoicesComponent,
     Template1Component,
     Template2Component,
     Template3Component,
@@ -74,8 +77,12 @@ import { OnboardingComponent } from '../components/onboarding/onboarding.compone
     AllCandidatesComponent,
     EstimatesComponent,
     StepperComponent,
+    EstimatesOverviewComponent,
   ],
   imports: [
+    MatTableModule,
+    MatSortModule,
+    MatIconModule,
     CommonModule,
     DashboardRoutingModule,
     FormsModule,

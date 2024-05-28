@@ -106,6 +106,7 @@ export interface Organization {
   responsible: Responsible[];
   bank?: Bank[];
   invoiceNumberPrefix?: string;
+  templateNo?: number;
   defaultInvoiceDetails?: DefaultInvoiceDetails;
 }
 

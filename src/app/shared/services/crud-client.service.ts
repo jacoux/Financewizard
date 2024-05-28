@@ -23,18 +23,12 @@ export class CrudClientService {
   async Addclient(client: Client) {
     // @ts-expect-error
     const user: User = JSON.parse(localStorage.getItem('user'));
-    client.companyId = user.linkedCompany?.[0];
+     const id = user.linkedCompany
+       ? user.linkedCompany
+       : user.linkedCompany?.[0];
+    
+    client.companyId = id;
 
-    //     dummy DataTransferconst data = {
-    //     "name": "test",
-    //     "vat": "test",
-    //     "responsible": "test",
-    //     "email": "test@example.com",
-    //     "firstName": "test",
-    //     "tel": "test",
-    //     "companyId": "RELATION_RECORD_ID",
-    //     "lastName": "test",
-    //     "address": "JSON"
     // };
     const record = await this.pb
       .collection('clients')

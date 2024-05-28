@@ -10,11 +10,15 @@ import { User } from 'src/app/shared/types/user';
 })
 export class WelcomeMessageComponent implements OnInit {
   user!: User;
+  id!: string;
   constructor(public authService: AuthService, private cds: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // @ts-expect-error
     this.user = JSON.parse(localStorage.getItem('user')) as User;
+         this.id = this.user.linkedCompany
+           ? this.user.linkedCompany
+           : this.user.linkedCompany?.[0];
     this.cds.detectChanges();
   }
 }

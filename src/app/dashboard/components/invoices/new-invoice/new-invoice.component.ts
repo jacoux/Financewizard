@@ -248,9 +248,11 @@ export class NewInvoiceComponent implements OnInit {
   getCompany() {
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-
+         const id = user.linkedCompany
+           ? user.linkedCompany
+           : user.linkedCompany?.[0];
     this.crudApi
-      .GetObjectsList('companies/records/' + user.linkedCompany?.[0])
+      .GetObjectsList('companies/records/' + id)
       // @ts-ignore
       .subscribe((data: Organization) => {
       
@@ -267,11 +269,15 @@ export class NewInvoiceComponent implements OnInit {
           data.defaultInvoiceDetails?.footer ||
           'te betalen voor... op rekeningnummer ...';
         this.company = data;
-        this.logo =
-          environment.apiUrl + '/api/files/companies/' +
-          data.id +
-          '/' +
-          data.logo;
+        if (data.logo) {
+          this.logo =
+            environment.apiUrl + '/api/files/companies/' +
+            data.id +
+            '/' +
+            data.logo;
+        } else {
+          this.logo = "Nog geen logo opgeladen"
+        }
       });
   }
 

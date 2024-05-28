@@ -5,7 +5,7 @@ import * as UserActions from './invoiceDraft.actions'
 export const reducerFeatureKey = 'reducer';
 
 export interface State {
-   invoiceDraft: any[],
+   invoiceDraft: any,
    loading : boolean,
    error: any
 }
@@ -36,6 +36,17 @@ export const reducer = createReducer(
     loading: true,
     error: null,
   })),
+
+  on(UserActions.saveInvoiceTemplate, (state, { data }) => ({
+    ...state,
+    invoiceDraft: {
+      ...state.invoiceDraft,
+      templateNo: data,
+    },
+    loading: true,
+    error: null,
+  })),
+
   on(UserActions.setInvoiceForEdit, (state, { data }) => ({
     ...state,
     invoiceDraft: data,

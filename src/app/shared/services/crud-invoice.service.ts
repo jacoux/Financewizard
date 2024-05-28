@@ -43,6 +43,7 @@ export class CrudInvoiceService {
         creatonDate: data[0]?.invoiceDate,
         paymentDueDate: data[0]?.paymentDate,
         invoiceNumberPrefix: data[0]?.invoiceNumberPrefix,
+        templateNo: data.templateNo,
         companyId: data[0]?.companyId,
         client: data[0]?.client.id,
         extendedDate: null,
@@ -99,6 +100,7 @@ export class CrudInvoiceService {
                     invoiceDate: invoice['creatonDate'],
                     paymentDate: invoice['paymentDueDate'],
                     invoiceNumberPrefix: invoice['invoiceNumberPrefix'],
+                    templateNo: invoice['templateNo'],
                     companyId: invoice['companyId'],
                     client: {
                       id: invoice['client'],

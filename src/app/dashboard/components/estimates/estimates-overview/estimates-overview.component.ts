@@ -1,23 +1,17 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CrudInvoiceService } from 'src/app/shared/services/crud-invoice.service';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
-import { ClientResponse, Invoice, InvoiceResponse } from 'src/app/shared/types/invoice';
-import { timeout } from 'rxjs';
-import { Refresh } from '@ngrx/store-devtools/src/actions';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
-import { CommonModule } from '@angular/common';
+import { Invoice } from 'src/app/shared/types/invoice';
 
 @Component({
-  templateUrl: './all-invoices.component.html',
-  styleUrls: ['./all-invoices.component.sass'],
+  selector: 'app-estimates-overview',
+  templateUrl: './estimates-overview.component.html',
+  styleUrls: ['./estimates-overview.component.sass'],
 })
-export class AllInvoicesComponent implements OnInit {
+export class EstimatesOverviewComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   displayedColumns: string[] = [
@@ -54,11 +48,10 @@ export class AllInvoicesComponent implements OnInit {
   deleteInvoice(id: string) {
     this.invoiceService.deleteInvoice(id);
     window.location.reload();
-
   }
 
   editInvoice(id: number) {
-      this.invoiceService.getInvoice(id.toString());
+    this.invoiceService.getInvoice(id.toString());
   }
 
   announceSortChange(sortState: Sort) {

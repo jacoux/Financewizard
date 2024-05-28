@@ -56,7 +56,7 @@
             <div class="grow">
 
                 <!-- Panel body -->
-                <div class="p-6" *ngIf="view == 'apps'">
+                <div class="p-6" *ngIf="view === 'apps'">
                     <h2 class="text-2xl text-gray-800 font-bold mb-5">Connected Apps</h2>
 
                     <!-- General -->
@@ -496,7 +496,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="prose content" *ngIf="view == 'account'">
+                <div class="prose content" *ngIf="view === 'account'">
                     <div class=" p-6 bg-base-100 shadow-xl mt-2 lg:prose-l">
                         <h1 id="heading-1">Bedrijf</h1>
                         <div class="divider"></div>

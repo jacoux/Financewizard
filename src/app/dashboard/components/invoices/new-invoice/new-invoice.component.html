@@ -31,7 +31,8 @@
       <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
         <div class="basis-1/2">
           <div class="max-w-sm">
-            <img class="max-w-sm py-5" [src]="logo" />
+            <p *ngIf="logo === 'Nog geen logo opgeladen'">Nog geen logo opgeladen</p>
+            <img *ngIf="logo !== 'Nog geen logo opgeladen'" class="max-w-sm py-5" [src]="logo" />
           </div>
         </div>
         <div class="basis-1/2">
