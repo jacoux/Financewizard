@@ -14,6 +14,8 @@ import { GeneralCrudService } from './general-crud.service';
 import { State } from 'src/app/store/users/users.reducer';
 import { setUser } from 'src/app/store/users/users.actions';
 import { environment } from 'src/environments/environment';
+import { NotificationService } from '../component/notification.service';
+import { NotificationType } from '../types/notofication';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +29,7 @@ export class AuthService {
     private http: HttpClient,
     public router: Router,
     private store: Store<State>,
+    private notificationService: NotificationService,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
@@ -51,26 +54,30 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  async SignIn(email: string, password: string) {
-    
+  async SignIn(email: string, password: string) {    
     const authData = this.pb
       .collection('users')
       .authWithPassword(email, password)
       .then((authData) => {
         if (authData) {
-          this.store.dispatch(setUser({ data: this.userData }));
-          this.SetUserData(authData);
+          this.store.dispatch(setUser({ data: authData.record }));
+          this.SetUserData(authData.record);
+          this.router.navigate(['dashboard']);
+
         } else {
           alert('helaas heb je geen account of is je wachtwoord fout');
         }
       })
       .catch((error) => {
         if (error) {
-          alert('De inloggegevens zijn onjuist');
+             this.notificationService.notify({
+               title: 'Oh Oh 😕',
+               type: NotificationType.danger,
+               message: 'Geen gebruiker gevonden',
+             });
         }
       });
 
-    return this.router.navigate(['dashboard']);
   }
 
   // Sign up with email/password
@@ -193,7 +200,11 @@ export class AuthService {
       localStorage.setItem('user', JSON.stringify(this.userData));
       return this.router.navigate(['/dashboard']);
     } else {
-      alert('geen gebruiker gevonden');
+      this.notificationService.notify({
+        title: 'Oh Oh 😕',
+        type: NotificationType.danger,
+        message: "Geen gebruiker gevonden",
+      });
       return;
     }
   }
