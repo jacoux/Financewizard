@@ -39,7 +39,7 @@ export class OnboardingComponent implements OnInit {
   compDetail!: Organization;
   companyForm = new UntypedFormGroup({
     companyEmail: new UntypedFormControl(null, [Validators.required]),
-    name: new UntypedFormControl(null, [Validators.required]),
+    companyName: new UntypedFormControl(null, [Validators.required]),
     employee: new UntypedFormGroup({
       email: new UntypedFormControl(null, [Validators.required]),
       role: new UntypedFormControl(null, [Validators.required]),
@@ -92,13 +92,13 @@ export class OnboardingComponent implements OnInit {
         this.validVat = false;
         this.validVat = data.valid;
         if (this.validVat) {
-          this.companyForm.get('name')?.setValue(data.name);
+          this.companyForm.get('companyName')?.setValue(data.name);
           const comp = this.companyForm.get('address');
           comp?.get('streetName')?.setValue(data.address.street);
           comp?.get('streetNumber')?.setValue(data.address.number);
           comp?.get('city')?.setValue(data.address.city);
           comp?.get('postalCode')?.setValue(data.address.zip_code);
-          comp?.get('country')?.markAsTouched;
+          comp?.get('country')?.setValue("België");
         }
       });
     } else {
@@ -135,20 +135,6 @@ export class OnboardingComponent implements OnInit {
   }
 
   setDescription(desc: any) {
-    // switch (desc) {
-    //   case 1:
-    //     this.description = "Ik heb een bedrijf met één of meerdere werknemers"
-    //     break;
-    //   case 2:
-    //     this.description = "Ik ben freelancer/ik heb een éénmanszaak"
-    //     break;
-    //   case 3:
-    //     this.description = "Ik kom maar eens een kijkje nemen uit nieuwsgierigheid"
-    //     break;
-    //   default:
-    //     this.description = "niet ingevuld"
-    //     break;
-    // }
     this.description = desc;
     this.store.dispatch(
       setOrganizationData({ status: 1, data: this.description })

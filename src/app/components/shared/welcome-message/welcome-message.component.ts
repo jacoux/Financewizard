@@ -16,9 +16,9 @@ export class WelcomeMessageComponent implements OnInit {
   ngOnInit(): void {
     // @ts-expect-error
     this.user = JSON.parse(localStorage.getItem('user')) as User;
-         this.id = this.user.linkedCompany
-           ? this.user.linkedCompany
-           : this.user.linkedCompany?.[0];
+         this.id = this.user.linkedCompany?.[0]
+           ? this.user.linkedCompany?.[0]
+           : null
     this.cds.detectChanges();
   }
 }

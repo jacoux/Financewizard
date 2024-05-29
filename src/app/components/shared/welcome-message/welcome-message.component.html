@@ -49,7 +49,8 @@
             <p class="text-center">bekijk even je email en bevestig je e-mailadres.</p>
         </div>
 
-        <div *ngIf="!id">
+        <div *ngIf="!id" class="relative text-center pt-2" >
+                        <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Hallo, {{user.username}}. 👋</h1>
             <p class="text-center">Gelieve <a [routerLink]="['/onboarding']" class="underline">hier</a> je bedrijf op te
                 zetten ✎</p>
         </div>
