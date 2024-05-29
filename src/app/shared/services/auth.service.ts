@@ -70,6 +70,7 @@ export class AuthService {
       })
       .catch((error) => {
         if (error) {
+          alert('Inlog is onjuist')
              this.notificationService.notify({
                title: 'Oh Oh 😕',
                type: NotificationType.danger,
