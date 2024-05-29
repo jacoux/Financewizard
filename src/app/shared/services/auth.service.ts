@@ -90,7 +90,7 @@ export class AuthService {
       password: password,
       passwordConfirm: password,
       name: email,
-      verified: true,
+      // verified: true,
       customVerified: false,
       linkedCompany: [null],
       role: [null],
