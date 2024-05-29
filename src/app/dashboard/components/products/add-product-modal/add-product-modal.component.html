@@ -1,4 +1,7 @@
 <div class="modal-box">
+    <div class="modal-header">
+        <label for="my-modal" (click)="close()">x</label>
+    </div>
     <h3 class="font-bold text-lg text-white">Voeg product toe!</h3>
     <form [formGroup]="productForm" (ngSubmit)="submitProductData()" novalidate>
         <div class="row">
@@ -30,7 +33,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label>Prijs</label>
+                        <label>Prijs zonder BTW</label>
                         <input type="number" formControlName="price" class="form-control" required />
                         <!-- errors-->
                         <p *ngIf="price?.touched && price?.invalid" class="error">
@@ -55,9 +58,12 @@
                 Reset
             </button>
             <button type="submit" class="btn btn-success" [disabled]="!productForm.valid" (click)="submitProductData()">
-                Add product
+                            <p *ngIf="product">
+                                Bewerk {{product?.name}} </p>
+                                    <p *ngIf="!product">
+                                        Voeg toe</p>
             </button>
-            <label for="my-modal" (click)="close()" class="btn btn-error">Sluit</label>
+       
         </div>
     </div>
 </div>

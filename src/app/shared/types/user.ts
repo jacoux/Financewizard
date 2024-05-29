@@ -1,8 +1,9 @@
 export interface User {
-  uid: string;
+  id: string;
   email: string;
-  displayName: string;
+  username: string;
   photoURL: string;
-  companyId: string;
-  emailVerified: boolean;
+  linkedCompany: any;
+  verified: boolean;
+  customVerified?: boolean;
 }

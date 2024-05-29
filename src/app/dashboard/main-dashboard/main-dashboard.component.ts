@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CrudCompanyService } from 'src/app/shared/services/crud-company.service';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { User } from 'src/app/shared/types/user';
 
@@ -11,19 +12,14 @@ import { User } from 'src/app/shared/types/user';
 export class MainDashboardComponent implements OnInit {
   user: any;
   company: any;
-  render: any;
-  answer: any;
   constructor(
     public authService: AuthService,
-    private store: Store,
-    private orgApi: GeneralCrudService
-  ) {}
+    private companyService: CrudCompanyService
+  ) { }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
-    this.company = this.orgApi.GetObject(
-      'organizations',
-      this.user?.componentId
-    );
+    // @ts-expect-error
+    this.user<User> = JSON.parse(localStorage.getItem('user'));
+    this.company = this.companyService.getCompanyFromUser(this.user.linkedCompany[0]);
   }
 }

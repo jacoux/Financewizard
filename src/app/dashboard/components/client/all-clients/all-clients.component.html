@@ -1,89 +1,77 @@
-<div>
-    <h2> all clients</h2>
-      <div>
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-12">
-            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-12">
-              <div class="overflow-hidden">
-                <table class="min-w-full">
-                  <thead class="bg-white border-b">
-                    <tr>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        #
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        id
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        email
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        VAT number
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        name
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                        responsible
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                        Actions
-                      </th>
-                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                        All info
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-  
-                    <tr class="bg-gray-100 border-b" *ngFor="let client of clients">
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client._id}} 
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client.email}}
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client.vat}}
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client.responsible}}
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{client.name}}
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <button class="bg-red hover:bg-green text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                          <i class="bx bx-edit"></i>
-                           <span>Edit</span>
-                        </button>
-                        <button class="bg-grey hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                          <i class="bx bx-x-circle"></i>
-                           <span>Delete</span>
-                        </button>
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <button class="bg-grey hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                          <a href="/clients/123">
-                            <i class="bx bx-info-circle"></i>  
-                          </a>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+<div class="flex flex-col">
+  <div class="title-bar">
+  <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle Klanten ✨</h1>
+          <div class="content-center">
+            <button (click)="addNewClient()" class="btn text-white	s btn-primary">Nieuwe klant toevoegen</button>
+            <dialog open *ngIf="visible" class="modal-open modal">
+              <app-create-client-modal [client]="client" (toggle)="addClass()"></app-create-client-modal>
+            </dialog>
+          
+          </div>
+          </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        email
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element?.email}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Naam
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}}</td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="responsible">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        responsible
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element?.responsible?.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="vat">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+BTW nummer      </th>
+      <td mat-cell *matCellDef="let element"> {{element?.vat}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Acties
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <input type="checkbox" id="delete_invoice" class="modal-toggle" />
+        <div class="modal " role="dialog">
+          <div class="modal-box bg-gray-800 border-gray-100 ">
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg">Hallo,</h3>
+            <p class="py-4">Weet je zeker dat je deze klant wilt verwijderen?</p>
+            <div class="modal-action">
+              <label for="delete_invoice" class="btn btn-wide btn-secundary">nee, ik heb mij vergist!</label>
+              <label for="delete_invoice" (click)="deleteClient(element.id)" class="btn btn-wide btn-primary">Ja,
+                verwijder klant</label>
             </div>
           </div>
         </div>
-      </div>
-      <div class="content-center">
-      <button class="bg-white hover:bg-red text-grey-darkest font-bold py-2 px-4 rounded inline-flex">
-        <a href="/clients/create">
-          <h4 class="h2">Voeg nieuwe klant toe</h4>
+        <label for="delete_invoice" class="btn">
+          <mat-icon aria-hidden="false" aria-label="Delete invoice" fontIcon="delete"></mat-icon>
+        </label>
+        <label for="my-modal" (click)="editClient(element.id)" class="btn">
+          <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+        </label>
+      </td>
+    </ng-container>
 
-        </a>
-      </button>
-    </div>
-    </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

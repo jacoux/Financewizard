@@ -1,29 +1,29 @@
+<div class="modal-box">
+  <div class="modal-header">
+      <label for="my-modal" (click)="close()">x</label>
+  </div>
+  <h3 class="font-bold text-lg text-white">Voeg product toe!</h3>
 <form [formGroup]="clientForm" (ngSubmit)="submitClientData()" novalidate>
     <div class="row">
-      <div class="col-lg-5 col-md-12 col-sm-12">
         <div class="row">
           <div class="col-md-12 mb-3">
-            <label>First name</label>
+            <label>Bedrijfsnaam</label>
             <input
               type="text"
-              formControlName="firstName"
+              formControlName="name"
               class="form-control"
               required
             />
             <!-- errors-->
-            <p *ngIf="firstName?.touched && firstName?.invalid" class="error">
-              <sup>*</sup>Please enter atleast first name
+            <p *ngIf="name?.touched && name?.invalid" class="error">
+              <sup>*</sup>Je moet een bedrijfsnaam ingeven
             </p>
-            <p *ngIf="firstName?.errors?.['minlength']" class="error">
-              <sup>*</sup>Name shouldn't be less than 2 words
+            <p *ngIf="name?.errors?.['minlength']" class="error">
+              <sup>*</sup>Je moet een bedrijfsnaam ingeven met minimaal 2 tekens
             </p>
           </div>
           <div class="col-md-12 mb-3">
-            <label>Last name</label>
-            <input type="text" formControlName="lastName" class="form-control" />
-          </div>
-          <div class="col-md-12 mb-3">
-            <label>vat</label>
+            <label>BTW nummer</label>
             <input type="text" formControlName="vat" class="form-control" />
           </div>
         </div>
@@ -45,23 +45,44 @@
             </p>
           </div>
           <div class="col-md-12 mb-3">
-            <label>Mobile number</label>
+            <label>Telefoonnummer</label>
             <input
               type="text"
-              formControlName="mobileNumber"
+              formControlName="tel"
               class="form-control"
               required
             />
-            <!-- errors-->
-            <p *ngIf="mobileNumber?.touched && mobileNumber?.invalid" class="error">
-              <sup>*</sup>Please provide contact number
-            </p>
-            <p *ngIf="mobileNumber?.errors?.['pattern']" class="error">
-              <sup>*</sup>Use numbers only number
-            </p>
           </div>
+<h2> <b> Adres </b></h2>
+                  <div class="col-md-12 mb-3">
+                    <label>Straat</label>
+                    <input type="text" formControlName="streetName" class="form-control"  />
+                    <!-- errors-->
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label>Nummer</label>
+                    <input type="text" formControlName="streetNumber" class="form-control"  />
+                    <!-- errors-->
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label>Postcode</label>
+                    <input type="number" formControlName="postalCode" class="form-control"  />
+                    <!-- errors-->
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label>Stad</label>
+                    <input type="text" formControlName="city" class="form-control"  />
+                    <!-- errors-->
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label>Land</label>
+                    <input type="text" formControlName="country" class="form-control"  />
+                    <!-- errors-->
+                  </div>
+
         </div>
         <div class="form-group text-right">
+
           <button
             type="button"
             class="btn btn-secondary gap-right"
@@ -74,9 +95,13 @@
             class="btn btn-success"
             [disabled]="!clientForm.valid"
           >
-            Add Client
+          <p *ngIf="!client">
+          Voeg klant toe </p>
+          <p *ngIf="client">
+          Bewerk {{client?.name}} </p>
+            
           </button>
         </div>
-      </div>
     </div>
   </form>
+  </div>

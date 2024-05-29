@@ -1,17 +1,99 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-          <app-table [products]="products"></app-table>
-    <!-- <div>
-        <h2> all products</h2>
-        <div  *ngFor="let product of products">
-            <p> {{product.name}} | {{product.description}} | {{product.vatPercentage}} | {{product.price}} | {{product.hourlyrate}}</p>
-        </div>
-    </div> -->
+<div class="flex flex-col">
+  <div class="title-bar">
+              <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle producten ✨</h1>
+
+<div>
+      <button class="btn btn-primary text-white" (click)="addProduct()">Voeg product toe</button>
+      
+      <!-- Put this part before </body> tag -->
+      <dialog class="modal modal-open" *ngIf="visible">
+        <app-add-product-modal (productData)="addCustomProduct($event)" [product]="product"
+          (toggle)="addClass()"></app-add-product-modal>
+      </dialog>
+      </div>
   </div>
 
-  <label for="my-modal" class="btn text-white	s">Voeg een product toe</label>
-  
-  <!-- Put this part before </body> tag -->
-  <input type="checkbox" id="my-modal" class="modal-toggle" />
-  <div class="modal">
-    <app-add-product-modal></app-add-product-modal>
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8">
+
+    <!-- Position Column -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description">
+        Description
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">
+            Price without VAT
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} {{element.currency}} </td>
+        </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="vat">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by VAT %">
+            VAT
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.vatPercentage}} % </td>
+        </ng-container>
+    <ng-container matColumnDef="isHourlyRate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by hourly rate">
+        Hourly rate
+      </th>
+      <td mat-cell *matCellDef="let element"> 
+        <div  class=""> 
+        <span *ngIf="element.isHourlyRate" class="material-icons">&#xE876;</span>
+        <span *ngIf="!element.isHourlyRate" class="material-icons">&#xE5cd;</span>
+      </div> 
+    </td>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Acties
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <input type="checkbox" id="delete_invoice" class="modal-toggle" />
+            <div class="modal " role="dialog">
+              <div class="modal-box bg-gray-800 border-gray-100 ">
+                <form method="dialog">
+                  <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 class="font-bold text-lg">Hallo,</h3>
+                <p class="py-4">Weet je zeker dat je dit product wilt verwijderen?</p>
+                <div class="modal-action">
+                  <label for="delete_invoice" class="btn btn-wide btn-secundary">nee, ik heb mij vergist!</label>
+                  <label for="delete_invoice" (click)="deleteProduct(element.id)" class="btn btn-wide btn-primary">Ja,
+                    verwijder product</label>
+                </div>
+              </div>
+            </div>
+            <label for="delete_invoice" class="btn">
+              <mat-icon aria-hidden="false" aria-label="Delete invoice" fontIcon="delete"></mat-icon>
+            </label>
+            <label for="product-modal" (click)="editProduct(element.id)" class="btn">
+              <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+            </label>
+          </td>
+        </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div> 
   </div>
+
+

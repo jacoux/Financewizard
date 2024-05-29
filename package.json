@@ -5,12 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration production",
     "test": "ng test",
     "mongodb": "mongod --dbpath /usr/local/var/mongodb --logpath /usr/local/var/log/mongodb/mongo.log --fork"
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/schematics": "^1.0.0",
     "@angular/animations": "^14.3.0",
     "@angular/cdk": "^14.2.7",
     "@angular/common": "^14.3.0",
@@ -39,7 +40,10 @@
     "list.js": "^2.3.1",
     "moment": "^2.29.4",
     "nanoid": "^4.0.1",
+    "ng-process-env": "^16.0.6",
     "ngrx-store-localstorage": "^14.0.0",
+    "ngrx-store-persist": "^1.0.24",
+    "pocketbase": "^0.21.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -48,6 +52,7 @@
     "@angular-devkit/build-angular": "^14.2.11",
     "@angular/cli": "^14.2.11",
     "@angular/compiler-cli": "^14.3.0",
+    "@angular/localize": "^14.3.0",
     "@types/canvas-confetti": "^1.6.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",

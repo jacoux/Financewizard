@@ -15,6 +15,6 @@ export const loadUsersFailure = createAction(
 );
 
 export const setUser = createAction(
-  '[Actions] set user Actionss',
+  '[Actions] set user Action',
   props<{ data: any }>()
 );

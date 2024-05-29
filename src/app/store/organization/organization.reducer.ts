@@ -57,7 +57,7 @@ export const reducer = createReducer(
     ...state,
     organization: {
       ...state.organization,
-      name: organization.name,
+      name: organization.companyName,
       companyVat: organization.companyVat,
       address: organization.address,
       employee: organization.employee,

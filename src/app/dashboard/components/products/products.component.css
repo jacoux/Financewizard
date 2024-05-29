@@ -1,0 +1,22 @@
+.modal-header {
+        display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+.notVisible {
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}

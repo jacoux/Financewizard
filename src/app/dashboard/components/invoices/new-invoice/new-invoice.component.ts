@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import {
   UntypedFormArray,
   UntypedFormBuilder,
@@ -9,11 +8,15 @@ import {
 } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { State, Store } from '@ngrx/store';
 
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
-import { Client, Product } from 'src/app/shared/types/invoice';
+import { Client, ClientResponse, Invoice, InvoiceResponse, Organization, Product } from 'src/app/shared/types/invoice';
+import { User } from 'src/app/shared/types/user';
 import { saveInvoice } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
+import { InvoiceDraftState } from 'src/app/store/invoiceDraft/invoiceDraft.models';
+import { setCompanyInfo } from 'src/app/store/organization/organization.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './new-invoice.component.html',
@@ -26,8 +29,11 @@ export class NewInvoiceComponent implements OnInit {
   itemForm!: UntypedFormGroup;
   products!: any;
   clients!: any;
+  company!: Organization;
+  logo!: string;
   selectedClient!: Client;
   selectedProd!: Product;
+  invoiceFromStore: Invoice | undefined;
   payWithin = 0;
   total = 0;
   totalVatAmount = 0;
@@ -35,6 +41,9 @@ export class NewInvoiceComponent implements OnInit {
   showMyDetails: boolean = true;
 
   invoiceFrom = new UntypedFormGroup({
+    invoiceName: new UntypedFormControl(null, [Validators.required]),
+    invoiceNumber: new UntypedFormControl(null, [Validators.required]),
+    companyId: new UntypedFormControl(null, [Validators.required]),
     client: new UntypedFormControl(null, [Validators.required]),
     invoiceDate: new UntypedFormControl(new Date(), [Validators.required]),
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
@@ -42,12 +51,15 @@ export class NewInvoiceComponent implements OnInit {
     total: new UntypedFormControl(null, [Validators.required]),
     vatAmount: new UntypedFormControl(null, [Validators.required]),
     footer: new UntypedFormControl(null, [Validators.required]),
+    paymentDetails: new UntypedFormControl(null, [Validators.required]),
   });
+  placeholder_footer = 'te betalen voor... op rekeningnummer ...';
 
   constructor(
     private fb: UntypedFormBuilder,
     private crudApi: GeneralCrudService,
-    private store: Store,
+    private store:Store,
+    private invoiceState: State<InvoiceDraftState>,
     private router: Router
   ) {
     this.addForm = this.fb.group({
@@ -58,29 +70,32 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+        this.getClients();
     this.getProducts();
-    this.getClients();
+    this.getCompany();
     this.addForm.addControl('rows', this.rows);
+    this.getInvoiceFromStore();
+
   }
 
   onClientChange(id: any) {
-    if (this.addForm) {
-      const test = this.clients.filter((client: Client) => client._id === id);
-      this.selectedClient = test[0];
+    if (this.addForm && this.clients) {
+      const client = this.clients.filter((client: Client) => client.id === id);
+      this.selectedClient = client[0];
       this.invoiceFrom.get('client')?.setValue(this.selectedClient);
     }
   }
 
-  selectProd(i: any, id: any) {
+  selectProd(i: number, id: string) {
     if (this.addForm) {
       const products = this.products.filter(
-        (product: Product) => product._id === id
+        (product: Product) => product.id === id
       );
       const product = products[0];
       const currentRow = this.getRow().at(i);
-      debugger;
       currentRow.get('price')?.setValue(product.price);
       currentRow.get('name')?.setValue(product.name);
+      currentRow.get('vat')?.setValue(product.vatPercentage);
     }
   }
 
@@ -161,24 +176,113 @@ export class NewInvoiceComponent implements OnInit {
   payWithinChange() {
     const invoiceDate = this.invoiceFrom.controls['invoiceDate'].value;
     let payDate = new Date();
-    payDate.setDate(invoiceDate.getDate() + this.payWithin);
+    payDate.setDate(invoiceDate?.getDate() + this.payWithin);
     this.invoiceFrom.controls['paymentDate'].setValue(payDate);
-  }
-
-  getProducts() {
-    this.crudApi.GetObjectsList('products').subscribe((data) => {
-      this.products = data;
-    });
-  }
-
-  hide() {
-    this.showMyDetails = !this.showMyDetails;
   }
 
   getClients() {
     this.crudApi
-      .GetObjectsList('clients')
-      .subscribe((data) => (this.clients = data));
+      .GetObjectsList('clients/records')
+      // @ts-ignore
+      .subscribe((data: ClientResponse) => {
+        this.clients = data.items;
+      });
+  }
+
+  getInvoiceFromStore() {
+    this.invoiceState.subscribe((data: any) => {
+      this.invoiceFromStore = data.invoiceDraft.invoiceDraft;
+      //invoiceForm
+      const invoiceDraft: Invoice = data.invoiceDraft.invoiceDraft[0];
+      //product
+      const products: Product[] = data.invoiceDraft.invoiceDraft[1];
+      if (invoiceDraft?.client.id) {
+        this.onClientChange(invoiceDraft?.client.id);
+      }
+      this.invoiceFrom.controls['invoiceName'].setValue(
+        invoiceDraft?.invoiceName
+      );
+      this.invoiceFrom.controls['invoiceNumber'].setValue(
+        invoiceDraft?.invoiceNumber
+      );
+      this.invoiceFrom.controls['invoiceDate'].setValue(invoiceDraft?.invoiceDate);
+      this.invoiceFrom.controls['paymentDate'].setValue(invoiceDraft?.paymentDate);
+      this.invoiceFrom.controls['payWithin'].setValue(invoiceDraft?.payWithin);
+      this.invoiceFrom.controls['total'].setValue(invoiceDraft?.total);
+      this.invoiceFrom.controls['vatAmount'].setValue(invoiceDraft?.vatAmount);
+      this.invoiceFrom.controls['footer'].setValue(invoiceDraft?.footer);
+      this.invoiceFrom.controls['paymentDetails'].setValue(invoiceDraft?.paymentDetails);
+
+      if (products?.length > 0) {
+            // first row is allready added
+
+            products.forEach((element: any) => {
+              const rowData = this.fb.group({
+                name: element.name,
+                description: element.description,
+                price: element.price,
+                qty: element.qty,
+                vat: element.vatPercentage,
+                vatAmount: element.vatAmount,
+                total: element.total,
+                isCustom: element.isCustom,
+              });
+                  this.rows.removeAt(0);
+              this.rows.push(rowData);
+            });
+        this.calculateTotal() 
+          }
+    })
+
+
+  }
+
+  getProducts() {
+    this.crudApi
+      .GetObjectsList('products/records')
+      // @ts-ignore
+      .subscribe((data: ProductResponse) => {
+        this.products = data.items;
+      });
+  }
+  getCompany() {
+    // @ts-expect-error
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+         const id = user.linkedCompany
+           ? user.linkedCompany
+           : user.linkedCompany?.[0];
+    this.crudApi
+      .GetObjectsList('companies/records/' + id)
+      // @ts-ignore
+      .subscribe((data: Organization) => {
+      
+        if (data) {
+          this.store.dispatch(
+            setCompanyInfo({
+              organization: data,
+              status: 4,
+            })
+          );
+        }
+              this.invoiceFrom.get('companyId')?.setValue(data.id);
+        this.placeholder_footer =
+          data.defaultInvoiceDetails?.footer ||
+          'te betalen voor... op rekeningnummer ...';
+        this.company = data;
+        if (data.logo) {
+          this.logo =
+            environment.apiUrl + '/api/files/companies/' +
+            data.id +
+            '/' +
+            data.logo;
+        } else {
+          this.logo = "Nog geen logo opgeladen"
+        }
+      });
+  }
+
+  hide() {
+    this.showMyDetails = !this.showMyDetails;
   }
 
   getControls() {
@@ -217,5 +321,6 @@ export class NewInvoiceComponent implements OnInit {
   submit() {
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
     this.store.dispatch(saveInvoice({ data: invoiceData }));
+    this.router.navigate(['dashboard', 'invoices', 'check']);
   }
 }

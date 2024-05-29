@@ -26,6 +26,7 @@ import {
 } from 'src/app/store/organization/organization.selectors';
 
 @Component({
+  selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
 })
@@ -116,13 +117,13 @@ export class OnboardingComponent implements OnInit {
   }
 
   saveCompany() {
-    const employee = this.companyForm.get('employee');
-    this.companyForm
-      .get('companyEmail')
-      ?.setValue(this.authService.userData.email);
-    employee?.get('email')?.setValue(this.authService.userData.email);
-    employee?.get('role')?.setValue(mainRole.ADMIN);
-    this.companyForm.setErrors;
+    // const employee = this.companyForm.get('employee');
+    // this.companyForm
+    //   .get('companyEmail')
+    //   ?.setValue(this.authService.userData.email);
+    // employee?.get('email')?.setValue(this.authService.userData.email);
+    // employee?.get('role')?.setValue(mainRole.ADMIN);
+    // this.companyForm.setErrors;
     this.store.dispatch(
       setCompanyInfo({ organization: this.companyForm.value, status: 4 })
     );
@@ -130,7 +131,7 @@ export class OnboardingComponent implements OnInit {
 
   createOrg() {
     // this.store.dispatch(createOrganization());
-    this.crudApi.AddObject(this.companyForm.value, 'organizations');
+    this.crudApi.AddCompany(this.companyForm.value, 'organizations');
   }
 
   setDescription(desc: any) {

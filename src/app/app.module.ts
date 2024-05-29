@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +10,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 import {
   MatNativeDateModule,
@@ -38,6 +34,8 @@ import { organizationState } from './store/organization/organization.models';
 import { organizationEffects } from './store/organization/organization.effects';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputComponent } from './components/shared/input/input.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SharedModule } from './shared/shared.module';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -64,17 +62,15 @@ export function localStorageSyncReducer(
     BrowserModule,
     AppRoutingModule,
     DashboardRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule,
     FormsModule,
+    MatSortModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatTooltipModule,
     BrowserAnimationsModule,
+    DashboardModule,
     DashboardRoutingModule,
+    SharedModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
@@ -84,7 +80,16 @@ export function localStorageSyncReducer(
     ]),
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'nl-BE',
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

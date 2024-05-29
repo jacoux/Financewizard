@@ -1,44 +1,39 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../types/user';
 import * as auth from 'firebase/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 import { error } from 'console';
+import PocketBase, { RecordAuthResponse } from 'pocketbase';
 import { response } from 'express';
+import { setOrganizationData } from 'src/app/store/organization/organization.actions';
+import { GeneralCrudService } from './general-crud.service';
+import { State } from 'src/app/store/users/users.reducer';
+import { setUser } from 'src/app/store/users/users.actions';
+import { environment } from 'src/environments/environment';
+import { NotificationService } from '../component/notification.service';
+import { NotificationType } from '../types/notofication';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any;
+  pb = new PocketBase(environment.apiUrl);
+  auth_token = localStorage.getItem('token');
+
   constructor(
     private http: HttpClient,
-    public afs: AngularFirestore, // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public store: Store,
+    private store: Store<State>,
+    private notificationService: NotificationService,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        this.GetUser(user);
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
-      }
-    });
   }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -57,142 +52,244 @@ export class AuthService {
       () => new Observable((observer) => observer.next(new Error()))
     );
   }
-  // Sign in with email/password
-  SignIn(email: string, password: string) {
-    return this.http.post(
-      'http://127.0.0.1:8090/api/collections/users/auth-with-password',
-      { identity: email, password: password },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
 
-  // Sign up with email/password
-  SignUp(email: string, password: string, laterFillInCompanyDetails: boolean) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.SetUserData(result.user);
-        if (laterFillInCompanyDetails) {
-          this.SendVerificationMail();
+  // Sign in with email/password
+  async SignIn(email: string, password: string) {    
+    const authData = this.pb
+      .collection('users')
+      .authWithPassword(email, password)
+      .then((authData) => {
+        if (authData) {
+          this.store.dispatch(setUser({ data: authData.record }));
+          this.SetUserData(authData.record);
+          this.router.navigate(['dashboard']);
+
         } else {
-          this.router.navigate(['onboarding']);
+          alert('helaas heb je geen account of is je wachtwoord fout');
         }
       })
       .catch((error) => {
-        window.alert(error.message);
+        if (error) {
+          alert('Inlog is onjuist')
+             this.notificationService.notify({
+               title: 'Oh Oh 😕',
+               type: NotificationType.danger,
+               message: 'Geen gebruiker gevonden',
+             });
+        }
       });
+
+  }
+
+  // Sign up with email/password
+  async SignUp(username: string, email: string, password: string) {
+    const data = {
+      username: username,
+      email: email,
+      emailVisibility: true,
+      password: password,
+      passwordConfirm: password,
+      name: email,
+      verified: true,
+      customVerified: false,
+      linkedCompany: [null],
+      role: [null],
+    };
+    const record = await this.pb.collection('users').create(data);
+    if (record.id) {
+      this.SetUserData(record);
+      return this.SendVerificationMail(data.email, record.id);
+
+      // this.store.dispatch(setUser({ data: record }));
+      //   this.router.navigate(['onboarding']);
+    } else {
+      alert('something went wrong');
+    }
+    return;
   }
   // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
+  SendVerificationMail(user: any, id: string) {
+    console.log(user);
+    alert('verificatiemail komt eraan!');
+    const apiUrl = 'https://api.mailersend.com/v1/email';
+    const yourToken =
+      'mlsn.cf58e08028639d59fb5a51c4db77f1b9117054a2c9094cf649ace04ac2aff9e5'; // Replace with your actual MailerSend token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${yourToken}`,
+      }),
+    };
+    const body = {
+      from: {
+        email: 'info@financewizard.be',
+      },
+      to: [
+        {
+          email: user.email,
+        },
+      ],
+      template_id: '351ndgwwmdqgzqx8',
+      personalization: [
+        {
+          email: user.email,
+          data: {
+            id: id,
+          },
+        },
+      ],
+    };
+    
+    return this.http.post(apiUrl, body, httpOptions).subscribe((response) => {
+      if (response) {
+        console.log(response);
+      }
+    });
   }
   // Reset Forggot password
-  ForgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+  ForgotPassword(passwordResetEmail: string) {}
+
+  async authRefresh() {
+    const authData = await this.pb
+      .collection('users')
+      .authRefresh()
+      .then((response) => {
+        if (response.record) {
+          this.SetUserData(response.record);
+          localStorage.setItem('token', this.pb.authStore.token);
+          return response.meta;
+        } else {
+          return null;
+        }
       })
       .catch((error) => {
-        window.alert(error);
+        return null;
       });
+    return;
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null ? true : false;
+    // @ts-expect-error
+    const localUser = JSON.parse(localStorage.getItem('user')) as User;
+
+    if (localUser) {
+      const user = this.authRefresh();
+      return user !== null ? true : false;
+    } else {
+      return false;
+    }
   }
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
-    });
-  }
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.GetUser(result.user);
-        return this.router.navigate(['dashboard']);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
-  /* Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+
   SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
     const userData: User = {
-      uid: user.uid,
+      id: user.id,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      companyId: user?.companyId,
+      username: user.username,
+      photoURL: user.avatar,
+      verified: user.verified,
+      customVerified: user.customVerified,
+      linkedCompany: user?.linkedCompany?.[0],
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+    localStorage.setItem('user', JSON.stringify(userData));
   }
 
   UpdateUser(id: any) {
     const user = JSON.parse(localStorage.getItem('user')!);
     if (user) {
-      const userRef = this.afs.doc(`users/${user.uid}`);
-      userRef.update({ companyId: id });
-      this.userData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-        companyId: id,
-      };
       localStorage.setItem('user', JSON.stringify(this.userData));
       return this.router.navigate(['/dashboard']);
     } else {
-      alert('geen gebruiker gevonden');
+      this.notificationService.notify({
+        title: 'Oh Oh 😕',
+        type: NotificationType.danger,
+        message: "Geen gebruiker gevonden",
+      });
+      return;
+    }
+  }
+
+  async UpdateUserAfterVerification(id: string) {
+    if (this.auth_token === null) {
+      this.authRefresh();
+    }
+    const record = await this.pb
+      .collection('users')
+      .update(id, { customVerified: true }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response));
+        return this.router.navigate(['/dashboard']);
+      })
+      .catch(() => {
+        alert('Er ging iets mis met het verifieren van je account');
+      });
+  }
+
+  // company is made, now set the id of the created company to the user
+  async UpdateUserAfterAssignedToOrganisation(companyId: any) {
+    // if (user) {
+    //   return this.router.navigate(['/dashboard']);
+    // } else {
+    //   alert('Geen gebruiker gevonden');
+    //   return;
+    // }
+
+    const user = JSON.parse(localStorage.getItem('user')!);
+    const userData: User = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      photoURL: user.avatar,
+      verified: user.verified,
+      customVerified: user.customVerified,
+      linkedCompany: [companyId],
+    };
+
+    const record = await this.pb
+      .collection('users')
+      .update(userData.id, userData);
+    
+    if (record) {
+      localStorage.setItem('user', JSON.stringify(userData));
+      return this.router.navigate(['/dashboard']);
+    } else {
+      alert('Geen gebruiker gevonden');
       return;
     }
   }
 
   GetUser(user: any) {
-    this.afs
-      .collection('users')
-      .doc(user.uid)
-      .ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          const newU: any = doc.data();
-          this.userData.companyId = newU.companyId;
-          console.log(newU.companyId);
-        } else {
-          console.log('There is no document!');
-        }
-      })
-      .catch(function (error) {
-        console.log('There was an error getting your document:', error);
-      });
+    // after the above you can also access the auth data from the authStore
+    console.log(this.pb.authStore.token);
+
+    // "logout" the last authenticated account
+    // this.pb.authStore.clear();
+    // /api/collections/ users / records;
+
+    if (this.pb.authStore?.model?.['id']) {
+      const newU: any = this.pb.authStore?.model;
+      
+      this.userData = newU;
+      this.userData.linkedCompany[0] = newU.linkedCompany?.[0];
+      this.userData.token = this.pb.authStore.token;
+      localStorage.setItem('token', this.pb.authStore.token);
+      // console.log(this.userData.companyId);
+    } else {
+      console.log('There is no document!');
+    }
   }
 
   // Sign out
   SignOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
+    this.pb.authStore.clear();
+    localStorage.removeItem('user');
+    this.router.navigate(['/sign-in']);
+    return;
   }
 }

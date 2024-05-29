@@ -5,7 +5,6 @@ import { ClientComponent } from './components/client/client.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CreateClientComponent } from './components/client/create-client/create-client.component';
 import { AllClientsComponent } from './components/client/all-clients/all-clients.component';
-import { EditClientComponent } from './components/client/edit-client/edit-client.component';
 import { AllInvoicesComponent } from './components/invoices/all-invoices/all-invoices.component';
 import { NewInvoiceComponent } from './components/invoices/new-invoice/new-invoice.component';
 import { OrganizationComponent } from './components/organization/organization.component';
@@ -24,6 +23,7 @@ import { ApplicantDetailComponent } from './components/recruitment/job-applicant
 import { JobDetailComponent } from './components/recruitment/job-detail/job-detail.component';
 import { AllCandidatesComponent } from './components/recruitment/all-candidates/all-candidates.component';
 import { EstimatesComponent } from './components/estimates/estimates.component';
+import { EstimatesOverviewComponent } from './components/estimates/estimates-overview/estimates-overview.component';
 const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
@@ -33,6 +33,10 @@ const dashboardRoutes: Routes = [
       {
         path: 'invoices',
         children: [
+          {
+            path: 'overview',
+            component: AllInvoicesComponent,
+          },
           {
             path: 'create',
             component: NewInvoiceComponent,
@@ -50,6 +54,10 @@ const dashboardRoutes: Routes = [
       {
         path: 'estimates',
         children: [
+          {
+            path: 'overview',
+            component: EstimatesOverviewComponent,
+          },
           {
             path: 'create',
             component: EstimatesComponent,
@@ -74,10 +82,6 @@ const dashboardRoutes: Routes = [
           {
             path: 'create',
             component: CreateClientComponent,
-          },
-          {
-            path: ':id',
-            component: EditClientComponent,
           },
         ],
       },

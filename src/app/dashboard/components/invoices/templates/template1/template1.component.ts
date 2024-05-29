@@ -32,11 +32,11 @@ export class Template1Component implements OnInit {
 
   ngOnInit(): void {
     this.store.select(getInvoiceDraft).subscribe((data) => {
-      debugger;
       this.invoiceData = data[0];
       this.invoiceProducts = data[1];
     });
     this.store.select(getOrganization).subscribe((data) => {
+      
       this.org = data;
     });
     this.eventsSubscription = this.events.subscribe(() => this.openPDF());

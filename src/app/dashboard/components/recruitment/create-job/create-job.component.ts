@@ -49,7 +49,6 @@ export class CreateJobComponent implements OnInit {
   }
 
   submit(): void {
-    debugger;
     this.crudApi.AddObjectNotAsync(this.createJobGeneralForm.value, 'jobs');
   }
 }

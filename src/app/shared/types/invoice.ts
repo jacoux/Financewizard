@@ -1,23 +1,31 @@
 import { User } from './user';
 
 export interface Invoice {
+  paymentDetails: any;
   client: Client;
   organization: Organization;
   product: Product;
+  invoiceDate: Date;
+  paymentDate: Date;
+  invoiceNumber: number;
+  payWithin: number;
   total: number;
+  vatAmount: number;
+  invoiceName: string;
+  footer: number;
 }
 
 export interface Client {
-  _id: string;
+  id?: any;
   email: string;
   vat: string;
   name: string;
-  responsible: string;
-  organizationId: string;
+  responsible?: string;
+  companyId?: string;
   firstName?: string;
   lastName?: string;
   tel?: string;
-  address?: string;
+  address?: Address;
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -30,17 +38,36 @@ export interface ClientResponse {
   totalItems: 1
   totalPages: 1
 }
+export interface InvoiceResponse {
+  items: Invoice[]; 
+  page: 1
+  perPage: 30
+  totalItems: 1
+  totalPages: 1
+}
 
 export interface Product {
-  _id: string;
+  qty?: any;
+  id: string;
   name: string;
-  organizationId: number;
+  companyId?: number;
   vatPercentage: string;
   price: number;
+  vatApplicable?: boolean;
   description: string;
   currency: Currency;
   isHourlyRate?: boolean;
 }
+
+export interface ProductResponse {
+  items: Client[];
+  page: 1;
+  perPage: 30;
+  totalItems: 1;
+  totalPages: 1;
+}
+
+
 
 export enum Priority {
   LOW,
@@ -63,6 +90,8 @@ export enum AccountType {
 }
 
 export interface Organization {
+  companyId?: any;
+  companyName?: string;
   id: string;
   $key: string;
   name: string;
@@ -73,8 +102,11 @@ export interface Organization {
   companyVat: string;
   companyEmail: string;
   address: Address;
+  logo: string;
   responsible: Responsible[];
   bank?: Bank[];
+  invoiceNumberPrefix?: string;
+  templateNo?: number;
   defaultInvoiceDetails?: DefaultInvoiceDetails;
 }
 

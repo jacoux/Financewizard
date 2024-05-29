@@ -1,27 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CrudProductService } from 'src/app/shared/services/crud-products.service';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { Product } from 'src/app/shared/types/invoice';
 
 @Component({
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.sass']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
   public productForm!: UntypedFormGroup;
-  products: any;
-
+  products: Product[] = [];
+  product: Product | undefined;
+  displayedColumns: string[] = [
+    'price',
+    'name',
+    'vat',
+    'description',
+    'isHourlyRate',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource(this.products);
+  visible = false;
   constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private cdr: ChangeDetectorRef,
+
     public crudApi: GeneralCrudService,
-    public fb: UntypedFormBuilder,
-    private database: AngularFireDatabase
-  ) {
-  }
+    public fb: UntypedFormBuilder
+  ) {}
   ngOnInit() {
     this.crudApi
-      .GetObjectsList('products')
-      .subscribe((data) => (this.products = data));
+      .GetObjectsList('products/records')
+      // @ts-ignore
+      .subscribe((data: ProductResponse) => {
+        this.products = data.items;
+        this.dataSource = new MatTableDataSource(this.products);
+      });
+  }
+
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
+  deleteProduct(id: string) {
+    this.crudApi.deleteProduct(id);
+    window.location.reload();
+  }
+
+  addClass() {
+    this.visible = !this.visible;
+  }
+
+  addCustomProduct(product: any) {
+    this.crudApi.AddProduct(product);
+  }
+
+  getSingleProduct(id: string) {
+    this.crudApi.getProduct(id).then((product) => {
+      this.product = product;
+    });
+  }
+
+  editProduct(id: number) {
+    this.getSingleProduct(id.toString());
+    this.visible = true;
+  }
+
+  addProduct() {
+        this.product = undefined;
+        this.visible = true; // Opens a non-modal dialog
+        this.cdr.detectChanges();
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }
+

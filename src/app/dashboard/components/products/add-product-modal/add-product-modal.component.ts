@@ -1,19 +1,21 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
+import { Product } from 'src/app/shared/types/invoice';
 
 @Component({
   selector: 'app-add-product-modal',
   templateUrl: './add-product-modal.component.html',
-  styleUrls: ['./add-product-modal.component.sass'],
+  styleUrls: ['./add-product-modal.component.css'],
 })
-export class AddProductModalComponent implements OnInit {
+export class AddProductModalComponent implements OnInit, OnChanges {
   @Output() productData = new EventEmitter<string>();
   @Output() toggle = new EventEmitter<string>();
+  @Input() product?: Product;
   public productForm!: UntypedFormGroup;
   products: any;
 
@@ -63,6 +65,26 @@ export class AddProductModalComponent implements OnInit {
 
     this.productData.emit(prd);
     this.ResetForm();
+  }
+
+  ngOnChanges() {
+    
+    if (this.product && this.productForm) {
+      this.productForm.controls['name'].setValue(this.product?.name);
+      this.productForm.controls['vatPercentage'].setValue(
+        this.product?.vatPercentage
+      );
+      this.productForm.controls['price'].setValue(
+        this.product?.price
+      );
+      this.productForm.controls['description'].setValue(this.product?.description);
+      this.productForm.controls['hourlyRate'].setValue(
+        this.product?.isHourlyRate
+      );
+      this.productForm.controls['qty'].setValue(
+        this.product?.qty
+      );
+    }
   }
 
   close() {

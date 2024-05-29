@@ -32,7 +32,7 @@ export const reducer = createReducer(
 
   on(UserActions.setUser, (state, { data }) => ({
     ...state,
-    users: data.users,
+    users: data.users ?? data,
     loading: true,
     error: null,
   })),

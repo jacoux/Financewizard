@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CrudClientService } from 'src/app/shared/services/crud-client.service';
@@ -22,13 +20,9 @@ export class ClientComponent implements OnInit {
   constructor(
     public crudApi: CrudClientService,
     public fb: UntypedFormBuilder,
-    private database: AngularFireDatabase
-  ) {
+     ) {
   }
   ngOnInit() {
-    this.database.list('/clients-list').valueChanges().subscribe(list => {
-      this.clients = list ?? []
-    })
     this.studenForm();
   }
 

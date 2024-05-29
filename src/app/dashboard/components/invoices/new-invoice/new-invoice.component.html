@@ -1,4 +1,4 @@
-<form (submit)="submit()" [formGroup]="invoiceFrom" class="grid grid-cols-12 gap-6">
+<form [formGroup]="invoiceFrom" class="grid grid-cols-12 gap-6">
   <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
     <div id="dashboard-card-04-legend" class="flex flex-row px-5 py-3">
       <div class="basis-1/4">
@@ -31,18 +31,26 @@
       <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
         <div class="basis-1/2">
           <div class="max-w-sm">
-            <img class="max-w-sm py-5" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" />
+            <p *ngIf="logo === 'Nog geen logo opgeladen'">Nog geen logo opgeladen</p>
+            <img *ngIf="logo !== 'Nog geen logo opgeladen'" class="max-w-sm py-5" [src]="logo" />
           </div>
         </div>
         <div class="basis-1/2">
           <div class=" bg-base-100">
             <div class="card-body">
-              <input type="text" class="input input-bordered input-primary w-full max-w-xs" placeholder="Factuurnaam" />
-              <h2 class="card-title">Jacoux bv</h2>
-              <p>Helstraat 12B</p>
-              <p>3400 Landen</p>
-              <p>0493 02 97 13</p>
-              <p>BE 0704 651 352</p>
+              <input type="text" class="input input-bordered input-primary w-full max-w-xs" formControlName="invoiceName"  placeholder="Factuurnaam" />
+              <div>
+                {{company?.invoiceNumberPrefix}}
+              <input type="text" class="input input-bordered input-primary w-full max-w-xs" formControlName="invoiceNumber"
+                placeholder="Factuur nummer" />
+
+              </div>
+              <h2 class="card-title">{{company?.name}}</h2>
+              <p>{{company?.address?.streetName}} {{company?.address?.streetNumber}}</p>
+              <p>{{company?.address?.postalCode}} {{company?.address?.city}} </p>
+              <p>{{company?.address?.country}}
+              <p>{{company?.companyVat}}
+              <p>{{company?.companyEmail}}
               </div>
             <div class="edit edit-button">
             
@@ -87,13 +95,14 @@
             <div class="card-body">
               <select (change)="onClientChange($event.target.value)" class="select select-primary w-full mb-6">
                 <option selected>Klantgegevens</option>
-                <option *ngFor="let client of clients" [value]="client._id">{{client.name}}</option>
+                <option *ngFor="let client of clients" [value]="client.id">{{client.firstName}}</option>
 
               </select>
               <div *ngIf="selectedClient">
-                <h2 class="card-title">{{selectedClient.name}}</h2>
-                <p>{{selectedClient.address}}</p>
-                <p>{{selectedClient.vat}}</p>
+                <h2 class="card-title">{{selectedClient.firstName}}</h2>
+                <p>{{selectedClient.address?.streetName}} {{selectedClient.address?.streetNumber}}</p>
+                <p>{{selectedClient.address?.postalCode}} {{selectedClient.address?.city}}</p>
+                <p>{{selectedClient.address?.country}}</p>
               </div>
               </div>
               </div>
@@ -153,9 +162,9 @@
                 </svg>
   
               </label>
-              <select *ngIf="!row.get('isCustom')?.value && products.length > 0"
+              <select *ngIf="!row.get('isCustom')?.value && products?.length > 0"
                 (change)="selectProd(index, $event.target.value)" class="select select-primary w-full max-w-xs">
-                <option *ngFor="let prod of products" [value]="prod._id">{{prod.name}}</option>
+                <option *ngFor="let prod of products" [value]="prod.id">{{prod.name}}</option>
               </select>
               <input *ngIf="row.get('isCustom')?.value" [value]="row.get('name')?.value"
                 class="input input-bordered input-primary w-full max-w-xs" />
@@ -191,6 +200,7 @@
                 <option disabled selected>BTW</option>
                 <option value="21">21%</option>
                 <option value="6">6%</option>
+                <option value="1">0</option>
               </select>
             </div>
           </div>
@@ -227,7 +237,7 @@
                   <button class="btn btn-wide btn-primary" (click)="onAddRow()">Snel invullen</button>
                 </div>
                 <div class="basis-1/4">
-                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg manueel toe</button>
+                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Voeg Product toe</button>
                 </div>
               </div>
               
@@ -235,12 +245,12 @@
               
                 <div class="stat">
                   <div class="stat-title">BTW</div>
-                  <div class="stat-value"> € {{totalVatAmount | number}}</div>
+                  <div class="stat-value"> € {{totalVatAmount}}</div>
                 </div>
               
                 <div class="stat">
                   <div class="stat-title">Totaal</div>
-                  <div class="stat-value">€ {{total | number}}</div>
+                  <div class="stat-value">€ {{total }}</div>
                 </div>
               
               </div>
@@ -253,8 +263,11 @@
                 </header>
                 <div id="dashboard-card-04-legend" class="px-5 py-3">
                   <textarea formControlName="footer" class="textarea w-full mt-6"
-                    placeholder="Te betalen voor ... op rekeningnummer..."></textarea>
-
+                    [placeholder]="placeholder_footer"></textarea>
+    </div>
+                <div id="dashboard-card-04-legend" class="px-5 py-3">
+                  <textarea formControlName="paymentDetails" class="textarea w-full mt-6"
+                    placeholder="Geef je rekingnummer in"></textarea>
     </div>
   </div>
   <button class="btn btn-wide btn-primary" (click)="submit()"> Volgende stap</button>
