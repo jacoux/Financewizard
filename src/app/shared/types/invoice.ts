@@ -50,7 +50,7 @@ export interface Product {
   qty?: any;
   id: string;
   name: string;
-  companyId?: number;
+  companyId: number;
   vatPercentage: string;
   price: number;
   vatApplicable?: boolean;

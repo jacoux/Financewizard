@@ -26,16 +26,16 @@
                         <label>BTW percentage</label>
                         <input type="number" formControlName="vatPercentage" class="form-control" />
                     </div>
-                    <div class="col-md-12 mb-3">
-                        <label>Aantal</label>
-                        <input type="number" formControlName="qty" class="form-control" />
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label>Prijs zonder BTW</label>
                         <input type="number" formControlName="price" class="form-control" required />
                         <!-- errors-->
+                        <div class="col-md-12 mb-3">
+                            <label>Product is onderhevig aan btw?</label>
+                            <input type="checkbox" formControlName="vatApplicable" />
+                        </div>
                         <p *ngIf="price?.touched && price?.invalid" class="error">
                             <sup>*</sup>Geef een prijs in
                         </p>
@@ -45,8 +45,9 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Dit is een uurtarief</label>
-                        <input type="checkbox" formControlName="hourlyRate" />
+                        <input type="checkbox" formControlName="isHourlyRate" />
                     </div>
+    
                 </div>
 
             </div>

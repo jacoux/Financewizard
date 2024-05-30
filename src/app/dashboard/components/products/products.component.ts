@@ -59,6 +59,13 @@ export class ProductsComponent implements OnInit {
   }
 
   addCustomProduct(product: any) {
+    // @ts-expect-error;
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+    if (product) {
+    product.companyId = user?.linkedCompany
+      ? user?.linkedCompany
+      : user?.linkedCompany?.[0];
+    }
     this.crudApi.AddProduct(product);
   }
 

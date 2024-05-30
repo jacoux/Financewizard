@@ -34,8 +34,10 @@ export class AddProductModalComponent implements OnInit, OnChanges {
       vatPercentage: [''],
       price: [''],
       description: [''],
-      hourlyRate: [],
-      qty: [],
+      vatApplicable: [],
+      currency: ['€'],
+      isHourlyRate: [],
+      companyId: []
     });
   }
   get name() {
@@ -47,14 +49,14 @@ export class AddProductModalComponent implements OnInit, OnChanges {
   get price() {
     return this.productForm.get('price');
   }
-  get qty() {
-    return this.productForm.get('qty');
+  get vatApplicable() {
+    return this.productForm.get('vatApplicable');
   }
   get description() {
     return this.productForm.get('description');
   }
-  get hourlyRate() {
-    return this.productForm.get('hourlyRate');
+  get isHourlyRate() {
+    return this.productForm.get('isHourlyRate');
   }
   ResetForm() {
     this.productForm.reset();
@@ -68,22 +70,22 @@ export class AddProductModalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    
     if (this.product && this.productForm) {
       this.productForm.controls['name'].setValue(this.product?.name);
       this.productForm.controls['vatPercentage'].setValue(
         this.product?.vatPercentage
       );
-      this.productForm.controls['price'].setValue(
-        this.product?.price
+      this.productForm.controls['price'].setValue(this.product?.price);
+      this.productForm.controls['vatApplicable'].setValue(
+        this.product?.vatApplicable
       );
-      this.productForm.controls['description'].setValue(this.product?.description);
+      this.productForm.controls['description'].setValue(
+        this.product?.description
+      );
       this.productForm.controls['hourlyRate'].setValue(
         this.product?.isHourlyRate
       );
-      this.productForm.controls['qty'].setValue(
-        this.product?.qty
-      );
+      this.productForm.controls['qty'].setValue(this.product?.qty);
     }
   }
 
