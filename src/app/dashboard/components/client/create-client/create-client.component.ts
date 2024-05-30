@@ -88,7 +88,7 @@ export class CreateClientComponent implements OnInit, OnChanges {
       address: this.address,
     };
     if (this.client) {
-    this.crudApi.updateclient(this.client.id, valueToPush);
+    this.crudApi.updateclient(this.client?.id, valueToPush);
 
     } else {
     this.crudApi.Addclient(valueToPush);

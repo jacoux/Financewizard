@@ -45,7 +45,7 @@
                 placeholder="Factuur nummer" />
 
               </div>
-              <h2 class="card-title">{{company?.name}}</h2>
+              <h2 class="card-title">{{company?.companyName}}</h2>
               <p>{{company?.address?.streetName}} {{company?.address?.streetNumber}}</p>
               <p>{{company?.address?.postalCode}} {{company?.address?.city}} </p>
               <p>{{company?.address?.country}}
@@ -95,11 +95,11 @@
             <div class="card-body">
               <select (change)="onClientChange($event.target.value)" class="select select-primary w-full mb-6">
                 <option selected>Klantgegevens</option>
-                <option *ngFor="let client of clients" [value]="client.id">{{client.firstName}}</option>
+                <option *ngFor="let client of clients" [value]="client?.id">{{client.name}}</option>
 
               </select>
               <div *ngIf="selectedClient">
-                <h2 class="card-title">{{selectedClient.firstName}}</h2>
+                <h2 class="card-title">{{selectedClient.name}}</h2>
                 <p>{{selectedClient.address?.streetName}} {{selectedClient.address?.streetNumber}}</p>
                 <p>{{selectedClient.address?.postalCode}} {{selectedClient.address?.city}}</p>
                 <p>{{selectedClient.address?.country}}</p>

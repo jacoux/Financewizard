@@ -45,7 +45,7 @@ export class CrudInvoiceService {
         invoiceNumberPrefix: data[0]?.invoiceNumberPrefix,
         templateNo: data.templateNo,
         companyId: data[0]?.companyId,
-        client: data[0]?.client.id,
+        client: data[0]?.client?.id,
         extendedDate: null,
         payWithin: data[0]?.payWithin,
         currency: '€',

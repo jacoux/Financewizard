@@ -80,7 +80,7 @@ export class NewInvoiceComponent implements OnInit {
 
   onClientChange(id: any) {
     if (this.addForm && this.clients) {
-      const client = this.clients.filter((client: Client) => client.id === id);
+      const client = this.clients.filter((client: Client) => client?.id === id);
       this.selectedClient = client[0];
       this.invoiceFrom.get('client')?.setValue(this.selectedClient);
     }
@@ -196,8 +196,8 @@ export class NewInvoiceComponent implements OnInit {
       const invoiceDraft: Invoice = data.invoiceDraft.invoiceDraft[0];
       //product
       const products: Product[] = data.invoiceDraft.invoiceDraft[1];
-      if (invoiceDraft?.client.id) {
-        this.onClientChange(invoiceDraft?.client.id);
+      if (invoiceDraft?.client?.id) {
+        this.onClientChange(invoiceDraft?.client?.id);
       }
       this.invoiceFrom.controls['invoiceName'].setValue(
         invoiceDraft?.invoiceName
