@@ -108,8 +108,8 @@ export class AuthService {
     return;
   }
   // Send email verfificaiton when new user sign up
-  SendVerificationMail(user: any, id: string) {
-    console.log(user);
+  SendVerificationMail(email: string, id: string) {
+    console.log(email);
     alert('verificatiemail komt eraan!');
     const apiUrl = 'https://api.mailersend.com/v1/email';
     const yourToken =
@@ -128,13 +128,13 @@ export class AuthService {
       },
       to: [
         {
-          email: user.email,
+          email: email,
         },
       ],
       template_id: '351ndgwwmdqgzqx8',
       personalization: [
         {
-          email: user.email,
+          email: email,
           data: {
             id: id,
           },
