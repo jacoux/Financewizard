@@ -88,12 +88,15 @@ export class CreateClientComponent implements OnInit, OnChanges {
       address: this.address,
     };
     if (this.client) {
-    this.crudApi.updateclient(this.client?.id, valueToPush);
+      this.crudApi.updateclient(this.client?.id, valueToPush).then(() => {
+        this.toggle.emit();
+      })
     } else {
-    this.crudApi.addclient(valueToPush);
+    this.crudApi.addclient(valueToPush).then(() => {
+      this.toggle.emit();
+    });
 
     }
-        this.toggle.emit();
 
   }
   ngOnChanges() {

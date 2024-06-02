@@ -51,12 +51,19 @@ export class CrudClientService {
   }
 
   async deleteClient(id: string) {
-    await this.pb.collection('clients').delete(id, {
+        let resp: any;
+    const deleteClientResp = this.pb.collection('clients')
+      .delete(id, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.auth_token}`,
       },
-    });
+      }).then((response: any) => {
+        debugger;
+      resp = response
+      });
+    await deleteClientResp;
+    return resp
   }
 
   // Fetch Single client Object
@@ -114,6 +121,4 @@ export class CrudClientService {
     });
     return record;
   }
-  // Delete client Object
-  deleteclient(id: string) {}
 }
