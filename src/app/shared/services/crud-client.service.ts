@@ -20,13 +20,14 @@ export class CrudClientService {
 
   constructor(private http: HttpClient) {}
 
-  async Addclient(client: Client) {
+  async addclient(client: Client) {
+    let ClientResponse = null;
     // @ts-expect-error
     const user: User = JSON.parse(localStorage.getItem('user'));
-     const id = user.linkedCompany
-       ? user.linkedCompany
-       : user.linkedCompany?.[0];
-    
+    const id = user.linkedCompany
+      ? user.linkedCompany
+      : user.linkedCompany?.[0];
+
     client.companyId = id;
 
     // };
@@ -38,20 +39,31 @@ export class CrudClientService {
           Authorization: `Bearer ${this.auth_token}`,
         },
       })
-      .then((value) => {
+      .then((value: { id: any }) => {
         if (value.id) {
-          alert('Client created successfully');
+          ClientResponse = value;
+        } else {
+          ClientResponse = undefined;
         }
       });
+    await record;
+    return client;
   }
 
   async deleteClient(id: string) {
-    await this.pb.collection('clients').delete(id, {
+        let resp: any;
+    const deleteClientResp = this.pb.collection('clients')
+      .delete(id, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.auth_token}`,
       },
-    });
+      }).then((response: any) => {
+        debugger;
+      resp = response
+      });
+    await deleteClientResp;
+    return resp
   }
 
   // Fetch Single client Object
@@ -109,6 +121,4 @@ export class CrudClientService {
     });
     return record;
   }
-  // Delete client Object
-  deleteclient(id: string) {}
 }
