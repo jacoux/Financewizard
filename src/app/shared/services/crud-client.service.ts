@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Client, ClientResponse } from '../types/invoice';
-import PocketBase from 'pocketbase';
+import PocketBase, { RecordModel } from 'pocketbase';
 import { result } from 'lodash';
 import { AllClientsComponent } from 'src/app/dashboard/components/client/all-clients/all-clients.component';
 import { EventEmitter } from 'stream';
@@ -76,10 +76,28 @@ export class CrudClientService {
     return client;
   }
   // Fetch clients List
-  GetclientsList() {
-    return this.http.get<ClientResponse>(
-      environment.apiUrl + '/api/collections/clients/records'
-    );
+  async getclientsList() {
+        let clients: any[] = [];
+        const auth_token = localStorage.getItem('token');
+        const records = await this.pb
+          .collection('clients')
+          .getFullList({
+            sort: '-created',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${auth_token}`,
+            },
+          })
+          .then((data) => {
+            debugger;
+            if (data?.length) {
+              clients = data;
+            } else {
+              clients = [];
+            }
+          });
+    return clients;
+    
   }
   // Update client Object
   async updateclient(id: string, client: Client) {

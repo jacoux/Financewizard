@@ -66,7 +66,19 @@ export class ProductsComponent implements OnInit {
       ? user?.linkedCompany
       : user?.linkedCompany?.[0];
     }
-    this.crudApi.AddProduct(product);
+            if (this.product) {
+              this.crudApi.updateProduct(this.product?.id, product).then(data => {
+                this.ngOnInit();
+                 this.visible = false;
+
+              });
+            } else {
+              this.crudApi.AddProduct(product).then(data => {
+                this.ngOnInit();
+                this.visible = false;
+
+              });
+            }
   }
 
   getSingleProduct(id: string) {

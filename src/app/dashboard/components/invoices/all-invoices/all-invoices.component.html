@@ -65,12 +65,12 @@
                                         <p class="py-4">Weet je zeker dat je deze factuur wilt verwijderen?</p>
                                         <div class="modal-action">
                                             <label for="delete_invoice" class="btn btn-wide btn-secundary">nee, ik heb mij vergist!</label>
-                                            <label for="delete_invoice" (click)="deleteInvoice(element.id)" class="btn btn-wide btn-primary">Ja, verwijder factuur</label>
+                                            <label for="delete_invoice" (click)="deleteInvoice(invoiceToDelete)" class="btn btn-wide btn-primary">Ja, verwijder factuur</label>
                                         </div>
                                     </div>
                                 </div>
                         <label for="delete_invoice" class="btn">
-                        <mat-icon aria-hidden="false" aria-label="Delete invoice" fontIcon="delete"></mat-icon>
+                        <mat-icon aria-hidden="false" aria-label="Delete invoice" (click)="invoiceToDelete = element.id" fontIcon="delete"></mat-icon>
                         </label>
                         <label for="mark_paid_invoice" class="btn">
                             <mat-icon aria-hidden="false" aria-label="Mark as paid" fontIcon="paid"></mat-icon>

@@ -23,6 +23,7 @@ export class EstimatesOverviewComponent implements OnInit {
     'actions',
   ];
   invoices: Invoice[] = [];
+  invoiceToDelete?: number;
   dataSource = new MatTableDataSource(this.invoices);
 
   constructor(
@@ -41,13 +42,16 @@ export class EstimatesOverviewComponent implements OnInit {
       });
   }
 
+  setInvoiceNumberToDelete(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
   deleteInvoice(id: string) {
     this.invoiceService.deleteInvoice(id);
-    window.location.reload();
   }
 
   editInvoice(id: number) {

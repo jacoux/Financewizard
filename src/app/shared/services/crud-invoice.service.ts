@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { getInvoiceDraft } from 'src/app/store/invoiceDraft/invoiceDraft.selectors';
 import { getOrganization } from 'src/app/store/organization/organization.selectors';
 import { Client, Invoice } from '../types/invoice';
-import PocketBase from 'pocketbase';
+import PocketBase, { RecordModel } from 'pocketbase';
 import { saveInvoice, saveInvoiceComplete, setInvoiceForEdit } from 'src/app/store/invoiceDraft/invoiceDraft.actions';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -71,10 +71,29 @@ export class CrudInvoiceService {
       })
       .then((value) => {
         if (value.id) {
-          alert('Invoice goed aangemaakt!');
           this.store.dispatch(saveInvoiceComplete());
         }
       });
+  }
+
+  async getAllInvoices() {
+    let invoices: RecordModel[] = [];
+        const auth_token = localStorage.getItem('token');
+    const records = await this.pb.collection('invoices').getFullList({
+      sort: '-created',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth_token}`,
+      },
+    }).then((data) => {
+      debugger;
+      if (data?.length) {
+          invoices = data
+      } else {
+        invoices = [];
+      }
+    })
+    return invoices
   }
 
   async getInvoice(id: string) {
@@ -126,12 +145,15 @@ export class CrudInvoiceService {
       });
   }
 
-  async deleteInvoice(id: string) {
-    await this.pb.collection('invoices').delete(id, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.auth_token}`,
-      },
-    });
+ deleteInvoice(id: string) {
+    debugger;
+   this.pb.collection('invoices').delete(id, {
+     headers: {
+       'Content-Type': 'application/json',
+       Authorization: `Bearer ${this.auth_token}`,
+     },
+   }).then(response => {
+      window.location.reload();
+   });
   }
 }

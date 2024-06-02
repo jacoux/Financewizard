@@ -26,33 +26,33 @@ export class ReadyComponent implements OnInit {
   eventsSubject: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.surprise();
+    // this.surprise();
     this.invoiceService.AddInvoice();
     this.invoiceStore.select(getInvoiceDraft).subscribe((data) => {
       this.templateInInvoice = data?.templateNo;
     });
   }
 
-  public surprise(): void {
-    const canvas = this.renderer2.createElement('canvas');
+  // public surprise(): void {
+  //   const canvas = this.renderer2.createElement('canvas');
 
-    this.renderer2.appendChild(this.elementRef.nativeElement, canvas);
+  //   this.renderer2.appendChild(this.elementRef.nativeElement, canvas);
 
-    const myConfetti = confetti.create(canvas, {
-      resize: true, // will fit all screen sizes
-    });
+  //   const myConfetti = confetti.create(canvas, {
+  //     resize: true, // will fit all screen sizes
+  //   });
 
-    myConfetti({
-      particleCount: 50,
-      startVelocity: 30,
-      spread: 180,
-      origin: {
-        x: Math.random(),
-        // since they fall down, start a bit higher than random
-        y: Math.random() - 0.2,
-      },
-    });
-  }
+  //   myConfetti({
+  //     particleCount: 50,
+  //     startVelocity: 30,
+  //     spread: 180,
+  //     origin: {
+  //       x: Math.random(),
+  //       // since they fall down, start a bit higher than random
+  //       y: Math.random() - 0.2,
+  //     },
+  //   });
+  // }
   downloadInvoice() {
     // this.eventsSubject.next();
 

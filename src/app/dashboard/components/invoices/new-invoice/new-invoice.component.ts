@@ -70,7 +70,7 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        this.getClients();
+    this.getClients();
     this.getProducts();
     this.getCompany();
     this.addForm.addControl('rows', this.rows);
@@ -238,8 +238,7 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   getProducts() {
-    this.crudApi
-      .GetObjectsList('products/records')
+    this.crudApi.GetObjectsList('products/records')
       // @ts-ignore
       .subscribe((data: ProductResponse) => {
         this.products = data.items;

@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 export class AllInvoicesComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
+  invoiceToDelete?:  any;
   displayedColumns: string[] = [
     'position',
     'name',
@@ -28,7 +29,7 @@ export class AllInvoicesComponent implements OnInit {
     'vat',
     'actions',
   ];
-  invoices: Invoice[] = [];
+  invoices: any[] = [];
   dataSource = new MatTableDataSource(this.invoices);
 
   constructor(
@@ -38,13 +39,11 @@ export class AllInvoicesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.crudApi
-      .GetObjectsList('invoices/records')
-      // @ts-ignore
-      .subscribe((data: InvoiceResponse) => {
-        this.invoices = data.items;
-        this.dataSource = new MatTableDataSource(this.invoices);
-      });
+    this.invoiceService.getAllInvoices().then((data) => {
+      debugger;
+      this.invoices = data;
+      this.dataSource = new MatTableDataSource(this.invoices);
+    });
   }
 
   ngAfterViewInit() {
@@ -53,12 +52,10 @@ export class AllInvoicesComponent implements OnInit {
 
   deleteInvoice(id: string) {
     this.invoiceService.deleteInvoice(id);
-    window.location.reload();
-
   }
 
   editInvoice(id: number) {
-      this.invoiceService.getInvoice(id.toString());
+    this.invoiceService.getInvoice(id.toString());
   }
 
   announceSortChange(sortState: Sort) {

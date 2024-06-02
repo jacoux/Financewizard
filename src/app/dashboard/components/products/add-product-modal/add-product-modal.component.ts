@@ -64,7 +64,6 @@ export class AddProductModalComponent implements OnInit, OnChanges {
 
   submitProductData() {
     const prd = this.productForm.value;
-
     this.productData.emit(prd);
     this.ResetForm();
   }
