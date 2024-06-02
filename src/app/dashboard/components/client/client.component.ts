@@ -61,7 +61,8 @@ export class ClientComponent implements OnInit {
   }
 
   submitClientData() {
-    this.crudApi.Addclient(this.clientForm.value);
+    this.crudApi.addclient(this.clientForm.value).then(() => {
     this.ResetForm();
+    })
   }
 }

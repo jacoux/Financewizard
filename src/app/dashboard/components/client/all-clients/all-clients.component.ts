@@ -65,8 +65,9 @@ export class AllClientsComponent implements OnInit, AfterViewInit {
     }
   }
   deleteClient(id: string) {
-    this.crudApi.deleteClient(id);
-    window.location.reload();
+    this.crudApi.deleteClient(id).then(() => {
+          this.ngOnInit;
+    })
   }
 
   getSingleClient(id: string) {
