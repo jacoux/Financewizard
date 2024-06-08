@@ -20,7 +20,6 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
     // @ts-expect-error
     this.user<User> = JSON.parse(localStorage.getItem('user'));
-    debugger;
     this.company = this.companyService.getCompanyFromUser(this.user.linkedCompany);
   }
 }

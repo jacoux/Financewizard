@@ -52,7 +52,6 @@ export class AllClientsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    debugger;
     this.dataSource.sort = this.sort;
   }
 

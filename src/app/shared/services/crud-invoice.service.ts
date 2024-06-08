@@ -43,7 +43,7 @@ export class CrudInvoiceService {
         creatonDate: data[0]?.invoiceDate,
         paymentDueDate: data[0]?.paymentDate,
         invoiceNumberPrefix: data[0]?.invoiceNumberPrefix,
-        templateNo: data.templateNo,
+        templateNo: data[0]?.templateNo,
         companyId: data[0]?.companyId,
         client: data[0]?.client?.id,
         extendedDate: null,
@@ -86,7 +86,6 @@ export class CrudInvoiceService {
         Authorization: `Bearer ${auth_token}`,
       },
     }).then((data) => {
-      debugger;
       if (data?.length) {
           invoices = data
       } else {
@@ -146,7 +145,6 @@ export class CrudInvoiceService {
   }
 
  deleteInvoice(id: string) {
-    debugger;
    this.pb.collection('invoices').delete(id, {
      headers: {
        'Content-Type': 'application/json',

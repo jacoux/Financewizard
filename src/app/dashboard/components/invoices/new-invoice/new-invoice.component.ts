@@ -196,6 +196,7 @@ export class NewInvoiceComponent implements OnInit {
       const invoiceDraft: Invoice = data.invoiceDraft.invoiceDraft[0];
       //product
       const products: Product[] = data.invoiceDraft.invoiceDraft[1];
+      debugger;
       if (invoiceDraft?.client?.id) {
         this.onClientChange(invoiceDraft?.client?.id);
       }

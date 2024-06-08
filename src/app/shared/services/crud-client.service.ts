@@ -59,7 +59,6 @@ export class CrudClientService {
         Authorization: `Bearer ${this.auth_token}`,
       },
       }).then((response: any) => {
-        debugger;
       resp = response
       });
     await deleteClientResp;
@@ -101,7 +100,6 @@ export class CrudClientService {
             },
           })
           .then((data) => {
-            debugger;
             if (data?.length) {
               clients = data;
             } else {

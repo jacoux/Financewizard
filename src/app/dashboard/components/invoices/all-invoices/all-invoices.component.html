@@ -34,7 +34,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by creatonDate">
                 Gemaakt op
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.creatonDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.creatonDate | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
     
         <!-- Symbol Column -->
@@ -42,13 +42,13 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by payment">
                 Betaaldatum
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.paymentDueDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.paymentDueDate | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="vat">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by vat">
                 Totaal met BTW
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.currency}}{{element.totalWithVat}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.currency}} {{(element.totalWithVat | number: '1.2-2')?.replace(',', '')}} </td>
         </ng-container>
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>

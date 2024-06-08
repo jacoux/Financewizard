@@ -55,7 +55,6 @@ export const reducer = createReducer(
   })),
   on(UserActions.saveInvoiceComplete, (state) => ({
     ...state,
-    invoiceDraft: [],
     loading: true,
     error: null,
   })),

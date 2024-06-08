@@ -40,7 +40,6 @@ export class AllInvoicesComponent implements OnInit {
 
   ngOnInit() {
     this.invoiceService.getAllInvoices().then((data) => {
-      debugger;
       this.invoices = data;
       this.dataSource = new MatTableDataSource(this.invoices);
     });

@@ -8,6 +8,7 @@ export interface Invoice {
   invoiceDate: Date;
   paymentDate: Date;
   invoiceNumber: number;
+  templateNo: number;
   payWithin: number;
   total: number;
   vatAmount: number;
