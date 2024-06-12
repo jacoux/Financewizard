@@ -1,7 +1,7 @@
 <div class="displayTable">
     <div class="displayTableCell">
       <div class="authBlock">
-        <h3>Thank You for Registering</h3>
+        <p> Verificatie...</p>
         <div class="formGroup" *ngIf="authService.userData as user">
           <p class="text-center">We hebben een verificatiemail gestuurd naar<strong>{{user.email}}</strong>.</p>
           <p class="text-center">Gelieve je email te bevestigen</p>
@@ -14,9 +14,6 @@
             Verzend Verificatie Email opnieuw
           </button> -->
         </div>
-      </div>
-      <div class="redirectToLogin">
-        <span>Ga terug naar<span class="redirect" routerLink="/sign-in"> Inloggen</span></span>
       </div>
     </div>
   </div>

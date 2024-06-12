@@ -42,11 +42,23 @@ const dashboardRoutes: Routes = [
             component: NewInvoiceComponent,
           },
           {
+            path: 'edit/:id',
+            component: NewInvoiceComponent,
+          },
+          {
             path: 'check',
             component: InvoiceCheckComponent,
           },
           {
+            path: 'check/:id',
+            component: InvoiceCheckComponent,
+          },
+          {
             path: 'ready',
+            component: ReadyComponent,
+          },
+          {
+            path: 'download/:id',
             component: ReadyComponent,
           },
         ],

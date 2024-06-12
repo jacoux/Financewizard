@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { InvoiceDraftState } from 'src/app/store/invoiceDraft/invoiceDraft.models';
 import { getInvoiceDraft } from 'src/app/store/invoiceDraft/invoiceDraft.selectors';
 import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   templateUrl: './ready.component.html',
   styleUrls: ['./ready.component.css'],
@@ -18,20 +19,28 @@ export class ReadyComponent implements OnInit {
     private elementRef: ElementRef,
     private invoiceService: CrudInvoiceService,
     private invoiceStore: Store<InvoiceDraftState>,
+    private activatedRoute: ActivatedRoute
   ) {}
   @ViewChild(Template1Component) template1!: Template1Component;
   @ViewChild(Template2Component) template2!: Template2Component;
   @ViewChild(Template3Component) template3!: Template3Component;
   templateInInvoice!: number;
+  invoiceId?: string;
   eventsSubject: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-  // this.surprise();
+    // this.surprise();
     this.invoiceStore.select(getInvoiceDraft).subscribe((data) => {
       this.templateInInvoice = data?.templateNo;
     });
-    this.invoiceService.AddInvoice();
-
+    this.activatedRoute.params.subscribe((params) => {
+      this.invoiceId = params['id'];
+      if (this.invoiceId) {
+        this.invoiceService.getInvoiceWithoutNav(this.invoiceId.toString());
+      } else {
+         this.invoiceService.AddInvoice();
+      }
+    });
   }
 
   downloadInvoice() {

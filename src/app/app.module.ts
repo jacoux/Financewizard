@@ -37,13 +37,20 @@ import { InputComponent } from './components/shared/input/input.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 
-export function localStorageSyncReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
+// export function localStorageSyncReducer(
+//   reducer: ActionReducer<any>
+// ): ActionReducer<any> {
+//   return localStorageSync({
+//     keys: ['invoiceDraft', 'organization'],
+//     rehydrate: true,
+//   })(reducer);
+// }
+
+export function localStorageSyncReducer(rootReducer: any) {
   return localStorageSync({
-    keys: ['organization', 'invoiceDraft'],
+    keys: ['invoiceDraft', 'organization'],
     rehydrate: true,
-  })(reducer);
+  })(rootReducer);
 }
 
 @NgModule({
@@ -71,6 +78,9 @@ export function localStorageSyncReducer(
     DashboardModule,
     DashboardRoutingModule,
     SharedModule,
+    //  StoreModule.forRoot(reducers, {
+    //   metaReducers: [..., localStorageSyncReducer],
+    // }),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([

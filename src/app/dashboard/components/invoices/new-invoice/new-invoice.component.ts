@@ -7,8 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
+import { CrudInvoiceService } from 'src/app/shared/services/crud-invoice.service';
 
 import { GeneralCrudService } from 'src/app/shared/services/general-crud.service';
 import { Client, ClientResponse, Invoice, InvoiceResponse, Organization, Product } from 'src/app/shared/types/invoice';
@@ -29,6 +30,7 @@ export class NewInvoiceComponent implements OnInit {
   itemForm!: UntypedFormGroup;
   products!: any;
   clients!: any;
+  invoiceId?: string;
   company!: Organization;
   logo!: string;
   selectedClient!: Client;
@@ -45,6 +47,7 @@ export class NewInvoiceComponent implements OnInit {
     invoiceNumber: new UntypedFormControl(null, [Validators.required]),
     companyId: new UntypedFormControl(null, [Validators.required]),
     client: new UntypedFormControl(null, [Validators.required]),
+    clientInfo: new UntypedFormControl(null, [Validators.required]),
     invoiceDate: new UntypedFormControl(new Date(), [Validators.required]),
     paymentDate: new UntypedFormControl(new Date(), [Validators.required]),
     payWithin: new UntypedFormControl(7, [Validators.required]),
@@ -58,9 +61,11 @@ export class NewInvoiceComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private crudApi: GeneralCrudService,
-    private store:Store,
+    private store: Store,
     private invoiceState: State<InvoiceDraftState>,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private invoiceService: CrudInvoiceService
   ) {
     this.addForm = this.fb.group({
       items: [null, Validators.required],
@@ -75,7 +80,12 @@ export class NewInvoiceComponent implements OnInit {
     this.getCompany();
     this.addForm.addControl('rows', this.rows);
     this.getInvoiceFromStore();
-
+    this.activatedRoute.params.subscribe((params) => {
+      this.invoiceId = params['id'];
+      if (this.invoiceId) {
+        this.invoiceService.getInvoice(this.invoiceId.toString());
+      }
+    });
   }
 
   onClientChange(id: any) {
@@ -196,7 +206,6 @@ export class NewInvoiceComponent implements OnInit {
       const invoiceDraft: Invoice = data.invoiceDraft.invoiceDraft[0];
       //product
       const products: Product[] = data.invoiceDraft.invoiceDraft[1];
-      debugger;
       if (invoiceDraft?.client?.id) {
         this.onClientChange(invoiceDraft?.client?.id);
       }
@@ -206,40 +215,45 @@ export class NewInvoiceComponent implements OnInit {
       this.invoiceFrom.controls['invoiceNumber'].setValue(
         invoiceDraft?.invoiceNumber
       );
-      this.invoiceFrom.controls['invoiceDate'].setValue(invoiceDraft?.invoiceDate);
-      this.invoiceFrom.controls['paymentDate'].setValue(invoiceDraft?.paymentDate);
+      debugger;
+      this.invoiceFrom.controls['invoiceDate'].setValue(
+        new Date(invoiceDraft?.invoiceDate)
+      );
+      this.invoiceFrom.controls['paymentDate'].setValue(
+        new Date(invoiceDraft?.paymentDate)
+      );
       this.invoiceFrom.controls['payWithin'].setValue(invoiceDraft?.payWithin);
       this.invoiceFrom.controls['total'].setValue(invoiceDraft?.total);
       this.invoiceFrom.controls['vatAmount'].setValue(invoiceDraft?.vatAmount);
       this.invoiceFrom.controls['footer'].setValue(invoiceDraft?.footer);
-      this.invoiceFrom.controls['paymentDetails'].setValue(invoiceDraft?.paymentDetails);
+      this.invoiceFrom.controls['paymentDetails'].setValue(
+        invoiceDraft?.paymentDetails
+      );
 
       if (products?.length > 0) {
-            // first row is allready added
-
-            products.forEach((element: any) => {
-              const rowData = this.fb.group({
-                name: element.name,
-                description: element.description,
-                price: element.price,
-                qty: element.qty,
-                vat: element.vatPercentage,
-                vatAmount: element.vatAmount,
-                total: element.total,
-                isCustom: element.isCustom,
-              });
-                  this.rows.removeAt(0);
-              this.rows.push(rowData);
-            });
-        this.calculateTotal() 
-          }
-    })
-
-
+        // first row is allready added
+        products.forEach((element: any) => {
+          const rowData = this.fb.group({
+            name: element.name,
+            description: element.description,
+            price: element.price,
+            qty: element.qty,
+            vat: element?.vat ?? 0,
+            vatAmount: element.vatAmount,
+            total: element.total,
+            isCustom: element.isCustom,
+          });
+          this.rows.removeAt(0);
+          this.rows.push(rowData);
+        });
+        this.calculateTotal();
+      }
+    });
   }
 
   getProducts() {
-    this.crudApi.GetObjectsList('products/records')
+    this.crudApi
+      .GetObjectsList('products/records')
       // @ts-ignore
       .subscribe((data: ProductResponse) => {
         this.products = data.items;
@@ -248,14 +262,13 @@ export class NewInvoiceComponent implements OnInit {
   getCompany() {
     // @ts-expect-error
     const user = JSON.parse(localStorage.getItem('user')) as User;
-         const id = user.linkedCompany
-           ? user.linkedCompany
-           : user.linkedCompany?.[0];
+    const id = user.linkedCompany
+      ? user.linkedCompany
+      : user.linkedCompany?.[0];
     this.crudApi
       .GetObjectsList('companies/records/' + id)
       // @ts-ignore
       .subscribe((data: Organization) => {
-      
         if (data) {
           this.store.dispatch(
             setCompanyInfo({
@@ -264,19 +277,20 @@ export class NewInvoiceComponent implements OnInit {
             })
           );
         }
-              this.invoiceFrom.get('companyId')?.setValue(data.id);
+        this.invoiceFrom.get('companyId')?.setValue(data.id);
         this.placeholder_footer =
           data.defaultInvoiceDetails?.footer ||
           'te betalen voor... op rekeningnummer ...';
         this.company = data;
         if (data.logo) {
           this.logo =
-            environment.apiUrl + '/api/files/companies/' +
+            environment.apiUrl +
+            '/api/files/companies/' +
             data.id +
             '/' +
             data.logo;
         } else {
-          this.logo = "Nog geen logo opgeladen"
+          this.logo = 'Nog geen logo opgeladen';
         }
       });
   }
@@ -319,8 +333,18 @@ export class NewInvoiceComponent implements OnInit {
     });
   }
   submit() {
+    this.invoiceFrom.controls['clientInfo'].setValue(this.selectedClient);
     const invoiceData = [this.invoiceFrom.value, this.getRow().getRawValue()];
     this.store.dispatch(saveInvoice({ data: invoiceData }));
-    this.router.navigate(['dashboard', 'invoices', 'check']);
+    if (this.invoiceId) {
+      this.router.navigate([
+        'dashboard',
+        'invoices',
+        'check',
+        this.invoiceId,
+      ]);
+    } else {
+      this.router.navigate(['dashboard', 'invoices', 'check']);
+    }
   }
 }

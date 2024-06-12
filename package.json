@@ -42,6 +42,7 @@
     "ng-process-env": "^16.0.6",
     "ngrx-store-localstorage": "^17.0.0",
     "ngrx-store-persist": "^1.0.24",
+    "ngx-mail-sender": "^1.1.0",
     "pocketbase": "^0.21.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

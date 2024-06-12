@@ -78,21 +78,72 @@ export class CrudInvoiceService {
 
   async getAllInvoices() {
     let invoices: RecordModel[] = [];
-        const auth_token = localStorage.getItem('token');
-    const records = await this.pb.collection('invoices').getFullList({
-      sort: '-created',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${auth_token}`,
-      },
-    }).then((data) => {
-      if (data?.length) {
-          invoices = data
-      } else {
-        invoices = [];
-      }
-    })
-    return invoices
+    const auth_token = localStorage.getItem('token');
+    const records = await this.pb
+      .collection('invoices')
+      .getFullList({
+        sort: '-created',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${auth_token}`,
+        },
+      })
+      .then((data) => {
+        if (data?.length) {
+          invoices = data;
+        } else {
+          invoices = [];
+        }
+      });
+    return invoices;
+  }
+  async getInvoiceWithoutNav(id: string) {
+    const record = await this.pb
+      .collection('invoices')
+      .getOne(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
+      .then((invoice) => {
+        if (invoice) {
+          let products: any;
+          let _dataArr: any;
+          debugger;
+          (products = invoice['products']),
+            this.store.dispatch(
+              setInvoiceForEdit({
+                data: [
+                  {
+                    id: invoice['id'],
+                    invoiceNumber: invoice['invoiceNumber'],
+                    invoiceName: invoice['invoiceName'],
+                    invoiceDate: invoice['creatonDate'],
+                    paymentDate: invoice['paymentDueDate'],
+                    invoiceNumberPrefix: invoice['invoiceNumberPrefix'],
+                    templateNo: invoice['templateNo'],
+                    companyId: invoice['companyId'],
+                    client: {
+                      id: invoice['client'],
+                    },
+                    payWithin: invoice['payWithin'],
+                    currency: '€',
+                    paymentDetails: invoice['paymentDetails'],
+                    total: invoice['totalWithVat'],
+                    vatPercentage: invoice['vatPercentage'],
+                    chargeVat: invoice['chargeVat'],
+                    vatAmount: invoice['vatAmount'],
+                    footer: invoice['footNotes'],
+                    status: invoice['status'],
+                  },
+
+                  invoice['products'],
+                ],
+              })
+            );
+        }
+      });
   }
 
   async getInvoice(id: string) {
@@ -102,17 +153,19 @@ export class CrudInvoiceService {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${this.auth_token}`,
-        }
+        },
       })
       .then((invoice) => {
         if (invoice) {
           let products: any;
           let _dataArr: any;
+          debugger;
           (products = invoice['products']),
             this.store.dispatch(
               setInvoiceForEdit({
                 data: [
                   {
+                    id: invoice['id'],
                     invoiceNumber: invoice['invoiceNumber'],
                     invoiceName: invoice['invoiceName'],
                     invoiceDate: invoice['creatonDate'],
@@ -139,19 +192,22 @@ export class CrudInvoiceService {
               })
             );
 
-          this.router.navigate(['dashboard', 'invoices', 'create']);
+          this.router.navigate(['dashboard', 'invoices', 'edit', invoice.id]);
         }
       });
   }
 
- deleteInvoice(id: string) {
-   this.pb.collection('invoices').delete(id, {
-     headers: {
-       'Content-Type': 'application/json',
-       Authorization: `Bearer ${this.auth_token}`,
-     },
-   }).then(response => {
-      window.location.reload();
-   });
+  deleteInvoice(id: string) {
+    this.pb
+      .collection('invoices')
+      .delete(id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.auth_token}`,
+        },
+      })
+      .then((response) => {
+        window.location.reload();
+      });
   }
 }

@@ -107,39 +107,65 @@ export class AuthService {
     }
     return;
   }
-  // Send email verfificaiton when new user sign up
+
+
+// curl --request POST \
+//      --url https://api.brevo.com/v3/smtp/email \
+//      --header 'accept: application/json' \
+//      --header 'api-key: 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' \
+//      --header 'content-type: application/json' \
+//      --data '
+// {
+//   "sender": {
+//     "name": "niels",
+//     "email": "info@financewizard.be"
+//   },
+//   "headers": {
+//     "snder.ip": "New Value"
+//   },
+//   "templateId": 1,
+//   "to": [
+//     {
+//       "email": "jacobsniels10@gmail.com"
+//     }
+//   ]
+// }
+
+
+
+
   SendVerificationMail(email: string, id: string) {
     console.log(email);
     alert('verificatiemail komt eraan!');
-    const apiUrl = 'https://api.mailersend.com/v1/email';
-    const yourToken =
-      'mlsn.cf58e08028639d59fb5a51c4db77f1b9117054a2c9094cf649ace04ac2aff9e5'; // Replace with your actual MailerSend token
 
+    
+    const apiUrl = 'https://api.brevo.com/v3/smtp/email';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-        Authorization: `Bearer ${yourToken}`,
+        'api-key': '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',
+        'accept': 'application/json'
       }),
     };
     const body = {
       from: {
         email: 'info@financewizard.be',
       },
+      subject: 'Login email confirm',
       to: [
         {
           email: email,
         },
       ],
-      template_id: '351ndgwwmdqgzqx8',
-      personalization: [
-        {
-          email: email,
-          data: {
-            id: id,
-          },
-        },
-      ],
+      templateId: 1,
+      sender: {
+        name: 'niels',
+        email: 'info@financewizard.be',
+      },
+      params: {
+        userId: id,
+        FNAME: id,
+      },
     };
     
     return this.http.post(apiUrl, body, httpOptions).subscribe((response) => {
