@@ -1,7 +1,8 @@
 <div class="page wrapper container ">
     <div class="flex flex-row">
         <div class="basis-1/4">
-            <button class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/create"> vorige</button>
+            <button *ngIf="!invoiceFromStore"class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/create"> vorige</button>
+            <button *ngIf="invoiceFromStore" class="btn btn-wide btn-primary" [routerLink]="['/dashboard/invoices/edit/', invoiceId]"> vorige</button>
         </div>
         <div class="basis-1/2">
             <ul class="steps center">

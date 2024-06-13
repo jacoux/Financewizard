@@ -35,7 +35,7 @@ export class InvoiceCheckComponent implements OnInit {
     });
     this.invoiceState.subscribe((data: any) => {
       this.invoiceFromStore = data.invoiceDraft.invoiceDraft;
-      this.template = this.invoiceFromStore[0]?.templateNo ?? 3;
+      this.template = this.invoiceFromStore[0]?.templateNo ? this.invoiceFromStore[0]?.templateNo : 3;
     });
 
   }

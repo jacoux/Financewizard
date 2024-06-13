@@ -30,6 +30,52 @@ export class CrudInvoiceService {
     });
   }
 
+  async updateInvoice(id:string) {
+        const auth_token = localStorage.getItem('token');
+        const headers = { Authorization: auth_token };
+
+        let _dataFrom: any;
+
+        this.store.select(getInvoiceDraft).subscribe((data: any) => {
+          _dataFrom = {
+            invoiceNumber: data[0]?.invoiceNumber.toString(),
+            invoiceName: data[0]?.invoiceName,
+            creatonDate: data[0]?.invoiceDate,
+            paymentDueDate: data[0]?.paymentDate,
+            invoiceNumberPrefix: data[0]?.invoiceNumberPrefix,
+            templateNo: data[0]?.templateNo,
+            companyId: data[0]?.companyId,
+            client: data[0]?.client?.id,
+            extendedDate: null,
+            payWithin: data[0]?.payWithin,
+            currency: '€',
+            paymentDetails: data[0]?.paymentDetails,
+            totalWithVat: data[0]?.total,
+            totalWithoutVat: data[0]?.total - data[0]?.vatAmount,
+            vatPercentage: 123,
+            chargeVat: true,
+            vatAmount: 123,
+            footNotes: data[0]?.footer,
+            products: data[1],
+            Status: 'CREATED',
+          };
+          return;
+        });
+        const record = await this.pb
+          .collection('invoices')
+          .update(id,_dataFrom, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${auth_token}`,
+            },
+          })
+          .then((value) => {
+            if (value.id) {
+              this.store.dispatch(saveInvoiceComplete());
+            }
+          });
+  }
+
   async AddInvoice() {
     const auth_token = localStorage.getItem('token');
     const headers = { Authorization: auth_token };
@@ -110,7 +156,6 @@ export class CrudInvoiceService {
         if (invoice) {
           let products: any;
           let _dataArr: any;
-          debugger;
           (products = invoice['products']),
             this.store.dispatch(
               setInvoiceForEdit({
@@ -159,7 +204,6 @@ export class CrudInvoiceService {
         if (invoice) {
           let products: any;
           let _dataArr: any;
-          debugger;
           (products = invoice['products']),
             this.store.dispatch(
               setInvoiceForEdit({

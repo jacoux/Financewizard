@@ -215,7 +215,6 @@ export class NewInvoiceComponent implements OnInit {
       this.invoiceFrom.controls['invoiceNumber'].setValue(
         invoiceDraft?.invoiceNumber
       );
-      debugger;
       this.invoiceFrom.controls['invoiceDate'].setValue(
         new Date(invoiceDraft?.invoiceDate)
       );

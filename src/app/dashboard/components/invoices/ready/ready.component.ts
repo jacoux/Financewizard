@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./ready.component.css'],
 })
 export class ReadyComponent implements OnInit {
+  invoiceFromStore: any;
+  template: any;
   constructor(
     private renderer2: Renderer2,
     private elementRef: ElementRef,
@@ -31,12 +33,20 @@ export class ReadyComponent implements OnInit {
   ngOnInit(): void {
     // this.surprise();
     this.invoiceStore.select(getInvoiceDraft).subscribe((data) => {
+      debugger;
       this.templateInInvoice = data?.templateNo;
+    });
+    this.invoiceStore.subscribe((data: any) => {
+      this.invoiceFromStore = data.invoiceDraft.invoiceDraft;
+      if (this.templateInInvoice === null || this.templateInInvoice === undefined) {
+        this.templateInInvoice = this.invoiceFromStore[0]?.templateNo ?? 3;
+      }
     });
     this.activatedRoute.params.subscribe((params) => {
       this.invoiceId = params['id'];
       if (this.invoiceId) {
-        this.invoiceService.getInvoiceWithoutNav(this.invoiceId.toString());
+      this.invoiceService.updateInvoice(this.invoiceId.toString());
+
       } else {
          this.invoiceService.AddInvoice();
       }
@@ -45,7 +55,6 @@ export class ReadyComponent implements OnInit {
 
   downloadInvoice() {
     // this.eventsSubject.next();
-
     switch (this.templateInInvoice) {
       case 1:
         return this.template1.openPDF();
