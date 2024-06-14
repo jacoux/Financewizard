@@ -2,12 +2,12 @@
   <div class="modal-header">
       <label for="my-modal" (click)="close()">x</label>
   </div>
-  <h3 class="font-bold text-lg text-white">Voeg product toe!</h3>
+  <h3 class="font-bold text-lg text-white">{{'voeg_product_toe' | translate}}</h3>
 <form [formGroup]="clientForm" (ngSubmit)="submitClientData()" novalidate>
     <div class="row">
         <div class="row">
           <div class="col-md-12 mb-3">
-            <label>Bedrijfsnaam</label>
+            <label>{{'bedrijfsnaam' | translate}}</label>
             <input
               type="text"
               formControlName="name"
@@ -16,20 +16,20 @@
             />
             <!-- errors-->
             <p *ngIf="name?.touched && name?.invalid" class="error">
-              <sup>*</sup>Je moet een bedrijfsnaam ingeven
+              <sup>*</sup>{{'je_moet_een_bedrijfsnaam_ingeven' | translate}}
             </p>
             <p *ngIf="name?.errors?.['minlength']" class="error">
-              <sup>*</sup>Je moet een bedrijfsnaam ingeven met minimaal 2 tekens
+              <sup>*</sup>{{'je_moet_een_bedrijfsnaam_ingeven' | translate}}
             </p>
           </div>
           <div class="col-md-12 mb-3">
-            <label>BTW nummer</label>
+            <label>{{'btw_nummer' | translate}}</label>
             <input type="text" formControlName="vat" class="form-control" />
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 mb-3">
-            <label>Email</label>
+            <label>{{'email' | translate}}</label>
             <input
               type="email"
               formControlName="email"
@@ -38,14 +38,14 @@
             />
             <!-- errors-->
             <p *ngIf="email?.touched && email?.invalid" class="error">
-              <sup>*</sup>Please provide email
+              <sup>*</sup>{{'please_provide_email' | translate}}
             </p>
             <p *ngIf="email?.errors?.['pattern']" class="error">
-              <sup>*</sup>Please enter correct email
+              <sup>*</sup>{{'please_enter_correct_email' | translate}}
             </p>
           </div>
           <div class="col-md-12 mb-3">
-            <label>Telefoonnummer</label>
+            <label>{{'telefoonnummer' | translate}}</label>
             <input
               type="text"
               formControlName="tel"
@@ -53,29 +53,29 @@
               required
             />
           </div>
-<h2> <b> Adres </b></h2>
+<h2> <b> {{'adres' | translate}} </b></h2>
                   <div class="col-md-12 mb-3">
-                    <label>Straat</label>
+                    <label>{{'straat' | translate}}</label>
                     <input type="text" formControlName="streetName" class="form-control"  />
                     <!-- errors-->
                   </div>
                   <div class="col-md-12 mb-3">
-                    <label>Nummer</label>
+                    <label>{{'nummer' | translate}}</label>
                     <input type="text" formControlName="streetNumber" class="form-control"  />
                     <!-- errors-->
                   </div>
                   <div class="col-md-12 mb-3">
-                    <label>Postcode</label>
+                    <label>{{'postcode' | translate}}</label>
                     <input type="number" formControlName="postalCode" class="form-control"  />
                     <!-- errors-->
                   </div>
                   <div class="col-md-12 mb-3">
-                    <label>Stad</label>
+                    <label>{{'stad' | translate}}</label>
                     <input type="text" formControlName="city" class="form-control"  />
                     <!-- errors-->
                   </div>
                   <div class="col-md-12 mb-3">
-                    <label>Land</label>
+                    <label>{{'land' | translate}}</label>
                     <input type="text" formControlName="country" class="form-control"  />
                     <!-- errors-->
                   </div>
@@ -88,7 +88,7 @@
             class="btn btn-secondary gap-right"
             (click)="ResetForm()"
           >
-            Reset
+            {{'reset' | translate}}
           </button>
           <button
             type="submit"
@@ -96,9 +96,9 @@
             [disabled]="!clientForm.valid"
           >
           <p *ngIf="!client">
-          Voeg klant toe </p>
+          {{'voeg_klant_toe_' | translate}}</p>
           <p *ngIf="client">
-          Bewerk {{client?.name}} </p>
+          {{'bewerk' | translate}} {{client?.name}} </p>
             
           </button>
         </div>

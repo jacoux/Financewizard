@@ -22,6 +22,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AddProductModalComponent } from './components/products/add-product-modal/add-product-modal.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -80,6 +81,7 @@ import { EstimatesOverviewComponent } from './components/estimates/estimates-ove
     EstimatesOverviewComponent,
   ],
   imports: [
+    TranslateModule,
     MatTableModule,
     MatSortModule,
     MatIconModule,

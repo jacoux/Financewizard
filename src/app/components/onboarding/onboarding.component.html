@@ -72,7 +72,7 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Vertel eens wat meer over jezelf ✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">{{'vertel_eens_wat_meer_over' | translate}}✨</h1>
                     <!-- Form -->
                     <form>
                         <div class="space-y-3 mb-8">
@@ -89,7 +89,7 @@
                                         <path class="text-indigo-200"
                                             d="M13 12.588v11l8.486-4.714A1 1 0 0 0 22 18V7.589l-9 4.999Z" />
                                     </svg>
-                                    <span>Ik heb een bedrijf met één of meerdere werknemers</span>
+                                    <span>{{'ik_heb_een_bedrijf_met' | translate}}</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -105,7 +105,7 @@
                                         <path class="text-indigo-300"
                                             d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
                                     </svg>
-                                    <span>Ik ben freelancer/ik heb een éénmanszaak</span>
+                                    <span>{{'ik_ben_freelancerik_heb_een' | translate}}</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -119,7 +119,7 @@
                                         <path class="text-indigo-500"
                                             d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
                                     </svg>
-                                    <span>Ik kom maar eens een kijkje nemen uit nieuwsgierigheid</span>
+                                    <span>{{'ik_kom_maar_eens_een' | translate}}</span>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -128,7 +128,7 @@
 
                         <div class="flex items-center justify-between">
                             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                (click)="setStep(2)">Volgende -&gt;</button>
+                                (click)="setStep(2)">{{'volgende' | translate}} -&gt;</button>
                         </div>
                     </form>
 
@@ -223,7 +223,7 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Welk account wil je opzetten?✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">{{'welk_account_wil_je_opzetten' | translate}}✨</h1>
                     <!-- Form -->
                     <form>
                         <div class="sm:flex space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
@@ -238,9 +238,8 @@
                                         <path class="text-indigo-500"
                                             d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                     </svg>
-                                    <div class="font-medium text-gray-800 mb-1">Individueel</div>
-                                    <div class="text-sm">Ideaal als je facturen wilt maken/versturen en maar 1 login
-                                        nodig hebt </div>
+                                    <div class="font-medium text-gray-800 mb-1">{{'individueel' | translate}}</div>
+                                    <div class="text-sm">{{'ideaal_als_je_facturen_wilt' | translate}} </div>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -261,10 +260,8 @@
                                         <path class="text-indigo-500"
                                             d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                     </svg>
-                                    <div class="font-medium text-gray-800 mb-1">Organisatie</div>
-                                    <div class="text-sm">Je maakt een account aan voor je organisatie en kan meerdere
-                                        mensen toevoegen die kunnen inloggen om facturen in naam van je organisatie aan
-                                        te maken en te bekijken</div>
+                                    <div class="font-medium text-gray-800 mb-1">{{'organisatie' | translate}}</div>
+                                    <div class="text-sm">{{'je_maakt_een_account_aan' | translate}}</div>
                                 </div>
                                 <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                     aria-hidden="true"></div>
@@ -272,16 +269,11 @@
                         </div>
                         <div class="flex items-center justify-between space-x-6 mb-8">
                             <div>
-                                <div class="font-medium text-gray-800 text-sm mb-1">💸 Welk account moet ik kiezen?
+                                <div class="font-medium text-gray-800 text-sm mb-1">💸 {{'welk_account_moet_ik_kiezen' | translate}}
                                 </div>
-                                <div class="text-xs">Bij beide opties zijn de basis functionaliteiten volledig
-                                    <b>gratis!
-                                    </b> Bij het organisatieaccount kan je echter extra,
-                                    betalende features toevoegen (enkel indien gewenst). Zo kan je bij een
-                                    organisatieaccount bijvoorbeeld meerdere
-                                    gebruikers toevoegen, en onze
-                                    HR-tool ook gebruiken. Bij een individueel account kan je enkel facturen en
-                                    offertes maken.
+                                <div class="text-xs">{{'bij_beide_opties_zijn_de' | translate}}
+                                    <b>{{'gratis' | translate}}
+                                    </b>{{'bij_het_organisatieaccount_kan_je' | translate}}
                                 </div>
                             </div>
                             <div class="flex items-center">
@@ -289,16 +281,16 @@
                                     <input type="checkbox" id="switch" class="sr-only" checked />
                                     <label class="bg-gray-400" for="switch">
                                         <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                                        <span class="sr-only">Switch label</span>
+                                        <span class="sr-only">{{'switch_label' | translate}}</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <button (click)="setStep(1)" class="text-sm underline hover:no-underline">&lt;-
-                                Terug</button>
+                                {{'terug' | translate}}</button>
                             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto"
-                                (click)="setStep(3)">Volgende -&gt;</button>
+                                (click)="setStep(3)">{{'volgende' | translate}} -&gt;</button>
                         </div>
                     </form>
 
@@ -393,31 +385,31 @@
             <div class="px-4 py-8">
                 <div class="max-w-md mx-auto">
 
-                    <h1 class="text-3xl text-gray-800 font-bold mb-6">Bedrijfsinfo ✨</h1>
+                    <h1 class="text-3xl text-gray-800 font-bold mb-6">{{'bedrijfsinfo' | translate}} ✨</h1>
                     <!-- Form -->
                     <form [formGroup]="companyForm">
                         <div class="space-y-4 mb-8">
                             <!-- vat -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="company-name">Btw nummer <span
+                                <label class="block text-sm font-medium mb-1" for="company-name">{{'btw_nummer_' | translate}}<span
                                         class="text-red-500">*</span></label>
                                 <input type="text" formControlName="companyVat" placeholder="BE1234567"
                                     class="input w-full max-w-xs border-b-indigo-500 mb-1" />
 
-                                <p *ngIf="validVat"> BTW is geldig</p>
-                                <p class="error" *ngIf="!validVat"> BTW is ongeldig</p>
+                                <p *ngIf="validVat"> {{'btw_is_geldig' | translate}}</p>
+                                <p class="error" *ngIf="!validVat"> {{'btw_is_ongeldig' | translate}}</p>
 
                             </div>
                             <!-- Company Name -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="name">Bedrijfsnaam <span
+                                <label class="block text-sm font-medium mb-1" for="name">{{'bedrijfsnaam' | translate}} <span
                                         class="text-red-500">*</span></label>
                                 <input type="text" formControlName="companyName" placeholder="Acme.bvba"
                                     class="input w-full max-w-xs border-b-indigo-500 mb-1" />
                                 <span class="valid" *ngIf="companyForm.get('name')?.valid">✅</span>
 
                             </div>
-                            <span class="error" *ngIf="!companyForm.get('name')?.valid">Geef je bedrijfsnaam in</span>
+                            <span class="error" *ngIf="!companyForm.get('name')?.valid">{{'geef_je_bedrijfsnaam_in' | translate}}</span>
 
                             <div>
 
@@ -425,13 +417,13 @@
                                     <!-- City and Postal Code -->
                                     <div class="flex space-x-4">
                                         <div class="flex-1 mb-1">
-                                            <label class="block text-sm font-medium mb-1" for="city">Stad <span
+                                            <label class="block text-sm font-medium mb-1" for="city">{{'stad' | translate}} <span
                                                     class="text-red-500">*</span></label>
                                             <input type="text" formControlName="city" placeholder="Antwerpen"
                                                 class="input w-full max-w-xs border-b-indigo-500" />
                                         </div>
                                         <div class="flex-1 mb-1">
-                                            <label class="block text-sm font-medium mb-1" for="postal-code">Postcode
+                                            <label class="block text-sm font-medium mb-1" for="postal-code">{{'postcode' | translate}}
                                                 <span class="text-red-500">*</span></label>
                                             <input formControlName="postalCode" type="text" placeholder="3490"
                                                 class="input w-full max-w-xs border-b-indigo-500" />
@@ -441,14 +433,14 @@
                                     <!-- Street Address -->
                                     <div class="flex space-x-4 mb-1">
                                         <div class="flex-1">
-                                            <label class="block text-sm font-medium mb-1" for="street">Straatnaam <span
+                                            <label class="block text-sm font-medium mb-1" for="street">{{'straatnaam' | translate}} <span
                                                     class="text-red-500">*</span></label>
                                             <input type="text" formControlName="streetName" placeholder="Dorspstraat"
                                                 class="input w-full max-w-xs border-b-indigo-500" />
 
                                         </div>
                                         <div class="flex-1">
-                                            <label class="block text-sm font-medium mb-1" for="nummer">Nummer <span
+                                            <label class="block text-sm font-medium mb-1" for="nummer">{{'nummer' | translate}} <span
                                                     class="text-red-500">*</span></label>
                                             <input type="text" formControlName="streetNumber" placeholder="2"
                                                 class="input w-full max-w-xs border-b-indigo-500" />
@@ -456,7 +448,7 @@
 
                                         </div>
                                         <div class="flex-1">
-                                            <label class="block text-sm font-medium mb-1" for="bus">Bus</label>
+                                            <label class="block text-sm font-medium mb-1" for="bus">{{'bus' | translate}}</label>
                                             <input type="text" formControlName="busNumber" placeholder="2"
                                                 class="input w-full max-w-xs border-indigo-100 border-b-indigo-500" />
 
@@ -464,12 +456,12 @@
                                     </div>
                                     <!-- Country -->
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="country">Land <span
+                                        <label class="block text-sm font-medium mb-1" for="country">{{'land' | translate}} <span
                                                 class="text-red-500">*</span></label>
                                         <select id="country" class="form-select w-full" formControlName="country">
-                                            <option default value="Belgium">België</option>
-                                            <option value="Netherlands">Nederland</option>
-                                            <option value="UK">United Kingdom</option>
+                                            <option default value="Belgium">{{'belgi' | translate}}</option>
+                                            <option value="Netherlands">{{'nederland' | translate}}</option>
+                                            <option value="UK">{{'united_kingdom' | translate}}</option>
                                         </select>
 
                                     </div>
@@ -477,9 +469,9 @@
                             </div>
                             <div class="flex items-center justify-between">
                                 <button (click)="setStep(2)" class="text-sm underline hover:no-underline">&lt;-
-                                    Terug</button>
+                                    {{'terug' | translate}}</button>
                                 <button (click)="saveCompany()"
-                                    class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">Volgende
+                                    class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">{{'volgende' | translate}}
                                     -&gt;</button>
                             </div>
                         </div>
@@ -581,30 +573,29 @@
                             <circle class="text-green-100" cx="32" cy="32" r="32" />
                             <path class="text-green-500" d="m28.5 41-8-8 3-3 5 5 12-12 3 3z" />
                         </svg>
-                        <h1 class="text-3xl text-gray-800 font-bold mb-8">Whoohoo! Welkom aan boord, jacoux. 🙌</h1>
-                        <h2 class="text-1xl text-gray-500 font-bold mb-8">Laat nog even weten in welke sector je werkt
-                            (voor de btw percentages)
+                        <h1 class="text-3xl text-gray-800 font-bold mb-8">{{'whoohoo_welkom_aan_boord' | translate}} 🙌</h1>
+                        <h2 class="text-1xl text-gray-500 font-bold mb-8">{{'laat_nog_even_weten_in' | translate}}
                         </h2>
 
                         <div class="mb-8">
-                            <label class="block text-sm font-medium mb-1" for="country">Sector <span
+                            <label class="block text-sm font-medium mb-1" for="country">{{'sector' | translate}} <span
                                     class="text-red-500">*</span></label>
                             <select id="country" class="form-select w-full">
-                                <option>Bank, verzekeringen, telecom</option>
+                                <option>{{'bank_verzekeringen_telecom' | translate}}</option>
                                 <optgroup label="Dienstverlening & consultancy">
-                                    <option>Consultancy dienstverlening aan bedrijven</option>
-                                    <option>Handel,verhuur</option>
-                                    <option>HR & uitzendbureau's</option>
-                                    <option>IT consultancy</option>
+                                    <option>{{'consultancy_dienstverlening_aan_bedrijven' | translate}}</option>
+                                    <option>{{'handelverhuur' | translate}}</option>
+                                    <option>{{'hr__uitzendbureaus' | translate}}</option>
+                                    <option>{{'it_consultancy' | translate}}</option>
                                 </optgroup>
-                                <option>Grafische, papier en kartonindustrie</option>
+                                <option>{{'grafische_papier_en_kartonindustrie' | translate}}</option>
                                 <optgroup label="Industrie & bouw">
-                                    <option>Bouw</option>
-                                    <option>Chemie, metaal</option>
-                                    <option>Farmaindustrie</option>
-                                    <option>Hout- & meubelindustrie<< /option>
-                                    <option>Industrie (algemeen) </option>
-                                    <option>Techniek & productie</option>
+                                    <option>{{'bouw' | translate}}</option>
+                                    <option>{{'chemie_metaal' | translate}}</option>
+                                    <option>{{'farmaindustrie' | translate}}</option>
+                                    <option>{{'hout__meubelindustrie' | translate}} </option>
+                                    <option>{{'industrie_algemeen_' | translate}}</option>
+                                    <option>{{'techniek__productie' | translate}}</option>
                                     <option>Voedingsindustrie</option>
                                 </optgroup>
                                 <option>IT</option>

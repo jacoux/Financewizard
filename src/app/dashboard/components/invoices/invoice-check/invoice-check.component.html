@@ -6,9 +6,9 @@
         </div>
         <div class="basis-1/2">
             <ul class="steps center">
-                <li class="step">Gegevens</li>
-                <li class="step step-primary">Laatste check & Genereer Factuur</li>
-                <li class="step">Klaar</li>
+                <li class="step">{{'gegevens' | translate}}</li>
+                <li class="step step-primary">{{'laatste_check__genereer_factuu' | translate}}r</li>
+                <li class="step">{{'klaar' | translate}}</li>
             </ul>
         </div>
         <div class="basis-1/4">
@@ -24,9 +24,9 @@
                     <figure><img height="100px" src="/assets/images/template1.png"
                             alt="Shoes" /></figure>
                     <div class="card-body">
-                        <h2 class="card-title">Template 1</h2>
-                        <div *ngIf="template === 1" class="badge badge-secondary">Gekozen!</div>
-                        <p>Clean en duidelijk, ideaal voor een professionele uitsraling</p>
+                        <h2 class="card-title">{{'template_1' | translate}}</h2>
+                        <div *ngIf="template === 1" class="badge badge-secondary">{{'gekozen' | translate}}</div>
+                        <p>{{'clean_en_duidelijk_ideaal_voor' | translate}}</p>
                         <div class="card-actions justify-end">
                             <button (click)="chooseTemplate(1)" class="btn btn-primary">Kies</button>
                         </div>
@@ -36,12 +36,12 @@
                     <figure><img height="100px" src="/assets/images/template2.png"
                             alt="template2" /></figure>
                     <div class="card-body">
-                        <h2 class="card-title">Template 2</h2>
-                        <div *ngIf="template === 2" class="badge badge-secondary">Gekozen!</div>
+                        <h2 class="card-title">{{'template_2' | translate}}</h2>
+                        <div *ngIf="template === 2" class="badge badge-secondary">{{'gekozen' | translate}}</div>
 
-                        <p>Speels, Geschikt voor creatieve bedrijven</p>
+                        <p>{{'speels_geschikt_voor_creatieve_bedrijven' | translate}}</p>
                         <div class="card-actions justify-end">
-                            <button (click)="chooseTemplate(2)" class="btn btn-primary">Kies</button>
+                            <button (click)="chooseTemplate(2)" class="btn btn-primary">{{'kies' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -49,19 +49,19 @@
                     <figure><img src="https://unblast.com/wp-content/uploads/2020/05/Minimal-Invoice-Template.jpg"
                             alt="template3" /></figure>
                     <div class="card-body">
-                        <h2 class="card-title">Template 3</h2>
-                        <div *ngIf="template === 3" class="badge badge-secondary">Gekozen!</div>
+                        <h2 class="card-title">{{'template_3' | translate}}</h2>
+                        <div *ngIf="template === 3" class="badge badge-secondary">{{'gekozen' | translate}}</div>
 
-                        <p>kleurrijk, Mooi vormgegeven met veel plaats voor tekst</p>
+                        <p>{{'kleurrijk_mooi_vormgegeven_met_veel' | translate}}</p>
                         <div class="card-actions justify-end">
-                            <button (click)="chooseTemplate(3)" class="btn btn-primary">Kies</button>
+                            <button (click)="chooseTemplate(3)" class="btn btn-primary">{{'kies' | translate}}</button>
                         </div>
                     </div>
                 </div> 
 
             </div>
         </div>
-        <h2 class="mt-10 center"> Voorbeeld</h2>
+        <h2 class="mt-10 center"> {{'voorbeeld' | translate}}</h2>
 
         <div class="mockup-window border bg-base-100 mx-5 mt-10">
             <app-template1 [events]="eventsSubject.asObservable()" *ngIf="template === 1"></app-template1>
@@ -69,8 +69,8 @@
             <app-template3 [events]="eventsSubject.asObservable()" *ngIf="template === 3"></app-template3>
         </div>
 
-            <button *ngIf="!invoiceFromStore" class="btn btn-wide btn-primary" (click)="emitEventToTemplate()"> Maak Factuur</button>
-            <button *ngIf="invoiceFromStore" class="btn btn-wide btn-primary" (click)="emitEventToTemplate()"> Bewerk Factuur</button>
+            <button *ngIf="!invoiceFromStore" class="btn btn-wide btn-primary" (click)="emitEventToTemplate()"> {{'maak_factuur' | translate}}</button>
+            <button *ngIf="invoiceFromStore" class="btn btn-wide btn-primary" (click)="emitEventToTemplate()"> {{'bewerk_factuur' | translate}}</button>
 
 
     </div>

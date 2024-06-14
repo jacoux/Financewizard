@@ -19,7 +19,7 @@
   <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
     <div id="dashboard-card-04-legend" class=" px-5 py-3">
       <header class="px-5 py-4  header-card">
-        <h2 class="font-semibold text-gray-800">Jouw gegevens</h2>
+        <h2 class="font-semibold text-gray-800">{{'jouw_gegevens' | translate}}</h2>
         <div class="dropdown-icon" style="width: 20px;" (click)="hide()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -31,7 +31,7 @@
       <div id="dashboard-card-04-legend" class="px-5 py-3 flex flex-row border-t border-gray-100" *ngIf="showMyDetails">
         <div class="basis-1/2">
           <div class="max-w-sm">
-            <p *ngIf="logo === 'Nog geen logo opgeladen'">Nog geen logo opgeladen</p>
+            <p *ngIf="logo === 'Nog geen logo opgeladen'">{{'nog_geen_logo_opgeladen' | translate}}</p>
             <img *ngIf="logo !== 'Nog geen logo opgeladen'" class="max-w-sm py-5" [src]="logo" />
           </div>
         </div>
@@ -67,7 +67,7 @@
                 </g>
             
               </svg>
-              <a routerLink="/dashboard/account" class="pl-5"> Bewerk gegevens</a>
+              <a routerLink="/dashboard/account" class="pl-5"> {{'bewerk_gegevens' | translate}}</a>
             </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
   <div class="flex flex-col col-span-full sm:col-span-12 bg-white shadow-xl rounded-box rounded-sm">
     <div id="dashboard-card-04-legend" class=" px-5 py-3">
       <header class="px-5 py-4  header-card">
-        <h2 class="font-semibold text-gray-800">Factuurgegevens</h2>
+        <h2 class="font-semibold text-gray-800">{{'factuurgegevens' | translate}}</h2>
         <div class="dropdown-icon" style="width: 20px;" (click)="hide()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -111,7 +111,7 @@
           <div class=" bg-base-100">
             <div class="card-body">
               <div class="flex flex-row inputInvoice">
-                <label class="color-gray-200 pr-10">Aanmaakdatum:</label>
+                <label class="color-gray-200 pr-10">{{'aanmaakdatum' | translate}}</label>
                 <div
                   class="inputF flex bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500">
                   <mat-datepicker-toggle class=" picker-icon text-gray-900 " matIconSuffix
@@ -121,7 +121,7 @@
                 </div>
               </div>
               <div class="flex flex-row inputInvoice">
-                <label class="color-gray-200 pr-10">Betaaldatum:</label>
+                <label class="color-gray-200 pr-10">{{'betaaldatum' | translate}}</label>
                 <div class="inputF flex bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500">
                   <mat-datepicker-toggle class=" picker-icon text-gray-900 " matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                   <input formControlName="paymentDate" [matDatepicker]="picker2">
@@ -131,7 +131,7 @@
                             <div>
                               <input type="range" [(ngModel)]="payWithin" (change)="payWithinChange()" min=0 max=100 value=30
                                 formControlName="payWithin" class="range range-secondary" />
-                              <p> Betalen binnen {{payWithin}} dagen</p>
+                              <p> {{'betalen_binnen_' | translate}}{{payWithin}} {{'dagen' | translate}}</p>
                               
                               </div>
                               </div>
@@ -152,7 +152,7 @@
           <div class="basis-1/4">
             <div class="relative max-w-sm">
               <label class="label">
-                <span class="label-text"> Item
+                <span class="label-text"> {{'item' | translate}}
                 </span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                   style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
@@ -174,7 +174,7 @@
             <div class="basis-1/12">
               <div class="relative max-w-sm">
                 <label class="label">
-                  <span class="label-text">Aantal</span>
+                  <span class="label-text">{{'aantal' | translate}}</span>
                 </label>
                 <input (change)="changeAmount(index, $event.target.value)" type="number" [value]="row.get('qty')?.value"
                   placeholder="Aantal" class="input input-bordered input-primary w-full max-w-xs" />
@@ -183,7 +183,7 @@
             <div class="basis-1/6">
               <div class="relative max-w-sm">
                 <label class="label">
-                  <span class="label-text">Prijs</span>
+                  <span class="label-text">{{'prijs' | translate}}</span>
                 </label>
                 <input (change)="changePrice(index, $event.target.value)" type="number" [value]="row.get('price')?.value"
                 placeholder="Prijs" class="input input-bordered input-primary w-full max-w-xs" />
@@ -193,11 +193,11 @@
           <div class="basis-1/12">
             <div class="relative max-w-sm">
               <label class="label">
-                <span class="label-text">BTW</span>
+                <span class="label-text">{{'btw' | translate}}</span>
               </label>
               <select [value]="row.get('vat')?.value" class="select select-primary w-full max-w-xs"
                 (change)="calculateTotalWithVat(index, $event.target.value)">
-                <option disabled selected>BTW</option>
+                <option disabled selected>{{'btw' | translate}}</option>
                 <option value="21">21%</option>
                 <option value="6">6%</option>
                 <option value="0">0</option>
@@ -208,7 +208,7 @@
           <div class="basis-1/12">
             <div class="relative max-w-sm">
               <label class="label">
-                <span class="label-text">BTW prijs</span>
+                <span class="label-text">{{'btw_prijs' | translate}}</span>
               </label>
               <input disabled [value]="row.get('vatAmount')?.value" type="number" placeholder="123"
                 class="input input-bordered input-primary w-full max-w-xs" />
@@ -218,7 +218,7 @@
           <div class="basis-1/6">
             <div class="relative max-w-sm">
               <label class="label">
-                <span class="label-text">Totaal</span>
+                <span class="label-text">{{'totaal' | translate}}</span>
               </label>
               <input disabled type="number" [value]="row.get('total')?.value" placeholder="Totaal"
                 class="input input-bordered input-primary w-full max-w-xs" />
@@ -234,22 +234,22 @@
               </div>
               <div class="flex flex-row mt-6 space-x-4">
                 <div class="basis-1/4 group">
-                  <button class="btn btn-wide btn-primary" (click)="onAddRow()">Bstaand product</button>
+                  <button class="btn btn-wide btn-primary" (click)="onAddRow()">{{'bestaand_product' | translate}}</button>
                 </div>
                 <div class="basis-1/4">
-                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">Nieuw product</button>
+                  <button class="btn btn-wide btn-secundary text-white" (click)="addClass()">{{'nieuw_product' | translate}}</button>
                 </div>
               </div>
               
               <div class="stats text-primary-content mt-6">
               
                 <div class="stat">
-                  <div class="stat-title">BTW</div>
+                  <div class="stat-title">{{'btw' | translate}}</div>
                   <div class="stat-value"> € {{totalVatAmount}}</div>
                 </div>
               
                 <div class="stat">
-                  <div class="stat-title">Totaal</div>
+                  <div class="stat-title">{{'totaal' | translate}}</div>
                   <div class="stat-value">€ {{total }}</div>
                 </div>
               
@@ -270,7 +270,7 @@
                     placeholder="Geef je rekingnummer in"></textarea>
     </div>
   </div>
-  <button class="btn btn-wide btn-primary" (click)="submit()"> Volgende stap</button>
+  <button class="btn btn-wide btn-primary" (click)="submit()"> {{'volgende_stap' | translate}}</button>
 
 </form>
 <div class="modal" [ngClass]="visible ? 'visible' : 'notVisible'">

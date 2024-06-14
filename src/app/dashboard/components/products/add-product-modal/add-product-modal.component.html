@@ -2,49 +2,49 @@
     <div class="modal-header">
         <label for="my-modal" (click)="close()">x</label>
     </div>
-    <h3 class="font-bold text-lg text-white">Voeg product toe!</h3>
+    <h3 class="font-bold text-lg text-white">{{'voeg_product_toe' | translate}}</h3>
     <form [formGroup]="productForm" (ngSubmit)="submitProductData()" novalidate>
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label>Productnaam</label>
+                        <label>{{'productnaam' | translate}}</label>
                         <input type="text" formControlName="name" class="form-control" required />
                         <!-- errors-->
                         <p *ngIf="name?.touched && name?.invalid" class="error">
-                            <sup>*</sup>Geef een productnaam in
+                            <sup>*</sup>{{'geef_een_productnaam_in' | translate}}
                         </p>
                         <p *ngIf="name?.errors?.['minlength']" class="error">
-                            <sup>*</sup>Min. 2 letters voor de productnaam
+                            <sup>*</sup>{{'min_2_letters_voor_de' | translate}}
                         </p>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label>Beschrijving</label>
+                        <label>{{'beschrijving' | translate}}</label>
                         <input type="text" formControlName="description" class="form-control" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label>BTW percentage</label>
+                        <label>{{'btw_percentage' | translate}}</label>
                         <input type="number" formControlName="vatPercentage" class="form-control" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label>Prijs zonder BTW</label>
+                        <label>{{'prijs_zonder_btw' | translate}}</label>
                         <input type="number" formControlName="price" class="form-control" required />
                         <!-- errors-->
                         <div class="col-md-12 mb-3">
-                            <label>Product is onderhevig aan btw?</label>
+                            <label>{{'product_is_onderhevig_aan_btw' | translate}}</label>
                             <input type="checkbox" formControlName="vatApplicable" />
                         </div>
                         <p *ngIf="price?.touched && price?.invalid" class="error">
-                            <sup>*</sup>Geef een prijs in
+                            <sup>*</sup>{{'geef_een_prijs_in' | translate}}
                         </p>
                         <p *ngIf="price?.errors?.['pattern']" class="error">
-                            <sup>*</sup>Formaat klopt niet
+                            <sup>*</sup>{{'formaat_klopt_niet' | translate}}
                         </p>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label>Dit is een uurtarief</label>
+                        <label>{{'dit_is_een_uurtarief' | translate}}</label>
                         <input type="checkbox" formControlName="isHourlyRate" />
                     </div>
     

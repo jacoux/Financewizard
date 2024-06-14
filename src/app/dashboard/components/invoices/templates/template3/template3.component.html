@@ -3,9 +3,9 @@
     <div class="flex justify-between items-center bg-blue-100 border-b pb-4 mb-6 p-4 rounded">
         <div>
             <h1 class="text-3xl font-bold text-gray-800"> {{invoiceData?.invoiceName}}</h1>
-            <p class="text-sm text-gray-600 pt-2">Factuurnummer: {{invoiceData?.invoiceNumber}}</p>
-            <p class="text-sm text-gray-600 pt-2">Aanmaakdatum: {{invoiceData.invoiceDate | date: 'dd/MM/yyyy'}}</p>
-            <p class="text-sm text-gray-600 pt-2">Betaaldatum: {{invoiceData.paymentDate | date: 'dd/MM/yyyy'}}</p>
+            <p class="text-sm text-gray-600 pt-2">{{'factuurnummer_' | translate}}{{invoiceData?.invoiceNumber}}</p>
+            <p class="text-sm text-gray-600 pt-2">{{'aanmaakdatum_' | translate}}{{invoiceData.invoiceDate | date: 'dd/MM/yyyy'}}</p>
+            <p class="text-sm text-gray-600 pt-2">{{'betaaldatum_' | translate}}{{invoiceData.paymentDate | date: 'dd/MM/yyyy'}}</p>
         </div>
         <div class="text-right">
                 <p *ngIf="logo === 'Nog geen logo opgeladen'"></p>
@@ -16,7 +16,7 @@
     <div class="flex justify-between items-start mb-8">
         <div>
              
-            <h2 class="text-lg font-semibold text-gray-700">Klantgegevens</h2>
+            <h2 class="text-lg font-semibold text-gray-700">{{'klantgegevens' | translate}}</h2>
                 <br class="" style="border-spacing: 2px;">
             <p class="text-gray-600">{{invoiceData?.client?.name}}</p>
             <p class="text-gray-600">{{invoiceData?.client?.address?.streetName}} {{invoiceData?.client?.address?.streetNumber}} {{invoiceData?.client?.address?.busNumber}}</p>
@@ -25,7 +25,7 @@
             <p class="text-gray-600">{{invoiceData?.client?.vat}}</p>
         </div>
         <div class="text-right">
-            <h2 class="text-lg font-semibold text-gray-700">Bedrijfsinformatie</h2>
+            <h2 class="text-lg font-semibold text-gray-700">{{'bedrijfsinformatie' | translate}}</h2>
                             <br class="" style="border-spacing: 2px;">
 
             <p class="text-gray-600">{{org.name }} </p>
@@ -38,12 +38,12 @@
     <table class="min-w-full bg-white mb-6 border-collapse">
         <thead>
             <tr>
-                <th class="border-b py-2 text-left text-gray-600">Titel</th>
-                <th class="border-b py-2 text-left text-gray-600">Omschrijving</th>
-                <th class="border-b py-2 text-right text-gray-600">Aantal</th>
-                <th class="border-b py-2 text-right text-gray-600">Prijs</th>
-                <th class="border-b py-2 text-right text-gray-600">BTW</th>
-                <th class="border-b py-2 text-right text-gray-600">Totaal</th>
+                <th class="border-b py-2 text-left text-gray-600">{{'titel' | translate}}</th>
+                <th class="border-b py-2 text-left text-gray-600">{{'omschrijving' | translate}}</th>
+                <th class="border-b py-2 text-right text-gray-600">{{'aantal' | translate}}</th>
+                <th class="border-b py-2 text-right text-gray-600">{{'prijs' | translate}}</th>
+                <th class="border-b py-2 text-right text-gray-600">{{'btw' | translate}}</th>
+                <th class="border-b py-2 text-right text-gray-600">{{'totaal' | translate}}</th>
             </tr>
         </thead>
         <tbody>
@@ -61,16 +61,16 @@
     <!-- Totals -->
     <div class="flex justify-end mb-6">
         <div class="text-right">
-            <p class="text-lg font-semibold text-gray-700">Subtotaal: € 10800,00 </p>
-            <p class="text-lg font-semibold text-gray-700 pt-2">BTW (21%): € {{(invoiceData.vatAmount| number: '1.2-2')?.replace(',', '')}}</p>
-            <p class="text-xl font-bold text-gray-800 pt-2">Totaal: € {{ (invoiceData.total| number: '1.2-2')?.replace(',', '') }}</p>
+            <!-- <p class="text-lg font-semibold text-gray-700">Subtotaal: € 10800,00 </p> -->
+            <p class="text-lg font-semibold text-gray-700 pt-2">{{'btw' | translate}} (21%): € {{(invoiceData.vatAmount| number: '1.2-2')?.replace(',', '')}}</p>
+            <p class="text-xl font-bold text-gray-800 pt-2">{{'totaal' | translate}}: € {{ (invoiceData.total| number: '1.2-2')?.replace(',', '') }}</p>
         </div>
     </div>
     <!-- Footer -->
     <div class="border-t pt-4 text-center text-xs text-gray-500">
        <p> {{invoiceData.footer}} </p>
     </div>
-                        <h2 class="text-gray-800 pt-4  text-xs text-center" >Gemaakt met 🤍 door financewizard.be</h2>
+                        <h2 class="text-gray-800 pt-4  text-xs text-center" >{{'gemaakt_met__door_financewizardbe' | translate}}</h2>
 
 </div>
-<button (click)="openPDF()">download</button>
+<button (click)="openPDF()">{{'download' | translate}}</button>

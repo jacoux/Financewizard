@@ -1,10 +1,10 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
 <div class="flex flex-col">
   <div class="title-bar">
-              <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle producten ✨</h1>
+              <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">{{'alle_producten' | translate}} ✨</h1>
 
 <div>
-      <button class="btn btn-primary text-white" (click)="addProduct()">Voeg product toe</button>
+      <button class="btn btn-primary text-white" (click)="addProduct()">{{'voeg_product_toe' | translate}}</button>
       
       <!-- Put this part before </body> tag -->
       <dialog class="modal modal-open" *ngIf="visible">
@@ -23,7 +23,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-        Name
+        {{'name' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
@@ -32,26 +32,26 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description">
-        Description
+        {{'description' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">
-            Price without VAT
+            {{'price_without_vat' | translate}}
           </th>
           <td mat-cell *matCellDef="let element"> {{element.price}} {{element.currency}} </td>
         </ng-container>
         <!-- Weight Column -->
         <ng-container matColumnDef="vat">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by VAT %">
-            VAT
+            {{'vat' | translate}}
           </th>
           <td mat-cell *matCellDef="let element"> {{element.vatPercentage}} % </td>
         </ng-container>
     <ng-container matColumnDef="isHourlyRate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by hourly rate">
-        Hourly rate
+        {{'hourly_rate' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> 
         <div  class=""> 
@@ -61,7 +61,7 @@
     </td>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Acties
+            {{'acties' | translate}}
           </th>
           <td mat-cell *matCellDef="let element">
             <input type="checkbox" id="delete_invoice" class="modal-toggle" />
@@ -70,12 +70,11 @@
                 <form method="dialog">
                   <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
-                <h3 class="font-bold text-lg">Hallo,</h3>
-                <p class="py-4">Weet je zeker dat je dit product wilt verwijderen?</p>
+                <h3 class="font-bold text-lg">{{'hallo' | translate}}</h3>
+                <p class="py-4">{{'weet_je_zeker_dat_je' | translate}}</p>
                 <div class="modal-action">
-                  <label for="delete_invoice" class="btn btn-wide btn-secundary">nee, ik heb mij vergist!</label>
-                  <label for="delete_invoice" (click)="deleteProduct(element.id)" class="btn btn-wide btn-primary">Ja,
-                    verwijder product</label>
+                  <label for="delete_invoice" class="btn btn-wide btn-secundary">{{'nee_ik_heb_mij_vergist' | translate}}</label>
+                  <label for="delete_invoice" (click)="deleteProduct(element.id)" class="btn btn-wide btn-primary">{{'ja_verwijder_product' | translate}}</label>
                 </div>
               </div>
             </div>

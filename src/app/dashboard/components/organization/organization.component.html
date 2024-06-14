@@ -3,7 +3,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
-    <span>Opgeslaan!</span>
+    <span>{{'opgeslaan' | translate}}</span>
 </div>
 
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -12,7 +12,7 @@
     <div class="mb-8">
 
         <!-- Title -->
-        <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Account Settings ✨</h1>
+        <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">{{'account_settings' | translate}} ✨</h1>
 
     </div>
 
@@ -24,7 +24,7 @@
                 class="flex flex-nowrap overflow-x-scroll no-scrollbar md:block md:overflow-auto px-3 py-6 border-b md:border-b-0 md:border-r border-gray-200 min-w-60 md:space-y-3">
                 <!-- Group 1 -->
                 <div>
-                    <div class="text-xs font-semibold text-gray-400 uppercase mb-3">Bedrijfsgegevens</div>
+                    <div class="text-xs font-semibold text-gray-400 uppercase mb-3">{{'bedrijfsgegevens' | translate}}</div>
                     <ul class="flex flex-nowrap md:block mr-3 md:mr-0">
                         <li class="mr-0.5 md:mr-0 md:mb-0.5">
                             <a class="flex items-center px-2.5 py-2 rounded whitespace-nowrap" (click)="view = 'account'">
@@ -34,7 +34,7 @@
                                     </path>
                                 </svg>
                                 <span class="text-sm font-medium text-gray-600 gray-700">
-                                    Account</span>
+                                    {{'account' | translate}}</span>
                             </a>
                         </li>
                         <li class="mr-0.5 md:mr-0 md:mb-0.5">
@@ -44,7 +44,7 @@
                                         d="M3.414 2L9 7.586V16H7V8.414l-5-5V6H0V1a1 1 0 011-1h5v2H3.414zM15 0a1 1 0 011 1v5h-2V3.414l-3.172 3.172-1.414-1.414L12.586 2H10V0h5z">
                                     </path>
                                 </svg>
-                                <span class="text-sm font-medium text-gray-600 gray-700">Connecties</span>
+                                <span class="text-sm font-medium text-gray-600 gray-700">{{'connecties' | translate}}</span>
                             </a>
                         </li>
                     </ul>
@@ -57,7 +57,7 @@
 
                 <!-- Panel body -->
                 <div class="p-6" *ngIf="view === 'apps'">
-                    <h2 class="text-2xl text-gray-800 font-bold mb-5">Connected Apps</h2>
+                    <h2 class="text-2xl text-gray-800 font-bold mb-5">{{'connected_apps' | translate}}</h2>
 
                     <!-- General -->
                     <div class="mb-6">
@@ -83,9 +83,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <h3 class="text-lg text-gray-800 font-semibold">Indeed</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold">{{'indeed' | translate}}</h3>
                                         </header>
-                                        <div class="text-sm">Vacaturewebsite
+                                        <div class="text-sm">{{'vacaturewebsite' | translate}}
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -120,7 +120,7 @@
                                                         d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z">
                                                     </path>
                                                 </svg>
-                                                <span>Connected</span>
+                                                <span>{{'connected' | translate}}</span>
                                             </button>
                                         </div>
                                     </footer>
@@ -141,9 +141,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <h3 class="text-lg text-gray-800 font-semibold">VDAB</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold">{{'vdab' | translate}}</h3>
                                         </header>
-                                        <div class="text-sm">Gratis vacaturewebsite van de overheid
+                                        <div class="text-sm">{{'gratis_vacaturewebsite_van_de_overheid' | translate}}
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -178,7 +178,7 @@
                                                         d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z">
                                                     </path>
                                                 </svg>
-                                                <span>Connected</span>
+                                                <span>{{'connected' | translate}}</span>
                                             </button>
                                         </div>
                                     </footer>
@@ -199,9 +199,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <h3 class="text-lg text-gray-800 font-semibold">MaterialStack</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold">{{'materialstack' | translate}}</h3>
                                         </header>
-                                        <div class="text-sm">Lorem ipsum dolor sit amet eiusmod sed do eiusmod tempor.
+                                        <div class="text-sm">{{'lorem_ipsum_dolor_sit_amet' | translate}}
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -237,7 +237,7 @@
                                                         d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z">
                                                     </path>
                                                 </svg>
-                                                <span>Connected</span>
+                                                <span>{{'connected' | translate}}</span>
                                             </button>
                                         </div>
                                     </footer>
@@ -317,9 +317,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <h3 class="text-lg text-gray-800 font-semibold">MaterialStack</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold">{{'materialstack' | translate}}</h3>
                                         </header>
-                                        <div class="text-sm">Lorem ipsum dolor sit amet eiusmod sed do eiusmod tempor.
+                                        <div class="text-sm">{{'lorem_ipsum_dolor_sit_amet' | translate}}
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -355,7 +355,7 @@
                                                         d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z">
                                                     </path>
                                                 </svg>
-                                                <span>Connected</span>
+                                                <span>{{'connected' | translate}}</span>
                                             </button>
                                         </div>
                                     </footer>
@@ -376,9 +376,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <h3 class="text-lg text-gray-800 font-semibold">MaterialStack</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold">{{'materialstack' | translate}}</h3>
                                         </header>
-                                        <div class="text-sm">Lorem ipsum dolor sit amet eiusmod sed do eiusmod tempor.
+                                        <div class="text-sm">{{'lorem_ipsum_dolor_sit_amet' | translate}}
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -414,7 +414,7 @@
                                                         d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z">
                                                     </path>
                                                 </svg>
-                                                <span>Connected</span>
+                                                <span>{{'connected' | translate}}</span>
                                             </button>
                                         </div>
                                     </footer>
@@ -425,7 +425,7 @@
 
                     <!-- Trending Categories cards -->
                     <section>
-                        <h3 class="text-xl leading-snug text-gray-800 font-bold mt-6 mb-5">Trending Categories</h3>
+                        <h3 class="text-xl leading-snug text-gray-800 font-bold mt-6 mb-5">{{'trending_categories' | translate}}</h3>
                         <div class="grid grid-cols-12 gap-6">
                             <!-- Card 1 -->
                             <div
@@ -434,7 +434,7 @@
                                 <div class="flex flex-col h-full p-5">
                                     <div class="grow">
                                         <header>
-                                            <h3 class="text-lg text-gray-800 font-semibold mb-1">Programming</h3>
+                                            <h3 class="text-lg text-gray-800 font-semibold mb-1">{{'programming' | translate}}</h3>
                                         </header>
                                     </div>
                                     <!-- Card footer -->
@@ -498,24 +498,24 @@
                 </div>
                 <div class="prose content" *ngIf="view === 'account'">
                     <div class=" p-6 bg-base-100 shadow-xl mt-2 lg:prose-l">
-                        <h1 id="heading-1">Bedrijf</h1>
+                        <h1 id="heading-1">{{'bedrijf' | translate}}</h1>
                         <div class="divider"></div>
                         <form [formGroup]="organizationForm" (ngSubmit)="submitOrganizationData()">
-                            <h2 class="mt-10">Bedrijfsinfo</h2>
+                            <h2 class="mt-10">{{'bedrijfsinfo' | translate}}</h2>
                             <div class="flex flex-row ">
                                 <div class="basis-1/2">
                                     <label class="label">
-                                        <span class="label-text">Bedrijfsnaam</span>
+                                        <span class="label-text">{{'bedrijfsnaam' | translate}}</span>
                                     </label>
                                     <input type="text" placeholder="Acme" formControlName="companyName"
                                         class="input input-bordered  w-full max-w-xs" />
                                 </div>
                                 <div class="basis-1/2">
                                     <label class="label">
-                                        <span class="label-text">Btw nummer</span>
+                                        <span class="label-text">{{'btw_nummer' | translate}}</span>
                                     </label>
                                     <label class="input-group">
-                                        <span>BE</span>
+                                        <span>{{'be' | translate}}</span>
                                         <input type="text" placeholder="info@site.com" formControlName="companyVat"
                                             class="input input-bordered  w-full max-w-xs" />
                                     </label>
@@ -525,21 +525,21 @@
                                 <div class="basis-1/2">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Your Email</span>
+                                            <span class="label-text">{{'your_email' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" formControlName="companyEmail"
                                             class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                             </div>
-                            <h2 class="mt-20">Adres</h2>
+                            <h2 class="mt-20">{{'adres' | translate}}</h2>
                        <ng-container formGroupName="address">
 
                             <div class="flex flex-row">
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Straatnaam</span>
+                                            <span class="label-text">{{'straatnaam' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="Straatnaam" formControlName="streetName" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -547,14 +547,14 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Nummer</span>
+                                            <span class="label-text">{{'nummer' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="10" formControlName="streetNumber" class="input input-bordered  w-full max-w-xs" />
                                     </div>
                                 </div>
                                 <div class="basis-1/4">
                                     <label class="label">
-                                        <span class="label-text">Bus</span>
+                                        <span class="label-text">{{'bus' | translate}}</span>
                                     </label>
                                     <input type="text" placeholder="bus" formControlName="busNumber" class="input input-bordered  w-full max-w-xs" />
                                 </div>
@@ -564,7 +564,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Postcode</span>
+                                            <span class="label-text">{{'postcode' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" formControlName="postalCode" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -572,7 +572,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Stad</span>
+                                            <span class="label-text">{{'stad' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" formControlName="city" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -580,7 +580,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Land</span>
+                                            <span class="label-text">{{'land' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" formControlName="country"
                                             class="input input-bordered  w-full max-w-xs" />
@@ -588,13 +588,13 @@
                                 </div>
                             </div>
                             </ng-container>
-                            <h2 class="mt-20">Verantwoordelijke</h2>
+                            <h2 class="mt-20">{{'verantwoordelijke' | translate}}</h2>
                 
                             <div class="flex flex-row">
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Voornaam</span>
+                                            <span class="label-text">{{'voornaam' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -602,7 +602,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Achternaam</span>
+                                            <span class="label-text">{{'achternaam' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -610,7 +610,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Email</span>
+                                            <span class="label-text">{{'email' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="info@site.com" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -618,19 +618,19 @@
                             </div>
                             
                 
-                            <h2 class="mt-20">Bank</h2>
+                            <h2 class="mt-20">{{'bank' | translate}}</h2>
                 <ng-container formGroupName="bank">
                             <div class="flex flex-row">
                                 <div class="basis-1/4">
                                     <label class="label">
-                                        <span class="label-text">Rekeningnummer</span>
+                                        <span class="label-text">{{'rekeningnummer' | translate}}</span>
                                     </label>
                                     <input type="text" placeholder="BE 6789 6789 6789 78" formControlName="bankAccountNumber" class="input input-bordered  w-full max-w-xs" />
                                 </div>
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">BIC</span>
+                                            <span class="label-text">{{'bic' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="GEBABEBB" formControlName="swift" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -638,7 +638,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Naam rekening</span>
+                                            <span class="label-text">{{'naam_rekening' | translate}}</span>
                                         </label>
                                         <input type="text" placeholder="Bedrijfsrekening" formControlName="nameBankAccount" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -646,13 +646,13 @@
                             </div>
                 </ng-container>
                 <ng-container formGroupName="defaultInvoiceDetails">
-                            <h2 class="mt-20">Factuur</h2>
+                            <h2 class="mt-20">{{'factuur' | translate}}</h2>
                 
                             <div class="flex flex-row">
                                <div class="basis-1/4">
                                    <div>
                                        <label class="label">
-                                           <span class="label-text">Factuurnummer start</span>
+                                           <span class="label-text">{{'factuurnummer_start' | translate}}</span>
                                        </label>
                                        <input type="text" formControlName="invoiceNumberStart" placeholder="2024-" class="input input-bordered  w-full max-w-xs" />
                                    </div>
@@ -660,7 +660,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Standaard voettekst</span>
+                                            <span class="label-text">{{'standaard_voettekst' | translate}}</span>
                                         </label>
                                         <textarea class="textarea" formControlName="footer" placeholder="Te betalen op rekeningnummer GEBABB - 6765 6565 7676 76"  class="input input-bordered  w-full max-w-xs"></textarea>
                                     </div>
@@ -668,7 +668,7 @@
                                 <div class="basis-1/4">
                                     <div>
                                         <label class="label">
-                                            <span class="label-text">Ondertitel</span>
+                                            <span class="label-text">{{'ondertitel' | translate}}</span>
                                         </label>
                                         <input type="text" formControlName="subTitle" placeholder="Bij ons alle dagen feest!" class="input input-bordered  w-full max-w-xs" />
                                     </div>
@@ -685,8 +685,8 @@
                                 </div>
                             </div>
                         <div class="flex flex-row">
-                             <button type="submit" class="btn btn-success">Gegevens opslaan</button>
-                             <button type="clean" class="btn btn-error">Alle aanpassingen verwijderen</button>
+                             <button type="submit" class="btn btn-success">{{'gegevens_opslaan' | translate}}</button>
+                             <button type="clean" class="btn btn-error">{{'alle_aanpassingen_verwijderen' | translate}}</button>
                         </div>
 
                         </form>

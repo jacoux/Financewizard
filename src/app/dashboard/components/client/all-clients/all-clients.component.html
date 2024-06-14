@@ -1,8 +1,8 @@
 <div class="flex flex-col">
   <div class="title-bar">
-  <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">Alle Klanten ✨</h1>
+  <h1 class="text-2xl md:text-3xl text-gray-800 font-bold">{{'alle_klanten' | translate}} ✨</h1>
           <div class="content-center">
-            <button (click)="addNewClient()" class="btn text-white	s btn-primary">Nieuwe klant toevoegen</button>
+            <button (click)="addNewClient()" class="btn text-white	s btn-primary">{{'nieuwe_klant_toevoegen' | translate}}</button>
             <dialog open *ngIf="visible" class="modal-open modal">
               <app-create-client-modal [client]="client" (toggle)="addClass()"></app-create-client-modal>
             </dialog>
@@ -15,7 +15,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
-        Email
+        {{'email' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> {{element?.email}} </td>
     </ng-container>
@@ -23,14 +23,14 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Naam
+        {{'naam' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> {{element?.name}}</td>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="responsible">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        responsible
+        {{'verantwoordelijke' | translate}}
       </th>
       <td mat-cell *matCellDef="let element"> {{element?.responsible?.name}} </td>
     </ng-container>
@@ -38,13 +38,13 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="vat">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-BTW nummer      </th>
+{{'btw_nummer_' | translate}}     </th>
       <td mat-cell *matCellDef="let element"> {{element?.vat}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Acties
+        {{'acties' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
         <input type="checkbox" id="delete_invoice" class="modal-toggle" />
@@ -53,12 +53,11 @@ BTW nummer      </th>
             <form method="dialog">
               <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <h3 class="font-bold text-lg">Hallo,</h3>
-            <p class="py-4">Weet je zeker dat je deze klant wilt verwijderen?</p>
+            <h3 class="font-bold text-lg">{{'hallo' | translate}}</h3>
+            <p class="py-4">{{'weet_je_zeker_dat_je' | translate}}</p>
             <div class="modal-action">
-              <label for="delete_invoice" class="btn btn-wide btn-secundary">nee, ik heb mij vergist!</label>
-              <label for="delete_invoice" (click)="deleteClient(element.id)" class="btn btn-wide btn-primary">Ja,
-                verwijder klant</label>
+              <label for="delete_invoice" class="btn btn-wide btn-secundary">{{'nee_ik_heb_mij_vergist' | translate}}</label>
+              <label for="delete_invoice" (click)="deleteClient(element.id)" class="btn btn-wide btn-primary">{{'ja_verwijder_klant' | translate}}</label>
             </div>
           </div>
         </div>

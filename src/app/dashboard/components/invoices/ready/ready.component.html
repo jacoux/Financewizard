@@ -1,33 +1,33 @@
 <div class="page wrapper container">
     <div class="flex flex-row">
         <div class="basis-1/4">
-            <button *ngIf="!invoiceFromStore" class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/check"> vorige</button>
+            <button *ngIf="!invoiceFromStore" class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/check"> {{'vorige' | translate}}</button>
                         <button *ngIf="invoiceFromStore" class="btn btn-wide btn-primary"
-                            [routerLink]="['/dashboard/invoices/check/', invoiceId]"> vorige</button>
+                            [routerLink]="['/dashboard/invoices/check/', invoiceId]"> {{'vorige' | translate}}</button>
 
         </div>
         <div class="basis-1/2">
             <ul class="steps center">
-                <li class="step">Gegevens</li>
-                <li class="step">Laatste check & Genereer Factuur</li>
-                <li class="step step-primary">Klaar</li>
+                <li class="step">{{'gegevens' | translate}}</li>
+                <li class="step">{{'laatste_check__genereer_factuur' | translate}}</li>
+                <li class="step step-primary">{{'klaar' | translate}}</li>
             </ul>
         </div>
         <div class="basis-1/4">
-            <button class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/overview"> Klaar</button>
+            <button class="btn btn-wide btn-primary" routerLink="/dashboard/invoices/overview"> {{'klaar' | translate}}</button>
         </div>
     </div>
 </div>
 <div class="divider">
-    Klaar!
+    {{'klaar' | translate}}
 </div>
 
 <div class="actions">
-    <h2>Wat wil je nu doen?</h2>
-    <button class="btn btn-primary" (click)="downloadInvoice()">Download factuur</button>
+    <h2>{{'wat_wil_je_nu_doen' | translate}}</h2>
+    <button class="btn btn-primary" (click)="downloadInvoice()">{{'download_factuur' | translate}}</button>
     <div class="btn btn-secundary text-black premium" disabled="disabled">
-        Verzend factuur via mail
-   <div class="badge badge-secondary">Premium</div>
+        {{'verzend_factuur_via_mail' | translate}}
+   <div class="badge badge-secondary">{{'premium' | translate}}</div>
 </div>
 </div>
 
