@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,9 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'invoice-tool-final';
-  constructor(public authService: AuthService) {}
+  constructor(translate: TranslateService, public authService: AuthService) {
+           translate.setDefaultLang('en');
+        translate.use('en');
+  }
   ngOnInit(): void {}
 }

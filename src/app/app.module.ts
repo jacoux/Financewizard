@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +36,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputComponent } from './components/shared/input/input.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 // export function localStorageSyncReducer(
 //   reducer: ActionReducer<any>
@@ -52,6 +55,9 @@ export function localStorageSyncReducer(rootReducer: any) {
     rehydrate: true,
   })(rootReducer);
 }
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -63,6 +69,14 @@ export function localStorageSyncReducer(rootReducer: any) {
     InputComponent,
   ],
   imports: [
+    TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
     MatDatepickerModule,
     HttpClientModule,
     MatNativeDateModule,

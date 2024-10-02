@@ -1,0 +1,12 @@
+{
+  "translationFiles": [
+    {
+      "lang": "en",
+      "uri": "src/i18n/en.json"
+    },
+        {
+      "lang": "nl",
+      "uri": "src/i18n/nl_be.json"
+    }
+  ]
+}
