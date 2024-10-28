@@ -75,8 +75,8 @@ export class GeneralCrudService {
     this.router.navigate(['dashboard']);
   }
 
-  async updateCompany(org: Organization) {
-    const record = await this.pb.collection('companies').update(org.id, org);
+  async updateCompany(id: string, org: Organization | FormData) {
+    const record = await this.pb.collection('companies').update(id, org);
     return record;
   }
 

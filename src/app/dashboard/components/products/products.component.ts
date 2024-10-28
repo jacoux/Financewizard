@@ -31,7 +31,9 @@ export class ProductsComponent implements OnInit {
 
     public crudApi: GeneralCrudService,
     public fb: UntypedFormBuilder
-  ) {}
+  ) { }
+  @ViewChild(MatSort) sort!: MatSort;
+
   ngOnInit() {
     this.crudApi
       .GetObjectsList('products/records')
@@ -39,11 +41,9 @@ export class ProductsComponent implements OnInit {
       .subscribe((data: ProductResponse) => {
         this.products = data.items;
         this.dataSource = new MatTableDataSource(this.products);
+        this.dataSource.sort = this.sort; // Assign sort here after dataSource is set
       });
   }
-
-  @ViewChild(MatSort)
-  sort!: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

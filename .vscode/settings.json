@@ -3,7 +3,8 @@
         "themesberg"
     ],
     "i18n-ally.localesPaths": [
-        "src/i18n"
+        "src/i18n",
+        "src/assets/i18n"
     ],
     "i18n-ally.keystyle": "flat"
 }

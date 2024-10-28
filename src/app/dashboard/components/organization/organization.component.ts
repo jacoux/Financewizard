@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./organization.component.css'],
 })
 export class OrganizationComponent implements OnInit {
+  formData = new FormData();
   organization!: Organization;
   showAlert: boolean = false;
   view!: string;
@@ -37,6 +38,8 @@ export class OrganizationComponent implements OnInit {
       invoiceNumberStart: new UntypedFormControl(null, [Validators.required]),
       subTitle: new UntypedFormControl(null, [Validators.required]),
     }),
+    logo: new UntypedFormControl(this.logo, [Validators.required]),
+
   });
 
   constructor(private crudApi: GeneralCrudService) {}
@@ -81,12 +84,14 @@ export class OrganizationComponent implements OnInit {
   }
 
   loadFile(event: any) {
+    debugger;
     var input = event.target;
     var file = input.files[0];
     var type = file.type;
     var output = document.getElementById('preview_img');
     // @ts-expect-error
     output.src = URL.createObjectURL(event.target.files[0]);
+    this.logo = event.target.files[0]
     // @ts-expect-error
 
     output.onload = function () {
@@ -94,16 +99,46 @@ export class OrganizationComponent implements OnInit {
 
       URL.revokeObjectURL(output.src); // free memory
     };
+
   }
 
+
+ appendFormData(data: string | object, parentKey = "") {
+  if (data && typeof data === "object" && !(data instanceof File)) {
+    Object.entries(data).forEach(([key, value]) => {
+      const formKey = parentKey ? `${parentKey}[${key}]` : key;
+
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          this.appendFormData(item, `${formKey}[${index}]`);
+        });
+      } else if (typeof value === "object" && value !== null) {
+        this.appendFormData(value, formKey);
+      } else {
+        this.formData.append(formKey, value);
+      }
+    });
+  } else {
+    this.formData.append(parentKey, data);
+  }
+}
+
+
+
   submitOrganizationData() {
+    debugger;
+    // Use the function to add the form fields to FormData
+    this.appendFormData(this.organizationForm.value);
+    this.formData.forEach((value, key) => {
+      console.log(key, value);
+    });
     if (!this.isNewCompany) {
-      this.crudApi.updateCompany(this.organizationForm.value).then((resp) => {
+      this.crudApi.updateCompany(this.organizationForm.value.id, this.formData).then((resp) => {
         resp.id;
         this.showAlert = true;
         setTimeout(() => {
           this.showAlert = false;
-        }, 5000); //displays msg in 10 seconds
+        }, 5000); 
       });
     }
   }
