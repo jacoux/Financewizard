@@ -4,18 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: "http://127.0.0.1:8090",
+  //change this to your url
   apiUrl: "https://fin-wizard.pockethost.io",
-  firebase: {
-    apiKey: "AIzaSyBGr2VH71cpyXCGTtzl_p9tHwZ722sDFAc",
-    authDomain: "invoice-app-11c2b.firebaseapp.com",
-    projectId: "invoice-app-11c2b",
-    storageBucket: "invoice-app-11c2b.appspot.com",
-    databaseURL: "https://invoice-app-11c2b-default-rtdb.europe-west1.firebasedatabase.app",
-    messagingSenderId: "1098194888501",
-    appId: "1:1098194888501:web:0759cc0f4fa5dfa0b30e7c",
-    measurementId: "G-BMGSTDXTLJ"
-  }
 };
 
 /*
