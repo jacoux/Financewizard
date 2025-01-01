@@ -17,6 +17,7 @@
 2. **Install dependencies**:
    ```bash
    npm install
+   
    ```
 3. **Run** the app:
    ```bash
