@@ -62,7 +62,7 @@
     <div class="flex justify-end mb-6">
         <div class="text-right">
             <!-- <p class="text-lg font-semibold text-gray-700">Subtotaal: € 10800,00 </p> -->
-            <p class="text-lg font-semibold text-gray-700 pt-2">{{'btw' | translate}} (21%): € {{(invoiceData.vatAmount| number: '1.2-2')?.replace(',', '')}}</p>
+            <p class="text-lg font-semibold text-gray-700 pt-2">{{'btw' | translate}}: € {{(invoiceData.vatAmount| number: '1.2-2')?.replace(',', '')}}</p>
             <p class="text-xl font-bold text-gray-800 pt-2">{{'totaal' | translate}}: € {{ (invoiceData.total| number: '1.2-2')?.replace(',', '') }}</p>
         </div>
     </div>
